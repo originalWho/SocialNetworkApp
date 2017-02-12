@@ -8,13 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		75E617891E5050310033C236 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E617881E5050310033C236 /* AppDelegate.swift */; };
-		75E6178B1E5050310033C236 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E6178A1E5050310033C236 /* ViewController.swift */; };
+		75E6178B1E5050310033C236 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E6178A1E5050310033C236 /* LoginViewController.swift */; };
 		75E6178E1E5050310033C236 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75E6178C1E5050310033C236 /* Main.storyboard */; };
 		75E617911E5050310033C236 /* Social_Network.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 75E6178F1E5050310033C236 /* Social_Network.xcdatamodeld */; };
 		75E617931E5050310033C236 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75E617921E5050310033C236 /* Assets.xcassets */; };
 		75E617961E5050310033C236 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75E617941E5050310033C236 /* LaunchScreen.storyboard */; };
 		75E617A11E5050310033C236 /* Social_NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E617A01E5050310033C236 /* Social_NetworkTests.swift */; };
 		75E617AC1E5050310033C236 /* Social_NetworkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E617AB1E5050310033C236 /* Social_NetworkUITests.swift */; };
+		75E617BA1E5056C70033C236 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E617B91E5056C70033C236 /* RegisterViewController.swift */; };
+		75E617BD1E505E240033C236 /* SocialNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E617BC1E505E240033C236 /* SocialNetworkClient.swift */; };
+		75E617C21E50A2F70033C236 /* SocialNetworkConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E617C11E50A2F70033C236 /* SocialNetworkConvenience.swift */; };
+		75E617C41E50A4230033C236 /* SocialNetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E617C31E50A4230033C236 /* SocialNetworkConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +41,7 @@
 /* Begin PBXFileReference section */
 		75E617851E5050310033C236 /* Social Network.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Social Network.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75E617881E5050310033C236 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		75E6178A1E5050310033C236 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		75E6178A1E5050310033C236 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		75E6178D1E5050310033C236 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		75E617901E5050310033C236 /* Social_Network.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Social_Network.xcdatamodel; sourceTree = "<group>"; };
 		75E617921E5050310033C236 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +53,10 @@
 		75E617A71E5050310033C236 /* Social NetworkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Social NetworkUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75E617AB1E5050310033C236 /* Social_NetworkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social_NetworkUITests.swift; sourceTree = "<group>"; };
 		75E617AD1E5050310033C236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75E617B91E5056C70033C236 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		75E617BC1E505E240033C236 /* SocialNetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialNetworkClient.swift; sourceTree = "<group>"; };
+		75E617C11E50A2F70033C236 /* SocialNetworkConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialNetworkConvenience.swift; sourceTree = "<group>"; };
+		75E617C31E50A4230033C236 /* SocialNetworkConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialNetworkConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,12 +108,13 @@
 			isa = PBXGroup;
 			children = (
 				75E617881E5050310033C236 /* AppDelegate.swift */,
-				75E6178A1E5050310033C236 /* ViewController.swift */,
+				75E617BB1E505DEE0033C236 /* UI */,
 				75E6178C1E5050310033C236 /* Main.storyboard */,
 				75E617921E5050310033C236 /* Assets.xcassets */,
 				75E617941E5050310033C236 /* LaunchScreen.storyboard */,
 				75E617971E5050310033C236 /* Info.plist */,
 				75E6178F1E5050310033C236 /* Social_Network.xcdatamodeld */,
+				75E617BE1E505E2B0033C236 /* Model */,
 			);
 			path = "Social Network";
 			sourceTree = "<group>";
@@ -126,6 +135,33 @@
 				75E617AD1E5050310033C236 /* Info.plist */,
 			);
 			path = "Social NetworkUITests";
+			sourceTree = "<group>";
+		};
+		75E617BB1E505DEE0033C236 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				75E6178A1E5050310033C236 /* LoginViewController.swift */,
+				75E617B91E5056C70033C236 /* RegisterViewController.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		75E617BE1E505E2B0033C236 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				75E617BF1E505E330033C236 /* Client */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		75E617BF1E505E330033C236 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				75E617BC1E505E240033C236 /* SocialNetworkClient.swift */,
+				75E617C11E50A2F70033C236 /* SocialNetworkConvenience.swift */,
+				75E617C31E50A4230033C236 /* SocialNetworkConstants.swift */,
+			);
+			name = Client;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,9 +301,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75E6178B1E5050310033C236 /* ViewController.swift in Sources */,
+				75E6178B1E5050310033C236 /* LoginViewController.swift in Sources */,
+				75E617C21E50A2F70033C236 /* SocialNetworkConvenience.swift in Sources */,
 				75E617911E5050310033C236 /* Social_Network.xcdatamodeld in Sources */,
+				75E617BD1E505E240033C236 /* SocialNetworkClient.swift in Sources */,
 				75E617891E5050310033C236 /* AppDelegate.swift in Sources */,
+				75E617C41E50A4230033C236 /* SocialNetworkConstants.swift in Sources */,
+				75E617BA1E5056C70033C236 /* RegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
