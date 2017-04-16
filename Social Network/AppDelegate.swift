@@ -1,17 +1,16 @@
-//
-//  AppDelegate.swift
-//  Social Network
-//
-//  Created by Arthur Davletshin on 2/12/17.
-//  Copyright © 2017 hse. All rights reserved.
-//
-
 import UIKit
 import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    // MARK: - Typealiases
+
+    fileprivate typealias settings = SocialNetworkClient.Settings
+
+    // MARK: - Private properties
+
+    fileprivate let client = SocialNetworkClient.default
     var window: UIWindow?
 
 

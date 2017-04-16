@@ -1,62 +1,49 @@
-//
-//  RegisterViewController.swift
-//  Social Network
-//
-//  Created by Arthur Davletshin on 2/12/17.
-//  Copyright © 2017 hse. All rights reserved.
-//
-
 import UIKit
 
 class RegisterViewController: UIViewController {
 
+    // MARK: - Typealiases
+
+    fileprivate typealias ParameterKeys = SocialNetworkClient.ParameterKeys
+    fileprivate typealias WarningMessage = Constants.WarningMessage
+
+    // MARK: - Outlets
+
     @IBOutlet weak var nameTextField: UITextField!
-    
     @IBOutlet weak var emailTextField: UITextField!
-    
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var signupButton: UIButton!
-    
     @IBOutlet weak var warningLabel: UILabel!
-    
-    let client = SocialNetworkClient.shared()
-    
-    struct WarningMessage {
-        static let incorrectName = "Incorrect name"
-        static let incorrectEmail = "Incorrect E-mail"
-        static let weakPassword = "Password is too weak"
-    }
-    
-    struct Patterns {
-        static let name = "[A-Za-z]{2,20}"
-        static let email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        static let password = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$"
-    }
-    
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
+
+    // MARK: - Private properties
+
+    fileprivate let client = SocialNetworkClient.default
+
+    // MARK: - Overrides
+
     override func viewDidLoad() {
         super.viewDidLoad()
         warningLabel.isHidden = true
-        // Do any additional setup after loading the view.
+        indicator.isHidden = true
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+}
+
+extension RegisterViewController {
+
     @IBAction func signup(_ sender: Any) {
         signupButton.isEnabled = false
+        signupButton.isHidden = true
         warningLabel.isHidden = true
-        
-        let name = nameTextField.text!
-        let email = emailTextField.text!
-        let password = passwordTextField.text!
+        indicator.isHidden = false
         
         func warn(with: String) {
             signupButton.isEnabled = true
+            signupButton.isHidden = false
             warningLabel.isHidden = false
             warningLabel.text = with
+            indicator.isHidden = true
         }
         
         func validate(string: String, pattern: String) -> Bool {
@@ -64,30 +51,32 @@ class RegisterViewController: UIViewController {
             return predicate.evaluate(with: string)
         }
         
-        guard !name.isEmpty, validate(string: name, pattern: Patterns.name) else {
-            warn(with: WarningMessage.incorrectName)
+        guard let name = nameTextField.text, !name.isEmpty,
+            validate(string: name, pattern: Constants.Patterns.Name) else {
+            warn(with: WarningMessage.IncorrectName)
             return
         }
         
-        guard !email.isEmpty, validate(string: email, pattern: Patterns.email) else {
-            warn(with: WarningMessage.incorrectEmail)
+        guard let email = emailTextField.text, !email.isEmpty,
+            validate(string: email, pattern: Constants.Patterns.Email) else {
+            warn(with: WarningMessage.IncorrectEmail)
             return
         }
         
-        //Validate password
-        guard !password.isEmpty, validate(string: password, pattern: Patterns.password) else {
-            warn(with: WarningMessage.weakPassword)
+        guard let password = passwordTextField.text, !password.isEmpty,
+            validate(string: password, pattern: Constants.Patterns.Password) else {
+            warn(with: WarningMessage.WeakPassword)
             return
         }
         
         let parameters = [
-            SocialNetworkClient.ParameterKeys.Name: name,
-            SocialNetworkClient.ParameterKeys.Email: email,
-            SocialNetworkClient.ParameterKeys.Password: password
+            ParameterKeys.Name: name,
+            ParameterKeys.Email: email,
+            ParameterKeys.Password: password
         ]
         
-        client.register(parameters: parameters as [String : AnyObject]) { (result, error) in
-            
+        client.register(parameters: parameters) { [weak self] response in
+            // TODO: Present CompleteRegisterViewController
         }
     }
 }
