@@ -799,7 +799,7 @@
 				DEVELOPMENT_TEAM = G9EJHD637F;
 				INFOPLIST_FILE = "Social Network/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "hse.Social-Network";
+				PRODUCT_BUNDLE_IDENTIFIER = hse.socialNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -813,7 +813,7 @@
 				DEVELOPMENT_TEAM = G9EJHD637F;
 				INFOPLIST_FILE = "Social Network/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "hse.Social-Network";
+				PRODUCT_BUNDLE_IDENTIFIER = hse.socialNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

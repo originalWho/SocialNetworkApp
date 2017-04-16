@@ -30,13 +30,13 @@ extension SocialNetworkClient {
 
 // MARK: - Private methods
 
-extension SocialNetworkClient {
+fileprivate extension SocialNetworkClient {
 
-    private typealias ParameterKeys = SocialNetworkClient.OAuth.ParameterKeys
+    private typealias Key = SocialNetworkClient.OAuth.ParameterKeys
     
-    private func authenticateWithPassword(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void) {
-        guard let username = parameters[ParameterKeys.Username] as? String,
-            let password = parameters[ParameterKeys.Password] as? String else {
+    func authenticateWithPassword(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void) {
+        guard let username = parameters[Key.Username] as? String,
+            let password = parameters[Key.Password] as? String else {
                 return
         }
         
@@ -54,8 +54,8 @@ extension SocialNetworkClient {
 
     }
     
-    private func authenticateWithCode(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void) {
-        guard let service = parameters[ParameterKeys.Service]
+    func authenticateWithCode(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void) {
+        guard let service = parameters[Key.Service]
             as? SocialNetworkClient.OAuth.Service else {
                 return
         }

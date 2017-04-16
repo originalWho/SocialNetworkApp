@@ -2,62 +2,71 @@ import Foundation
 
 extension SocialNetworkClient {
 
+    private typealias defaults = UserDefaults.ClientSuite
+
     struct Settings {
-        /*
+
         static var launchedFirstTime: Bool {
             get {
-
+                return defaults().launchedFirstTime
             }
 
             set {
-
+                defaults().launchedFirstTime = newValue
             }
         }
 
         static var signedIn: Bool {
             get {
-
+                return defaults().signedIn
             }
 
             set {
-
+                defaults().signedIn = newValue
             }
         }
 
         static var registerComplete: Bool {
             get {
-
+                return defaults().registerComplete
             }
 
             set {
-                
+                defaults().registerComplete = newValue
             }
         }
-        */
+
     }
 
 }
 
 fileprivate struct ParameterKey {
 
-    static let launchedFirstTime = "client.userDefaults.launchedFirstTime"
-    static let signedIn = "client.userDefaults.signedIn"
-    static let registerComplete = "client.userDefaults.registerComplete"
+    static let launchedFirstTime = "hse.socialNetwork.client.launchedFirstTime"
+    static let signedIn = "hse.socialNetwork.client.signedIn"
+    static let registerComplete = "hse.socialNetwork.client.registerComplete"
 
 }
 
 fileprivate extension UserDefaults {
 
-    private static let suiteName = "hse.socialNetwork.client"
-    static var clientDefaults: UserDefaults? = UserDefaults(suiteName: suiteName)
+    class ClientSuite: UserDefaults {
+
+        private let suiteName = "hse.socialNetwork.client"
+
+        init() {
+            super.init(suiteName: suiteName)!
+        }
+
+    }
 
 }
 
-fileprivate extension UserDefaults {
+fileprivate extension UserDefaults.ClientSuite {
 
     var launchedFirstTime: Bool {
         get {
-            return (value(forKey: ParameterKey.launchedFirstTime) as? Bool) ?? true
+            return bool(forKey: ParameterKey.launchedFirstTime) 
         }
 
         set {
@@ -67,7 +76,7 @@ fileprivate extension UserDefaults {
 
     var signedIn: Bool {
         get {
-            return (value(forKey: ParameterKey.signedIn) as? Bool) ?? false
+            return bool(forKey: ParameterKey.signedIn)
         }
 
         set {
@@ -77,7 +86,7 @@ fileprivate extension UserDefaults {
 
     var registerComplete: Bool {
         get {
-            return (value(forKey: ParameterKey.registerComplete) as? Bool) ?? false
+            return bool(forKey: ParameterKey.registerComplete)
         }
 
         set {
