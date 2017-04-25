@@ -12,6 +12,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signinButton: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
 
     // MARK: - Private properties
@@ -32,14 +34,11 @@ class LoginViewController: UIViewController {
 extension LoginViewController {
 
     @IBAction func signIn(_ sender: Any) {
-        signinButton.isEnabled = false
-        signinButton.isHidden = true
-        indicator.isHidden = false
+        setUI(enabled: false)
         
-        func warn(with: String) {
-            signinButton.isEnabled = true
-            signinButton.isHidden = false
-            indicator.isHidden = true
+        func warn(with warning: String) {
+
+            setUI(enabled: true)
         }
         
         func validate(string: String, pattern: String) -> Bool {
@@ -69,6 +68,24 @@ extension LoginViewController {
             
         }
     }
-    
-}
 
+    @IBAction func cancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    @IBAction func register(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
+        present(vc, animated: true) { 
+            
+        }
+    }
+
+    private func setUI(enabled: Bool) {
+        signinButton.isEnabled = enabled
+        signinButton.isHidden = !enabled
+        cancelButton.isEnabled = enabled
+        registerButton.isEnabled = enabled
+        indicator.isHidden = enabled
+    }
+
+}

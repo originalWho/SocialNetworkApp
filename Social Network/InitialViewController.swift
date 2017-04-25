@@ -46,10 +46,19 @@ extension InitialViewController {
     
     @IBAction func signup(_ sender: Any) {
         // TODO: Present RegisterViewController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
+
+        present(vc, animated: true) {
+
+        }
     }
     
     @IBAction func signin(_ sender: Any) {
         // TODO: Present LoginViewController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        present(vc, animated: true) {
+
+        }
     }
     
 }

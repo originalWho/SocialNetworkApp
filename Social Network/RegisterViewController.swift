@@ -13,6 +13,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signupButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var warningLabel: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
 
@@ -33,17 +34,11 @@ class RegisterViewController: UIViewController {
 extension RegisterViewController {
 
     @IBAction func signup(_ sender: Any) {
-        signupButton.isEnabled = false
-        signupButton.isHidden = true
-        warningLabel.isHidden = true
-        indicator.isHidden = false
+        setUI(enabled: false)
         
-        func warn(with: String) {
-            signupButton.isEnabled = true
-            signupButton.isHidden = false
-            warningLabel.isHidden = false
-            warningLabel.text = with
-            indicator.isHidden = true
+        func warn(with warning: String) {
+            warningLabel.text = warning
+            setUI(enabled: true)
         }
         
         func validate(string: String, pattern: String) -> Bool {
@@ -77,6 +72,26 @@ extension RegisterViewController {
         
         client.register(parameters: parameters) { [weak self] response in
             // TODO: Present CompleteRegisterViewController
+            let vc = self?.storyboard?.instantiateViewController(withIdentifier: "CompleteRegisterViewController") as! CompleteRegisterViewController
+            self?.present(vc, animated: true, completion: {
+                self?.dismiss(animated: false, completion: nil)
+            })
         }
     }
+
+    @IBAction func cancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    private func setUI(enabled: Bool) {
+        signupButton.isEnabled = enabled
+        signupButton.isHidden = !enabled
+        cancelButton.isEnabled = enabled
+        warningLabel.isHidden = !enabled
+        indicator.isHidden = enabled
+        nameTextField.isEnabled = enabled
+        emailTextField.isEnabled = enabled
+        passwordTextField.isEnabled = enabled
+    }
+
 }

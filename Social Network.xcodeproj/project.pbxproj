@@ -12,6 +12,10 @@
 		758B61A51EA3C98800152AA4 /* Client+Interaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61A41EA3C98800152AA4 /* Client+Interaction.swift */; };
 		758B61A71EA3CA1A00152AA4 /* Client+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61A61EA3CA1A00152AA4 /* Client+User.swift */; };
 		758B61A91EA3CEB800152AA4 /* Client+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61A81EA3CEB800152AA4 /* Client+Settings.swift */; };
+		758B61AD1EA939CA00152AA4 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61AC1EA939CA00152AA4 /* Models.swift */; };
+		758B61AF1EA93A0B00152AA4 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61AE1EA93A0B00152AA4 /* Enums.swift */; };
+		758B61B81EABC91D00152AA4 /* UserInfoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61B71EABC91D00152AA4 /* UserInfoPicker.swift */; };
+		758B61BB1EABC99200152AA4 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61BA1EABC99200152AA4 /* Notifications.swift */; };
 		75A5A8AF1E71AB5D00ABA2CC /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A5A8AE1E71AB5D00ABA2CC /* InitialViewController.swift */; };
 		75A5A8BB1E72116200ABA2CC /* OAuth2RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A5A8BA1E72116200ABA2CC /* OAuth2RetryHandler.swift */; };
 		75A5A8BD1E7217C000ABA2CC /* OAuthInstances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A5A8BC1E7217C000ABA2CC /* OAuthInstances.swift */; };
@@ -163,6 +167,10 @@
 		758B61A41EA3C98800152AA4 /* Client+Interaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Interaction.swift"; sourceTree = "<group>"; };
 		758B61A61EA3CA1A00152AA4 /* Client+User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+User.swift"; sourceTree = "<group>"; };
 		758B61A81EA3CEB800152AA4 /* Client+Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Settings.swift"; sourceTree = "<group>"; };
+		758B61AC1EA939CA00152AA4 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		758B61AE1EA93A0B00152AA4 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		758B61B71EABC91D00152AA4 /* UserInfoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoPicker.swift; sourceTree = "<group>"; };
+		758B61BA1EABC99200152AA4 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		75A5A88D1E71836D00ABA2CC /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		75A5A8AE1E71AB5D00ABA2CC /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		75A5A8BA1E72116200ABA2CC /* OAuth2RetryHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth2RetryHandler.swift; sourceTree = "<group>"; };
@@ -228,10 +236,8 @@
 		7541F1491E9ABF3900EE473D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				75E6178A1E5050310033C236 /* LoginViewController.swift */,
-				75E617B91E5056C70033C236 /* RegisterViewController.swift */,
-				75A5A8AE1E71AB5D00ABA2CC /* InitialViewController.swift */,
-				758B619F1EA38BC600152AA4 /* CompleteRegisterViewController.swift */,
+				758B61BD1EAFA3F300152AA4 /* Authenticate */,
+				758B61B01EABAC6600152AA4 /* Register */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -270,6 +276,49 @@
 				75E617881E5050310033C236 /* AppDelegate.swift */,
 			);
 			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		758B61AB1EA939A500152AA4 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				758B61AC1EA939CA00152AA4 /* Models.swift */,
+				758B61AE1EA93A0B00152AA4 /* Enums.swift */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		758B61B01EABAC6600152AA4 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				75E617B91E5056C70033C236 /* RegisterViewController.swift */,
+				758B619F1EA38BC600152AA4 /* CompleteRegisterViewController.swift */,
+			);
+			name = Register;
+			sourceTree = "<group>";
+		};
+		758B61B61EABC90300152AA4 /* UserInfoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				758B61B71EABC91D00152AA4 /* UserInfoPicker.swift */,
+			);
+			name = UserInfoPicker;
+			sourceTree = "<group>";
+		};
+		758B61B91EABC98100152AA4 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				758B61BA1EABC99200152AA4 /* Notifications.swift */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
+		758B61BD1EAFA3F300152AA4 /* Authenticate */ = {
+			isa = PBXGroup;
+			children = (
+				75E6178A1E5050310033C236 /* LoginViewController.swift */,
+				75A5A8AE1E71AB5D00ABA2CC /* InitialViewController.swift */,
+			);
+			name = Authenticate;
 			sourceTree = "<group>";
 		};
 		75A5A8891E7164D300ABA2CC /* OAuth */ = {
@@ -359,6 +408,8 @@
 		75E617BB1E505DEE0033C236 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				758B61B91EABC98100152AA4 /* Notifications */,
+				758B61B61EABC90300152AA4 /* UserInfoPicker */,
 				758B61A11EA38D3000152AA4 /* ControllerCoordinator */,
 				7541F1491E9ABF3900EE473D /* Controllers */,
 			);
@@ -368,6 +419,7 @@
 		75E617BE1E505E2B0033C236 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				758B61AB1EA939A500152AA4 /* User */,
 				75A5A8891E7164D300ABA2CC /* OAuth */,
 				75E617BF1E505E330033C236 /* Client */,
 				75E617C51E50CAD80033C236 /* Constants.swift */,
@@ -618,7 +670,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				758B61BB1EABC99200152AA4 /* Notifications.swift in Sources */,
 				75E6178B1E5050310033C236 /* LoginViewController.swift in Sources */,
+				758B61AD1EA939CA00152AA4 /* Models.swift in Sources */,
 				75E617C21E50A2F70033C236 /* Client+Authentication.swift in Sources */,
 				75E617911E5050310033C236 /* Social_Network.xcdatamodeld in Sources */,
 				75A5A8AF1E71AB5D00ABA2CC /* InitialViewController.swift in Sources */,
@@ -629,10 +683,12 @@
 				75E617BA1E5056C70033C236 /* RegisterViewController.swift in Sources */,
 				758B61A01EA38BC600152AA4 /* CompleteRegisterViewController.swift in Sources */,
 				758B61A51EA3C98800152AA4 /* Client+Interaction.swift in Sources */,
+				758B61B81EABC91D00152AA4 /* UserInfoPicker.swift in Sources */,
 				758B61A91EA3CEB800152AA4 /* Client+Settings.swift in Sources */,
 				75A5A8BB1E72116200ABA2CC /* OAuth2RetryHandler.swift in Sources */,
 				75A5A8BD1E7217C000ABA2CC /* OAuthInstances.swift in Sources */,
 				75E617C61E50CAD80033C236 /* Constants.swift in Sources */,
+				758B61AF1EA93A0B00152AA4 /* Enums.swift in Sources */,
 				758B61A31EA38D4100152AA4 /* ControllerCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

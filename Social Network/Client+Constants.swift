@@ -59,6 +59,7 @@ extension SocialNetworkClient {
     struct Methods {
         static let AccessToken = "/token"
         static let Register = "/register"
+        static let UpdateProfile = "/"
         static let Login = "/login"
         static let Logout = "/logout"
     }
@@ -70,9 +71,11 @@ extension SocialNetworkClient {
         static let Email = "email"
         static let Password = "password"
         static let Photo = "photoLink"
+        static let Birthday = "birthday"
         static let Age = "age"
         static let Country = "country"
         static let Gender = "gender"
+        static let Languages = "languages"
         static let About = "about"
         static let Online = "online"
     }

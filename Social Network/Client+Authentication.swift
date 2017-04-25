@@ -35,14 +35,15 @@ fileprivate extension SocialNetworkClient {
     private typealias Key = SocialNetworkClient.OAuth.ParameterKeys
     
     func authenticateWithPassword(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void) {
-        guard let username = parameters[Key.Username] as? String,
+        guard let username = parameters[ParameterKeys.Email] as? String,
             let password = parameters[Key.Password] as? String else {
                 return
         }
-        
-        OAuthInstance.Default.username = username
-        OAuthInstance.Default.password = password
-        setOAuth(oauth2: OAuthInstance.Default)
+
+        let oauth = OAuthInstance.Default
+        oauth.username = username
+        oauth.password = password
+        setOAuth(oauth2: oauth)
         
         alamofireManager?
             .request("https://localhost:8443/api/secured")
