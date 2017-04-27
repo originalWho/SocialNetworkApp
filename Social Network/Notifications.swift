@@ -1,13 +1,21 @@
 import Foundation
 
-struct UINotification {
+extension NSNotification.Name {
 
-    static var CountryPicked: NSNotification.Name {
+    static var UICountryPicked: NSNotification.Name {
         return NSNotification.Name(rawValue: "uiNotification.countryPicked")
     }
 
-    static var LanguagePicked: NSNotification.Name {
+    static var UILanguagePicked: NSNotification.Name  {
         return NSNotification.Name(rawValue: "uiNotification.languagePicked")
+    }
+
+    static var UITranslateSelected: NSNotification.Name {
+        return NSNotification.Name(rawValue: "uiNotification.translateSelected")
+    }
+
+    static var UICommentSelected: NSNotification.Name {
+        return NSNotification.Name(rawValue: "uiNotification.commentSelected")
     }
 
 }

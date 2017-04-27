@@ -57,7 +57,7 @@ extension UserInfoPicker: UIPickerViewDelegate {
         switch type {
         case .country:
             pickedCountry = country(value: row)
-            NotificationCenter.default.post(name: UINotification.CountryPicked, object: pickedCountry)
+            NotificationCenter.default.post(name: .UICountryPicked, object: pickedCountry)
 
         case .language:
             switch component {
@@ -76,7 +76,7 @@ extension UserInfoPicker: UIPickerViewDelegate {
             }
 
             let language = Language(with: pickedLanguageName, and: pickedLanguageLevel)
-            NotificationCenter.default.post(name: UINotification.LanguagePicked, object: language)
+            NotificationCenter.default.post(name: .UILanguagePicked, object: language)
         }
     }
 

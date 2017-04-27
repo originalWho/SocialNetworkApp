@@ -37,6 +37,7 @@ class CompleteRegisterViewController: UIViewController {
     // MARK: - Overrides
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         warningLabel.isHidden = true
         indicator.isHidden = true
 
@@ -45,9 +46,6 @@ class CompleteRegisterViewController: UIViewController {
         languageTextFields.append(motherLanguageTextField)
         configureBirthdayPicker()
         makeAnotherLanguageField()
-
-        super.viewDidLoad()
-
         subscribeToNotifications()
     }
 
@@ -90,11 +88,8 @@ extension CompleteRegisterViewController {
         }
 
         var languages = [Language]()
-        for (_, language) in selectedLanguages {
-            if language.name != .None, language.level != .None {
-                languages.append(language)
-            }
-        }
+
+        selectedLanguages.filter { $0.value.name != .None && $0.value.level != .None }.forEach { languages.append($0.value) }
 
         userInfo[Key.Languages] = languages
 
@@ -114,10 +109,7 @@ extension CompleteRegisterViewController {
         birthdayTextField.isEnabled = enabled
         genderSegmentedControl.isEnabled = enabled
 
-        for textField in languageTextFields {
-            textField.isEnabled = enabled
-        }
-
+        languageTextFields.forEach { $0.isEnabled = enabled }
     }
 
 }
@@ -163,12 +155,9 @@ extension CompleteRegisterViewController {
             return
         }
 
-        for textField in languageTextFields {
-            if textField.isFirstResponder {
-                textField.text = language.name.stringValue
-                selectedLanguages[textField] = language
-                return
-            }
+        languageTextFields.filter { $0.isFirstResponder }.forEach {
+            $0.text = language.name.stringValue
+            selectedLanguages[$0] = language
         }
     }
 
@@ -259,9 +248,9 @@ fileprivate extension CompleteRegisterViewController {
 
     func subscribeToNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectCountry(_:)),
-                                               name: UINotification.CountryPicked, object: nil)
+                                               name: .UICountryPicked, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectLanguage(_:)),
-                                               name: UINotification.LanguagePicked, object: nil)
+                                               name: .UILanguagePicked, object: nil)
         /*
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
                                                name: .UIKeyboardWillShow, object: nil)
