@@ -13,7 +13,7 @@ class ConversationsViewController: UITableViewController {
 extension ConversationsViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "ChatViewController")
+        let vc = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Chat)
         let cell = tableView.cellForRow(at: indexPath) as! ConversationTableViewCell
         vc?.navigationItem.title = cell.nameLabel.text
         navigationController?.pushViewController(vc!, animated: true)

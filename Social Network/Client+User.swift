@@ -1,6 +1,6 @@
 import Alamofire
 
-// MARK: - Public methods
+// MARK: - Register
 
 extension SocialNetworkClient {
     
@@ -16,21 +16,26 @@ extension SocialNetworkClient {
             .validate()
             .responseString { [weak self] response in
                 guard let this = self else {
-                    let response = ServerResponse(rawValue: String(data: response.data!, encoding: .utf8)!)
-                    completion(response)
+                    completion(nil)
                     return
                 }
-                
+
+                let response = this.serverResponse(from: response.data)
+                guard response == .success else {
+                    completion(nil)
+                    return
+                }
+
                 var parameters = parameters
-                parameters[OAuth.ParameterKeys.GrantType] = OAuth.GrantType.Password
-                this.authenticate(parameters: parameters, completion: { response in
-                   completion(response)
-                })
+                parameters[OAuth.ParameterKeys.GrantType] = OAuth.GrantType.password
+                this.authenticate(parameters: parameters) { response in
+                    completion(response)
+                }
         }
     }
 
     func completeRegister(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void) {
-        let completeRegisterURL = url(from: nil, path: Constants.APIPath, method: Methods.UpdateProfile)
+        let completeRegisterURL = url(from: nil, path: Constants.APIPath, method: Methods.Profile.Edit)
 
         alamofireManager?
             .request(completeRegisterURL,
@@ -39,10 +44,32 @@ extension SocialNetworkClient {
                      encoding: JSONEncoding.default,
                      headers: nil)
             .validate()
-            .response(completionHandler: { response in
-                let response = ServerResponse(rawValue: String(data: response.data!, encoding: .utf8)!)
+            .response(completionHandler: { [weak self] response in
+                guard let response = self?.serverResponse(from: response.data) else {
+                    completion(.unknownError)
+                    return
+                }
+                
                 completion(response)
             })
+    }
+
+}
+
+// MARK: - Profile
+
+extension SocialNetworkClient {
+
+    func getProfile(_user: String? = nil, completion: @escaping (String) -> Void) {
+
+    }
+
+    func editProfile(with parameters: [String:Any], completion: @escaping (String) -> Void) {
+
+    }
+
+    func logout(completion: @escaping (String) -> Void) {
+        
     }
 
 }

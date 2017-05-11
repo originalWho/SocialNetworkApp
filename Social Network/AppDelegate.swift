@@ -7,15 +7,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Typealiases
 
     fileprivate typealias settings = SocialNetworkClient.Settings
+    fileprivate typealias OAuth = SocialNetworkClient.OAuth
+    fileprivate typealias Key = SocialNetworkClient.ParameterKeys
 
     // MARK: - Private properties
 
     fileprivate let client = SocialNetworkClient.default
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        setRootViewController { [weak self] viewController in
+            guard let this = self else {
+                return
+            }
+            this.window = UIWindow(frame: UIScreen.main.bounds)
+            this.window?.rootViewController = viewController
+            this.window?.makeKeyAndVisible()
+        }
+
         return true
     }
 
@@ -88,5 +97,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+}
+
+// MARK: - Private methods
+
+fileprivate extension AppDelegate {
+
+    func setRootViewController(completion: @escaping (UIViewController) -> Void) {
+        let storyboard = UIStoryboard(name: UIStoryboard.ID, bundle: nil)
+        if !settings.launchedFirstTime, settings.signedIn {
+            var parameters = [String:Any]()
+            parameters[OAuth.ParameterKeys.GrantType] = OAuth.GrantType.password
+            parameters[Key.Email] = settings.username
+            parameters[Key.Password] = settings.password
+            client.authenticate(parameters: parameters) { response in
+                let viewController = (response == .success)
+                    ? storyboard.instantiateViewController(withIdentifier: UIStoryboard.Main)
+                    : storyboard.instantiateViewController(withIdentifier: UIStoryboard.Login)
+                completion(viewController)
+            }
+        }
+        //else if !settings.launchedFirstTime, !settings.registerComplete {
+        //    let viewController = storyboard.instantiateViewController(withIdentifier: UIStoryboard.CompleteRegister)
+        //    completion(viewController)
+        //}
+        else {
+            let viewController = storyboard.instantiateViewController(withIdentifier: UIStoryboard.Login)
+            settings.launchedFirstTime = false
+            completion(viewController)
+        }
+        
+    }
+    
 }
 

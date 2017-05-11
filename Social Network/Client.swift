@@ -53,5 +53,14 @@ class SocialNetworkClient {
 
         return components.url!
     }
+
+    func serverResponse(from data: Data?) -> ServerResponse {
+        guard let data = data, let stringValue = String(data: data, encoding: .utf8),
+            let intValue = Int(stringValue), let response = ServerResponse(rawValue: intValue) else {
+                return .unknownError
+        }
+
+        return response
+    }
     
 }

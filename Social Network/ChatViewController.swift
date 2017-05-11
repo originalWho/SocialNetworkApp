@@ -5,6 +5,7 @@ class ChatViewController: UIViewController {
     // MARK: - Outlets
 
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var translateButton: UIButton!
     @IBOutlet weak var messageTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
 
@@ -52,10 +53,14 @@ extension ChatViewController {
     @IBAction func enableSendButton(_ sender: Any) {
         guard let text = messageTextField.text, !text.isEmpty else {
             sendButton.isEnabled = false
+            translateButton.isEnabled = false
+            translateButton.imageView?.image = #imageLiteral(resourceName: "Translation-Disabled")
             return
         }
 
         sendButton.isEnabled = true
+        translateButton.isEnabled = true
+        translateButton.imageView?.image = #imageLiteral(resourceName: "Translation-Enabled")
     }
     
     @IBAction func sendMessage(_ sender: Any) {
@@ -65,6 +70,31 @@ extension ChatViewController {
 
         messageTextField.text = ""
         sendButton.isEnabled = false
+        translateButton.isEnabled = false
+        translateButton.imageView?.image = #imageLiteral(resourceName: "Translation-Disabled")
+
+        //guard let vc = storyboard?.instantiateViewController(withIdentifier: "ChatPageViewController") else { return }
+        //present(vc, animated: true, completion: nil)
+    }
+
+    @IBAction func translateEntered(_ sender: Any) {
+        guard let text = messageTextField.text, !text.isEmpty else {
+            return
+        }
+
+        presentTranslateBottomSheetView(with: text) { [weak self] bottomSheet in
+            guard let this = self else {
+                return
+            }
+
+            this.translateService.translate(text) { translated in
+                guard let translated = translated else {
+                    bottomSheet?.setTranslated(text: "ERROR: Couldn't translate.")
+                    return
+                }
+                bottomSheet?.setTranslated(text: translated)
+            }
+        }
     }
 
     // MARK: - Notifications
@@ -74,26 +104,19 @@ extension ChatViewController {
             return
         }
 
-        translateService.translate(text) { translated in
-            guard let translated = translated else {
-                print("FAIL")
+        presentTranslateBottomSheetView(with: text) { [weak self] bottomSheet in
+            guard let this = self else {
                 return
             }
-            
-            print(translated)
+
+            this.translateService.translate(text) { translated in
+                guard let translated = translated else {
+                    bottomSheet?.setTranslated(text: "ERROR: Couldn't translate.")
+                    return
+                }
+                bottomSheet?.setTranslated(text: translated)
+            }
         }
-        
-        /*
-        let vc = UIViewController()
-        vc.view.backgroundColor = .clear
-        let blurEffect = UIBlurEffect(style: .extraLight)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = vc.view.frame
-        vc.view.insertSubview(blurEffectView, at: 0)
-        present(vc, animated: true, completion: nil)
-        vc.dismiss(animated: true, completion: nil)
-        print(text)
-         */
     }
 
     func commentSelected(_ notification: Notification) {
@@ -122,6 +145,8 @@ extension ChatViewController {
 
 }
 
+// MARK: - UITableViewDataSource protocol
+
 extension ChatViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -141,6 +166,32 @@ extension ChatViewController: UITableViewDataSource {
 // MARK: - Private methods
 
 fileprivate extension ChatViewController {
+
+    func presentTranslateBottomSheetView(with text: String, completion: @escaping (TranslateBottomSheetViewController?) -> Void) {
+        guard childViewControllers.isEmpty else {
+            let bottomSheet = childViewControllers.last as! TranslateBottomSheetViewController
+            bottomSheet.selectedTextLabel.text = text
+            bottomSheet.translatedTextLabel.isHidden = true
+            completion(bottomSheet)
+            return
+        }
+
+        guard let bottomSheet = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.TranslateBottomSheet) as? TranslateBottomSheetViewController else {
+            completion(nil)
+            return
+        }
+
+        addChildViewController(bottomSheet)
+        view.addSubview(bottomSheet.view)
+        bottomSheet.didMove(toParentViewController: self)
+
+        let height = view.frame.height
+        let width = view.frame.width
+        bottomSheet.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
+
+        bottomSheet.selectedTextLabel.text = text
+        completion(bottomSheet)
+    }
 
     func subscribeToNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),

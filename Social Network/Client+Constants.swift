@@ -14,11 +14,15 @@ extension SocialNetworkClient {
     struct OAuth {
         
         enum GrantType {
-            case Code, Implicit, ClientCredentials, Password
+            case code
+            case implicit
+            case clientCredentials
+            case password
         }
         
         enum Service {
-            case Facebook, Google
+            case facebook
+            case google
         }
         
         struct ParameterKeys {
@@ -59,9 +63,12 @@ extension SocialNetworkClient {
     struct Methods {
         static let AccessToken = "/token"
         static let Register = "/register"
-        static let UpdateProfile = "/"
         static let Login = "/login"
         static let Logout = "/logout"
+
+        struct Profile {
+            static let Edit = "/profile/edit"
+        }
     }
     
     // MARK: - Parameters
@@ -83,12 +90,25 @@ extension SocialNetworkClient {
     struct ParameterValues {
         
     }
-    
-    enum ServerResponse: String {
-        case EmailExists = "\"EMAIL_EXISTS\""
-        case UserCreated = "\"USER_CREATED\""
+
+    // MARK: - Enums
+
+    enum ServerResponse: Int {
+        case success
+        case emailExists
+        case incorrectData
+        case incorrectPassword
+        case userNotFound
+        case accessDenied
+        case unknownError
     }
-    
+
+    enum MessageStatus: Int {
+        case delivered
+        case read
+    }
+
+
     // MARK: - HTTP
     
     struct HTTP {

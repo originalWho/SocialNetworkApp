@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		757BA68E1EB2489100CD2829 /* YandexTranslateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA68D1EB2489100CD2829 /* YandexTranslateService.swift */; };
 		757BA6901EB248A300CD2829 /* TranslateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA68F1EB248A300CD2829 /* TranslateService.swift */; };
+		757BA6A01EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA69F1EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift */; };
+		757BA6A21EC47C9000CD2829 /* ChatPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA6A11EC47C9000CD2829 /* ChatPageViewController.swift */; };
+		757BA6A41EC4852900CD2829 /* TranslateHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA6A31EC4852900CD2829 /* TranslateHistoryViewController.swift */; };
+		757BA6A61EC4853300CD2829 /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA6A51EC4853300CD2829 /* DictionaryViewController.swift */; };
 		758B61A01EA38BC600152AA4 /* CompleteRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B619F1EA38BC600152AA4 /* CompleteRegisterViewController.swift */; };
 		758B61A31EA38D4100152AA4 /* ControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61A21EA38D4100152AA4 /* ControllerCoordinator.swift */; };
 		758B61A51EA3C98800152AA4 /* Client+Interaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61A41EA3C98800152AA4 /* Client+Interaction.swift */; };
@@ -26,7 +30,6 @@
 		758B61CB1EAFC63500152AA4 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61CA1EAFC63500152AA4 /* MessageTableViewCell.swift */; };
 		758B61CF1EB1F46900152AA4 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61CE1EB1F46900152AA4 /* ConversationTableViewCell.swift */; };
 		758B61D21EB1FE0100152AA4 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61D11EB1FE0100152AA4 /* ChatTextView.swift */; };
-		75A5A8AF1E71AB5D00ABA2CC /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A5A8AE1E71AB5D00ABA2CC /* InitialViewController.swift */; };
 		75A5A8BB1E72116200ABA2CC /* OAuth2RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A5A8BA1E72116200ABA2CC /* OAuth2RetryHandler.swift */; };
 		75A5A8BD1E7217C000ABA2CC /* OAuthInstances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A5A8BC1E7217C000ABA2CC /* OAuthInstances.swift */; };
 		75E617891E5050310033C236 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E617881E5050310033C236 /* AppDelegate.swift */; };
@@ -174,6 +177,10 @@
 /* Begin PBXFileReference section */
 		757BA68D1EB2489100CD2829 /* YandexTranslateService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexTranslateService.swift; sourceTree = "<group>"; };
 		757BA68F1EB248A300CD2829 /* TranslateService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateService.swift; sourceTree = "<group>"; };
+		757BA69F1EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateBottomSheetViewController.swift; sourceTree = "<group>"; };
+		757BA6A11EC47C9000CD2829 /* ChatPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPageViewController.swift; sourceTree = "<group>"; };
+		757BA6A31EC4852900CD2829 /* TranslateHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateHistoryViewController.swift; sourceTree = "<group>"; };
+		757BA6A51EC4853300CD2829 /* DictionaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
 		758B619F1EA38BC600152AA4 /* CompleteRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRegisterViewController.swift; sourceTree = "<group>"; };
 		758B61A21EA38D4100152AA4 /* ControllerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerCoordinator.swift; sourceTree = "<group>"; };
 		758B61A41EA3C98800152AA4 /* Client+Interaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Interaction.swift"; sourceTree = "<group>"; };
@@ -192,7 +199,6 @@
 		758B61CE1EB1F46900152AA4 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		758B61D11EB1FE0100152AA4 /* ChatTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
 		75A5A88D1E71836D00ABA2CC /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
-		75A5A8AE1E71AB5D00ABA2CC /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		75A5A8BA1E72116200ABA2CC /* OAuth2RetryHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth2RetryHandler.swift; sourceTree = "<group>"; };
 		75A5A8BC1E7217C000ABA2CC /* OAuthInstances.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthInstances.swift; sourceTree = "<group>"; };
 		75A7ED811E6C71B0002DD4ED /* OAuth2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuth2.xcodeproj; path = OAuth2/OAuth2.xcodeproj; sourceTree = "<group>"; };
@@ -346,7 +352,6 @@
 			isa = PBXGroup;
 			children = (
 				75E6178A1E5050310033C236 /* LoginViewController.swift */,
-				75A5A8AE1E71AB5D00ABA2CC /* InitialViewController.swift */,
 			);
 			name = Authenticate;
 			sourceTree = "<group>";
@@ -369,6 +374,10 @@
 				758B61C11EAFB02900152AA4 /* ChatViewController.swift */,
 				758B61CA1EAFC63500152AA4 /* MessageTableViewCell.swift */,
 				758B61D11EB1FE0100152AA4 /* ChatTextView.swift */,
+				757BA69F1EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift */,
+				757BA6A11EC47C9000CD2829 /* ChatPageViewController.swift */,
+				757BA6A31EC4852900CD2829 /* TranslateHistoryViewController.swift */,
+				757BA6A51EC4853300CD2829 /* DictionaryViewController.swift */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -734,13 +743,14 @@
 			files = (
 				758B61BB1EABC99200152AA4 /* Notifications.swift in Sources */,
 				75E6178B1E5050310033C236 /* LoginViewController.swift in Sources */,
+				757BA6A01EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift in Sources */,
 				758B61C21EAFB02900152AA4 /* ChatViewController.swift in Sources */,
+				757BA6A61EC4853300CD2829 /* DictionaryViewController.swift in Sources */,
 				757BA68E1EB2489100CD2829 /* YandexTranslateService.swift in Sources */,
 				758B61AD1EA939CA00152AA4 /* Models.swift in Sources */,
 				75E617C21E50A2F70033C236 /* Client+Authentication.swift in Sources */,
 				757BA6901EB248A300CD2829 /* TranslateService.swift in Sources */,
 				75E617911E5050310033C236 /* Social_Network.xcdatamodeld in Sources */,
-				75A5A8AF1E71AB5D00ABA2CC /* InitialViewController.swift in Sources */,
 				758B61CB1EAFC63500152AA4 /* MessageTableViewCell.swift in Sources */,
 				758B61D21EB1FE0100152AA4 /* ChatTextView.swift in Sources */,
 				75E617BD1E505E240033C236 /* Client.swift in Sources */,
@@ -750,6 +760,7 @@
 				758B61A71EA3CA1A00152AA4 /* Client+User.swift in Sources */,
 				75E617BA1E5056C70033C236 /* RegisterViewController.swift in Sources */,
 				758B61A01EA38BC600152AA4 /* CompleteRegisterViewController.swift in Sources */,
+				757BA6A21EC47C9000CD2829 /* ChatPageViewController.swift in Sources */,
 				758B61A51EA3C98800152AA4 /* Client+Interaction.swift in Sources */,
 				758B61C81EAFB95600152AA4 /* SearchViewController.swift in Sources */,
 				758B61C61EAFB94C00152AA4 /* NewsViewController.swift in Sources */,
@@ -759,6 +770,7 @@
 				75A5A8BB1E72116200ABA2CC /* OAuth2RetryHandler.swift in Sources */,
 				75A5A8BD1E7217C000ABA2CC /* OAuthInstances.swift in Sources */,
 				75E617C61E50CAD80033C236 /* Constants.swift in Sources */,
+				757BA6A41EC4852900CD2829 /* TranslateHistoryViewController.swift in Sources */,
 				758B61AF1EA93A0B00152AA4 /* Enums.swift in Sources */,
 				758B61A31EA38D4100152AA4 /* ControllerCoordinator.swift in Sources */,
 				758B61CF1EB1F46900152AA4 /* ConversationTableViewCell.swift in Sources */,

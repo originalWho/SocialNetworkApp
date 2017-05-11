@@ -5,7 +5,6 @@ class RegisterViewController: UIViewController {
     // MARK: - Typealiases
 
     fileprivate typealias ParameterKeys = SocialNetworkClient.ParameterKeys
-    fileprivate typealias WarningMessage = Constants.WarningMessage
 
     // MARK: - Outlets
 
@@ -36,8 +35,8 @@ extension RegisterViewController {
     @IBAction func signup(_ sender: Any) {
         setUI(enabled: false)
         
-        func warn(with warning: String) {
-            warningLabel.text = warning
+        func warn(with warning: WarningMessage) {
+            warningLabel.text = warning.rawValue
             setUI(enabled: true)
         }
         
@@ -48,19 +47,19 @@ extension RegisterViewController {
         
         guard let name = nameTextField.text, !name.isEmpty,
             validate(string: name, pattern: Constants.Patterns.Name) else {
-            warn(with: WarningMessage.IncorrectName)
+            warn(with: .incorrectName)
             return
         }
         
         guard let email = emailTextField.text, !email.isEmpty,
             validate(string: email, pattern: Constants.Patterns.Email) else {
-            warn(with: WarningMessage.IncorrectEmail)
+            warn(with: .incorrectEmail)
             return
         }
         
         guard let password = passwordTextField.text, !password.isEmpty,
             validate(string: password, pattern: Constants.Patterns.Password) else {
-            warn(with: WarningMessage.WeakPassword)
+            warn(with: .weakPassword)
             return
         }
         
@@ -71,16 +70,27 @@ extension RegisterViewController {
         ]
         
         client.register(parameters: parameters) { [weak self] response in
-            // TODO: Present CompleteRegisterViewController
-            let vc = self?.storyboard?.instantiateViewController(withIdentifier: "CompleteRegisterViewController") as! CompleteRegisterViewController
-            self?.present(vc, animated: true, completion: {
-                self?.dismiss(animated: false, completion: nil)
-            })
+            guard let response = response, response == .success else {
+                warn(with: .unknownError)
+                return
+            }
+
+            guard let this = self else {
+                return
+            }
+
+            guard let vc = this.storyboard?.instantiateViewController(withIdentifier: UIStoryboard.CompleteRegister) else {
+                return
+            }
+
+            this.present(vc, animated: true) {
+                //this.dismiss(animated: false, completion: nil)
+            }
         }
     }
 
     @IBAction func cancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 
     private func setUI(enabled: Bool) {

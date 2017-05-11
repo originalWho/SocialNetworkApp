@@ -16,7 +16,7 @@ struct OAuthInstance {
                 ParameterKey.ClientSecret: DefaultValue.ClientSecret,
                 ParameterKey.AuthorizeURI: DefaultValue.AuthorizeURI
             ]
-            
+
             return OAuth2PasswordGrant(settings: settings)
         }
     }

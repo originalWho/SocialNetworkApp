@@ -5,7 +5,6 @@ class LoginViewController: UIViewController {
     // MARK: - Typealiases
     fileprivate typealias OAuth = SocialNetworkClient.OAuth
     fileprivate typealias ParameterKeys = SocialNetworkClient.ParameterKeys
-    fileprivate typealias WarningMessage = Constants.WarningMessage
 
     // MARK: - Outlets
 
@@ -13,7 +12,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signinButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
 
     // MARK: - Private properties
@@ -36,7 +34,7 @@ extension LoginViewController {
     @IBAction func signIn(_ sender: Any) {
         setUI(enabled: false)
         
-        func warn(with warning: String) {
+        func warn(with warning: WarningMessage) {
 
             setUI(enabled: true)
         }
@@ -48,18 +46,18 @@ extension LoginViewController {
         
         guard let email = emailTextField.text, !email.isEmpty,
             validate(string: email, pattern: Constants.Patterns.Email) else {
-            warn(with: WarningMessage.IncorrectEmail)
+            warn(with: .incorrectEmail)
             return
         }
         
         guard let password = passwordTextField.text, !password.isEmpty,
             validate(string: password, pattern: Constants.Patterns.Password) else {
-            warn(with: WarningMessage.IncorrectPassword)
+            warn(with: .incorrectPassword)
             return
         }
         
         let parameters = [
-            OAuth.ParameterKeys.GrantType: OAuth.GrantType.Password,
+            OAuth.ParameterKeys.GrantType: OAuth.GrantType.password,
             ParameterKeys.Email: email,
             ParameterKeys.Password: password
         ] as [String : Any]
@@ -69,21 +67,17 @@ extension LoginViewController {
         }
     }
 
-    @IBAction func cancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-
     @IBAction func register(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
-        present(vc, animated: true) { 
-            
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Register) else {
+            return
         }
+
+        present(vc, animated: true)
     }
 
     private func setUI(enabled: Bool) {
         signinButton.isEnabled = enabled
         signinButton.isHidden = !enabled
-        cancelButton.isEnabled = enabled
         registerButton.isEnabled = enabled
         indicator.isHidden = enabled
     }

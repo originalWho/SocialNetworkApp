@@ -5,7 +5,6 @@ class CompleteRegisterViewController: UIViewController {
     // MARK: - Typealiases
 
     fileprivate typealias Key = SocialNetworkClient.ParameterKeys
-    fileprivate typealias WarningMessage = Constants.WarningMessage
 
     // MARK: - Outlets
 
@@ -63,41 +62,52 @@ extension CompleteRegisterViewController {
     @IBAction func submit(_ sender: Any) {
         setUI(enabled: false)
 
-        func warn(with warning: String) {
-            warningLabel.text = warning
+        func warn(with warning: WarningMessage) {
+            warningLabel.text = warning.rawValue
             setUI(enabled: true)
         }
 
         guard let _ = userInfo[Key.Country] else {
-            warn(with: WarningMessage.NotChosenCountry)
+            warn(with: .notChosenCountry)
             return
         }
 
         guard let _ = userInfo[Key.Birthday] else {
-            warn(with: WarningMessage.NotChosenBirthday)
+            warn(with: .notChosenBirthday)
             return
         }
 
         if userInfo[Key.Gender] == nil {
-            userInfo[Key.Gender] = Gender.Male
+            userInfo[Key.Gender] = Gender.Male.rawValue
         }
 
         guard !selectedLanguages.isEmpty else {
-            warn(with: WarningMessage.NotChosenMotherLanguage)
+            warn(with: .notChosenMotherLanguage)
             return
         }
 
-        var languages = [Language]()
-
-        selectedLanguages.filter { $0.value.name != .None && $0.value.level != .None }.forEach { languages.append($0.value) }
-
+        var languages = [String:String]()
+        selectedLanguages.filter { $0.value.name != .None && $0.value.level != .None }
+            .forEach { languages[$0.value.name.stringValue.uppercased()] = $0.value.level.stringValue.uppercased() }
         userInfo[Key.Languages] = languages
 
-        /*
-        client.completeRegister(parameters: userInfo) { response in
+        client.completeRegister(parameters: userInfo) { [weak self] response in
+            guard let response = response, response == .success else {
+                warn(with: .unknownError)
+                return
+            }
             
+            SocialNetworkClient.Settings.registerComplete = true
+            self?.dismiss(animated: true) {
+                let viewController = self?.storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Main)
+                let window = (UIApplication.shared.delegate as! AppDelegate).window
+                window?.rootViewController = viewController
+                window?.makeKeyAndVisible()
+
+                viewController?.view.alpha = 0
+                UIView.animate(withDuration: 0.2) { viewController?.view.alpha = 1 }
+            }
         }
-         */
     }
 
     private func setUI(enabled: Bool) {
@@ -168,7 +178,7 @@ extension CompleteRegisterViewController {
     func keyboardWillShow(_ notification:Notification) {
         let keyboardHeight = getKeyboardHeight(notification)
         let offset = getOffset(notification)
-        if keyboardHeight == offset {
+        if keyboardHeight >= offset {
             self.view.frame.origin.y -= keyboardHeight
         } else {
             self.view.frame.origin.y += keyboardHeight - offset
@@ -193,10 +203,6 @@ fileprivate extension CompleteRegisterViewController {
         countryPicker?.delegate = countryPickerDelegate
         countryPicker?.dataSource = countryPickerDelegate
         countryTextField.inputView = countryPicker
-
-        let button = UIButton(type: .system)
-        button.setTitle("Done", for: .normal)
-        countryTextField.inputAccessoryView = button
     }
 
     func configureLanguagePicker(for textField: UITextField) {
@@ -235,10 +241,10 @@ fileprivate extension CompleteRegisterViewController {
         button.setTitle("+", for: .normal)
         button.addTarget(self, action: #selector(didAddAnotherLanguage(_:)), for: .touchUpInside)
 
+        addLanguageButtons.last?.isEnabled = false
         if languageTextFields.count > 3 {
             button.isEnabled = false
         } else {
-            addLanguageButtons.last?.isEnabled = false
             addLanguageButtons.append(button)
         }
 

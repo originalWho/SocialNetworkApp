@@ -26,16 +26,18 @@ class YandexTranslate: BaseTranslateService {
 
         var parameters = [String: Any]()
         parameters[QueryKey.key] = apiKey
-        parameters[QueryKey.text] = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        parameters[QueryKey.text] = text
         parameters[QueryKey.lang] = "ru"
 
         let url = makeURL(with: parameters)
         sessionManager.request(url).validate().responseJSON { response in
-            guard let response = response.result.value as? [String:Any] else {
+            guard let response = response.result.value as? [String:Any],
+                let textArray = response[QueryKey.text]! as? NSArray,
+                let text = textArray[0] as? String else {
                     completion(nil)
                     return
             }
-            completion("translatedText")
+            completion(text)
         }
     }
 

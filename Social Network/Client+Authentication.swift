@@ -4,23 +4,23 @@ import Alamofire
 
 extension SocialNetworkClient {
     
-    func authenticate(parameters: [String:Any], completion:  ((_ response: ServerResponse?) -> Void)? ) {
+    func authenticate(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void ) {
         guard let grantType = parameters[OAuth.ParameterKeys.GrantType] as? OAuth.GrantType else {
             return
         }
         
         switch grantType {
-        case .Code:
-            authenticateWithCode(parameters: parameters, completion: { response in
-                completion?(response)
-            })
+        case .code:
+            authenticateWithCode(parameters: parameters) { response in
+                completion(response)
+            }
             
-        case .Password:
-            authenticateWithPassword(parameters: parameters, completion: { response in
-                completion?(response)
-            })
+        case .password:
+            authenticateWithPassword(parameters: parameters) { response in
+                completion(response)
+            }
 
-        case .ClientCredentials, .Implicit:
+        case .clientCredentials, .implicit:
             // Do Nothing
             break
         }
@@ -37,6 +37,7 @@ fileprivate extension SocialNetworkClient {
     func authenticateWithPassword(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void) {
         guard let username = parameters[ParameterKeys.Email] as? String,
             let password = parameters[Key.Password] as? String else {
+                completion(nil)
                 return
         }
 
@@ -44,17 +45,29 @@ fileprivate extension SocialNetworkClient {
         oauth.username = username
         oauth.password = password
         setOAuth(oauth2: oauth)
-        
+
         alamofireManager?
             .request("https://localhost:8443/api/secured")
-            .validate()
-            .responseString(completionHandler: { response in
-                print(response.description)
-                completion(nil)                                     // TODO: Return server response
-            })
+            .response(completionHandler: { response in
+                guard let response = response.response else {
+                    completion(nil)
+                    return
+                }
 
+                let result: ServerResponse = (response.statusCode < 400)
+                    ? .success
+                    : .accessDenied
+
+                if result == .success {
+                    Settings.username = username
+                    Settings.password = password
+                    Settings.signedIn = true
+                }
+                
+                completion(result)
+            })
     }
-    
+
     func authenticateWithCode(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void) {
         guard let service = parameters[Key.Service]
             as? SocialNetworkClient.OAuth.Service else {
@@ -62,10 +75,10 @@ fileprivate extension SocialNetworkClient {
         }
         
         switch service {
-        case .Facebook:
+        case .facebook:
             break
             
-        case .Google:
+        case .google:
             break
         }
     }
