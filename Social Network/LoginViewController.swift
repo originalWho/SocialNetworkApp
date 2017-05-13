@@ -12,6 +12,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signinButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var warningLabel: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
 
     // MARK: - Private properties
@@ -35,7 +36,7 @@ extension LoginViewController {
         setUI(enabled: false)
         
         func warn(with warning: WarningMessage) {
-
+            warningLabel.text = warning.rawValue
             setUI(enabled: true)
         }
         
@@ -62,8 +63,19 @@ extension LoginViewController {
             ParameterKeys.Password: password
         ] as [String : Any]
         
-        client.authenticate(parameters: parameters) { response in
-            
+        client.authenticate(parameters: parameters) { [weak self] response in
+            guard let response = response, response == .success else {
+                warn(with: .unknownError)
+                return
+            }
+
+            let viewController = self?.storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Main)
+            let window = (UIApplication.shared.delegate as! AppDelegate).window
+            window?.rootViewController = viewController
+            window?.makeKeyAndVisible()
+
+            viewController?.view.alpha = 0
+            UIView.animate(withDuration: 0.2) { viewController?.view.alpha = 1 }
         }
     }
 
@@ -76,6 +88,7 @@ extension LoginViewController {
     }
 
     private func setUI(enabled: Bool) {
+        warningLabel.isHidden = !enabled
         signinButton.isEnabled = enabled
         signinButton.isHidden = !enabled
         registerButton.isEnabled = enabled

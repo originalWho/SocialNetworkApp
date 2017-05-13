@@ -34,5 +34,18 @@ extension UIStoryboard {
     static var CompleteRegister: String { return "CompleteRegisterViewController" }
     static var Chat: String { return  "ChatViewController" }
     static var TranslateBottomSheet: String { return "TranslateBottomSheetViewController" }
+    static var Profile: String { return "ProfileViewController" }
+    
+}
+
+extension UITableViewCell {
+
+    static var Search: String { return "SearchTableViewCell" }
+    
+}
+
+extension UIStoryboardSegue {
+
+    static var ShowProfile: String { return "showProfile" }
     
 }

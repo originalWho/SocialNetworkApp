@@ -37,15 +37,15 @@ extension UserInfoPicker: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch type {
         case .country:
-            return country(value: row).stringValue
+            return country(value: row).localized
 
         case .language:
             switch component {
             case PickLanguage.name.rawValue:
-                return languageName(value: row).stringValue
+                return languageName(value: row).localized
 
             case PickLanguage.level.rawValue:
-                return languageLevel(value: row).stringValue
+                return languageLevel(value: row).localized
 
             default:
                 return nil

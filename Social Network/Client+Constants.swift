@@ -68,16 +68,50 @@ extension SocialNetworkClient {
 
         struct Profile {
             static let Edit = "/profile/edit"
+            static let Me = "/profile/me"
+            static let ByID = "/profile/%d"
+            static let Add = "/profile/%@/add"
+            static let Remove = "/profile/%@/delete"
+            static let Block = "/profile/%@/block"
+            static let Unblock = "/profile/%@/unblock"
+            static let Friends = "/profile/%@/friends"
+            static let Subscribers = "/profile/%@/subscribers"
+            static let Subscriptions = "/profile/%@/subscriptions"
+            static let Blacklist = "/profile/blacklist"
         }
+
+        struct Conversation {
+            static let Messages = "/messages"
+            static let MessagesFrom = "/messages/"
+            static let SendMessageTo = "/messages/%@"
+
+            struct Key {
+                static let ID = "id"
+                static let Offset = "offset"
+                static let Count = "count"
+            }
+        }
+
+        struct Search {
+            static let Path = "/search"
+
+            struct Key {
+                static let Offset = "offset"
+                static let Count = "count"
+            }
+        }
+        
     }
     
     // MARK: - Parameters
     
     struct ParameterKeys {
+        static let ID = "id"
         static let Name = "name"
         static let Email = "email"
         static let Password = "password"
-        static let Photo = "photoLink"
+        static let PhotoLink = "photoLink"
+        static let HasPhoto = "hasPhoto"
         static let Birthday = "birthday"
         static let Age = "age"
         static let Country = "country"
@@ -85,10 +119,6 @@ extension SocialNetworkClient {
         static let Languages = "languages"
         static let About = "about"
         static let Online = "online"
-    }
-    
-    struct ParameterValues {
-        
     }
 
     // MARK: - Enums
@@ -103,27 +133,4 @@ extension SocialNetworkClient {
         case unknownError
     }
 
-    enum MessageStatus: Int {
-        case delivered
-        case read
-    }
-
-
-    // MARK: - HTTP
-    
-    struct HTTP {
-        struct Methods {
-            static let Get = "GET"
-            static let Post = "POST"
-            static let Delete = "DELETE"
-            static let Put = "PUT"
-        }
-        struct Headers {
-            static let Accept = "Accept"
-            static let ContentType = "Content-Type"
-        }
-        struct Types {
-            static let JSON = "application/json"
-        }
-    }
 }

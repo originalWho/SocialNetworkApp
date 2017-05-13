@@ -28,12 +28,13 @@ class SocialNetworkClient {
 
     func setOAuth(oauth2: OAuth2) {
         oauth2.sessionDelegate = OAuth2DebugURLSessionDelegate(host: "localhost")               // Debug
+        oauth2.logger = OAuth2DebugLogger(.trace)                                               // Debug
         let retrier = OAuth2RetryHandler(oauth2: oauth2)
         alamofireManager?.adapter = retrier
         alamofireManager?.retrier = retrier
     }
     
-    func url(from parameters: [String:AnyObject]?, path: String, method: String) -> URL {
+    func url(from parameters: [String:Any]?, path: String, method: String) -> URL {
         var components = URLComponents()
         components.scheme = Constants.APIScheme
         components.host = Constants.APIHost
@@ -61,6 +62,17 @@ class SocialNetworkClient {
         }
 
         return response
+    }
+
+    func alamofireRequest(url: URL, method: HTTPMethod? = .get, parameters: [String:Any]? = nil, completion: @escaping (DataResponse<Any>) -> Void) {
+        alamofireManager?
+            .request(url,
+                     method: method!,
+                     parameters: parameters,
+                     encoding: JSONEncoding.default,
+                     headers: nil)
+            .validate()
+            .responseJSON(completionHandler: completion)
     }
     
 }

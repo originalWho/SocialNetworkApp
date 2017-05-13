@@ -48,7 +48,10 @@ fileprivate extension SocialNetworkClient {
 
         alamofireManager?
             .request("https://localhost:8443/api/secured")
+            .validate()
             .response(completionHandler: { response in
+                //print("RESPONSE\n", response.response.debugDescription)
+                //print("REQUEST\n", response.request.debugDescription)
                 guard let response = response.response else {
                     completion(nil)
                     return

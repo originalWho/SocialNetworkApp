@@ -1,0 +1,51 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C56B98DB71716376A5A0E4ACFDCBAE8B0B6F474E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "2045D86BC5D391C299DCC498309E722E037BFF4E" : 9223372036854775807,
+    "10B73D0B7CE5B1CD363428FDF4A01A2A9E2F0357" : 9223372036854775807,
+    "C56B98DB71716376A5A0E4ACFDCBAE8B0B6F474E" : 9223372036854775807,
+    "A65BCAA9B7A77500BBF95593800C3F1B9D215F5E" : 9223372036854775807,
+    "67620B5EFA902936DF04070AF595B76AB0333747" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E6A18F25-5441-470B-85D9-93F8A32AC46C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "2045D86BC5D391C299DCC498309E722E037BFF4E" : "Social%20Network\/OAuth2\/",
+    "10B73D0B7CE5B1CD363428FDF4A01A2A9E2F0357" : "Social%20Network\/OAuth2\/SwiftKeychain\/",
+    "C56B98DB71716376A5A0E4ACFDCBAE8B0B6F474E" : "Social%20Network\/",
+    "A65BCAA9B7A77500BBF95593800C3F1B9D215F5E" : "OAuthSwift\/",
+    "67620B5EFA902936DF04070AF595B76AB0333747" : "Social%20Network\/Alamofire\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Social Network",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Social Network.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/p2\/SwiftKeychain",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "10B73D0B7CE5B1CD363428FDF4A01A2A9E2F0357"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/p2\/OAuth2.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2045D86BC5D391C299DCC498309E722E037BFF4E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Alamofire\/Alamofire.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "67620B5EFA902936DF04070AF595B76AB0333747"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/OAuthSwift\/OAuthSwift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A65BCAA9B7A77500BBF95593800C3F1B9D215F5E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/originalWho\/SocialNetworkApp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C56B98DB71716376A5A0E4ACFDCBAE8B0B6F474E"
+    }
+  ]
+}

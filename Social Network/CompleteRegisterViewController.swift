@@ -78,7 +78,7 @@ extension CompleteRegisterViewController {
         }
 
         if userInfo[Key.Gender] == nil {
-            userInfo[Key.Gender] = Gender.Male.rawValue
+            userInfo[Key.Gender] = Gender.Male.stringValue
         }
 
         guard !selectedLanguages.isEmpty else {
@@ -88,7 +88,7 @@ extension CompleteRegisterViewController {
 
         var languages = [String:String]()
         selectedLanguages.filter { $0.value.name != .None && $0.value.level != .None }
-            .forEach { languages[$0.value.name.stringValue.uppercased()] = $0.value.level.stringValue.uppercased() }
+            .forEach { languages[$0.value.name.stringValue] = $0.value.level.stringValue }
         userInfo[Key.Languages] = languages
 
         client.completeRegister(parameters: userInfo) { [weak self] response in
@@ -147,8 +147,8 @@ extension CompleteRegisterViewController {
             return
         }
 
-        countryTextField.text = country.stringValue
-        userInfo[Key.Country] = country.rawValue
+        countryTextField.text = country.localized
+        userInfo[Key.Country] = country.stringValue
     }
 
     @IBAction func didSelectGender(_ sender: Any) {
@@ -157,7 +157,7 @@ extension CompleteRegisterViewController {
             return
         }
 
-        userInfo[Key.Gender] = gender.rawValue
+        userInfo[Key.Gender] = gender.stringValue
     }
 
     func didSelectLanguage(_ notification: Notification) {
@@ -166,7 +166,7 @@ extension CompleteRegisterViewController {
         }
 
         languageTextFields.filter { $0.isFirstResponder }.forEach {
-            $0.text = language.name.stringValue
+            $0.text = language.name.localized
             selectedLanguages[$0] = language
         }
     }
