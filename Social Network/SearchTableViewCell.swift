@@ -9,17 +9,28 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var languagesStackView: UIStackView!
 
     func configure(with user: User) {
-        nameLabel.text = user.name
-        countryLabel.text = user.country?.localized
-        onlineLabel.isHidden = !user.online!
-
-        guard let languages = user.languages else {
-            return
+        if let name = user.name {
+            nameLabel.isHidden = false
+            nameLabel.text = name
         }
 
-        for language in languages {
-            let stackView = makeStackView(for: language)
-            languagesStackView.addArrangedSubview(stackView)
+        if let country = user.country?.localized {
+            countryLabel.isHidden = false
+            countryLabel.text = country
+        }
+
+        onlineLabel.isHidden = !user.online!
+
+        if let languages = user.languages {
+            languagesStackView.isHidden = false
+            for subview in languagesStackView.arrangedSubviews {
+                languagesStackView.removeArrangedSubview(subview)
+                subview.removeFromSuperview()
+            }
+            for language in languages {
+                let stackView = makeStackView(for: language)
+                languagesStackView.addArrangedSubview(stackView)
+            }
         }
     }
 
@@ -31,10 +42,12 @@ class SearchTableViewCell: UITableViewCell {
 
         let nameLabel = UILabel()
         nameLabel.text = language.name.localized
+        nameLabel.font = countryLabel.font
         stackView.addArrangedSubview(nameLabel)
 
         let levelLabel = UILabel()
         levelLabel.text = language.level.localized
+        levelLabel.font = countryLabel.font
         levelLabel.textColor = .darkGray
         stackView.addArrangedSubview(levelLabel)
 

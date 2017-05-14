@@ -70,20 +70,19 @@ extension SocialNetworkClient {
             static let Edit = "/profile/edit"
             static let Me = "/profile/me"
             static let ByID = "/profile/%d"
-            static let Add = "/profile/%@/add"
-            static let Remove = "/profile/%@/delete"
-            static let Block = "/profile/%@/block"
-            static let Unblock = "/profile/%@/unblock"
-            static let Friends = "/profile/%@/friends"
-            static let Subscribers = "/profile/%@/subscribers"
-            static let Subscriptions = "/profile/%@/subscriptions"
+            static let Add = "/profile/%d/add"
+            static let Remove = "/profile/%d/delete"
+            static let Block = "/profile/%d/block"
+            static let Unblock = "/profile/%d/unblock"
+            static let Friends = "/profile/%d/friends"
+            static let Subscribers = "/profile/%d/subscribers"
+            static let Subscriptions = "/profile/%d/subscriptions"
             static let Blacklist = "/profile/blacklist"
         }
 
         struct Conversation {
             static let Messages = "/messages"
-            static let MessagesFrom = "/messages/"
-            static let SendMessageTo = "/messages/%@"
+            static let SendMessageTo = "/messages/%d"
 
             struct Key {
                 static let ID = "id"

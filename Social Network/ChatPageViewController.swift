@@ -2,6 +2,10 @@ import UIKit
 
 class ChatPageViewController: UIPageViewController {
 
+    // MARK: - Public properties
+
+    var translationHistory: [[String:String]]?
+
     // MARK: - Private properties
 
     fileprivate var pageControl = UIPageControl()
@@ -27,6 +31,11 @@ class ChatPageViewController: UIPageViewController {
         super.viewWillAppear(animated)
         view.backgroundColor = .clear
     }
+
+    @IBAction func dismiss(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+
 }
 
 // MARK: - UIPageViewControllerDelegate protocol
@@ -83,11 +92,12 @@ fileprivate extension ChatPageViewController {
 
     func instantiateViewControllers() -> [UIViewController] {
         var viewControllers = [UIViewController]()
-        guard let historyViewController = storyboard?.instantiateViewController(withIdentifier: "TranslateHistoryViewController"),
-            let dictViewController = storyboard?.instantiateViewController(withIdentifier: "DictionaryViewController") else {
+        guard let historyViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatHelper) as? ChatHelperViewController,
+            let dictViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatHelper) else {
                 return viewControllers
         }
 
+        historyViewController.translationHistory = translationHistory
         viewControllers.append(historyViewController)
         viewControllers.append(dictViewController)
 

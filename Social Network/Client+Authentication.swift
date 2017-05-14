@@ -50,8 +50,6 @@ fileprivate extension SocialNetworkClient {
             .request("https://localhost:8443/api/secured")
             .validate()
             .response(completionHandler: { response in
-                //print("RESPONSE\n", response.response.debugDescription)
-                //print("REQUEST\n", response.request.debugDescription)
                 guard let response = response.response else {
                     completion(nil)
                     return
@@ -72,8 +70,7 @@ fileprivate extension SocialNetworkClient {
     }
 
     func authenticateWithCode(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void) {
-        guard let service = parameters[Key.Service]
-            as? SocialNetworkClient.OAuth.Service else {
+        guard let service = parameters[Key.Service] as? SocialNetworkClient.OAuth.Service else {
                 return
         }
         

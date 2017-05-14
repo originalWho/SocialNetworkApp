@@ -75,7 +75,7 @@ struct User {
     let online: Bool?
 
     init(id: Int?, name: String? = nil, email: String?, age: Int?, gender: Gender? = Gender.None,
-         about: String? = nil, country: Country? = Country.None, languages: Language..., photoLink: URL? = nil, online: Bool?) {
+         about: String? = nil, country: Country? = Country.None, languages: [Language]?, photoLink: URL? = nil, online: Bool?) {
         self.id = id
         self.name = name
         self.email = email
@@ -90,34 +90,30 @@ struct User {
 
     private typealias Key = SocialNetworkClient.ParameterKeys
 
-    init?(from json: [String:Any]) {
-        guard let id = json[Key.ID] as? Int,
-            let gender = json[Key.Gender] as? String,
-            let country = json[Key.Country] as? String,
-            let email = json[Key.Email] as? String,
-            //let age = json[Key.Age] as? Int,
-            //let photoLink = json[Key.Photo] as? String,
-            let languagesDict = json[Key.Languages] as? [String:String] else {
-                return nil
-        }
-
+    init(from json: [String:Any]) {
         var languages = [Language]()
-        languagesDict.forEach{
+        let languagesDict = json[Key.Languages] as? [String:String]
+        languagesDict?.forEach{
             languages.append(Language(with: LanguageName(stringValue: $0.key),
                                       and: LanguageLevel(stringValue: $0.value)))
         }
         languages.sort { $0.0.level.rawValue > $0.1.level.rawValue }
 
-        self.id = id
+        let gender = (json[Key.Gender] as? String) ?? String.Server.Gender.None
+        let country = (json[Key.Country] as? String) ?? String.Server.Country.None
+        let photoLink = (json[Key.PhotoLink] as? String) ?? ""
+        let online = (json[Key.Online] as? Int) ?? 0
+
+        self.id = json[Key.ID] as? Int
         self.name = (json[Key.Name] as? String)
-        self.email = email
-        self.age = 20
+        self.email = json[Key.Email] as? String
+        self.age = json[Key.Age] as? Int
         self.gender = Gender(stringValue: gender)
         self.about = json[Key.About] as? String
         self.country = Country(stringValue: country)
         self.languages = languages
-        self.photoLink = nil
-        self.online = false
+        self.photoLink = URL(string: photoLink)
+        self.online = (online == 1)
     }
     
 }

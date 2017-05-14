@@ -46,24 +46,27 @@ extension SocialNetworkClient {
 
 extension SocialNetworkClient {
 
-    enum RequestProfile {
+    enum ProfileRequest {
         case fail(ServerResponse)
         case success(User)
     }
 
-    func getProfile(_ userId: Int? = nil, completion: @escaping (RequestProfile) -> Void) {
+    func getProfile(_ userId: Int? = nil, completion: @escaping (ProfileRequest) -> Void) {
         let method = (userId == nil)
             ? Methods.Profile.Me
             : String(format: Methods.Profile.ByID, userId!)
         let profileURL = url(from: nil, path: Constants.APIPath, method: method)
 
         alamofireRequest(url: profileURL) { response in
-            guard let json = response.result.value as? [String:Any],
-                let profile = User(from: json) else {
+            guard let json = response.result.value as? [String:Any] else {
                     completion(.fail(.unknownError))
                 return
             }
             
+            let profile = User(from: json)
+            if userId == nil {
+                Settings.userId = profile.id
+            }
             completion(.success(profile))
         }
     }
@@ -80,6 +83,15 @@ extension SocialNetworkClient {
         let logoutURL = url(from: nil, path: Constants.APIPath, method: Methods.Logout)
 
         alamofireManager?.request(logoutURL).validate()
+
+        alamofireManager?.adapter = nil
+        alamofireManager?.retrier = nil
+        Settings.launchedFirstTime = true
+        Settings.registerComplete = false
+        Settings.signedIn = false
+        Settings.username = nil
+        Settings.password = nil
+        Settings.userId = nil
     }
 
 }
@@ -93,11 +105,18 @@ extension SocialNetworkClient {
         case success([User])
     }
 
-    func search(parameters: [String:Any], query: [String:Any], completion: @escaping (ServerResponse?) -> Void) {
+    func search(parameters: [String:Any], query: [String:Any], completion: @escaping (SearchRequest) -> Void) {
         let searchURL = url(from: query, path: Constants.APIPath, method: Methods.Search.Path)
 
         alamofireRequest(url: searchURL, method: .post, parameters: parameters) { response in
-            print(response)
+            guard let dicts = response.result.value as? [[String:Any]] else {
+                completion(.fail(.unknownError))
+                return
+            }
+
+            var users = [User]()
+            dicts.forEach { users.append(User(from: $0)) }
+            completion(.success(users))
         }
     }
 }

@@ -33,8 +33,13 @@ extension UIStoryboard {
     static var Register: String { return "RegisterViewController" }
     static var CompleteRegister: String { return "CompleteRegisterViewController" }
     static var Chat: String { return  "ChatViewController" }
+    static var ChatHelper: String { return "ChatHelperViewController" }
+    static var ChatPage: String { return "ChatPageViewController" }
     static var TranslateBottomSheet: String { return "TranslateBottomSheetViewController" }
     static var Profile: String { return "ProfileViewController" }
+    static var ProfileEdit: String { return "ProfileEditViewController" }
+    static var UserList: String { return "UserListTableViewController" }
+    static var SearchEdit: String { return "SearchEditViewController" }
     
 }
 

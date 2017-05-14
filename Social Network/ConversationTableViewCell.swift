@@ -8,11 +8,6 @@ class ConversationTableViewCell: UITableViewCell {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
     func configure(name: String, message: String, time: Date, userImage: String? = nil) {
         nameLabel.text = name
         messageLabel.text = message

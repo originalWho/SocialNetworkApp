@@ -56,6 +56,16 @@ extension SocialNetworkClient {
             }
         }
 
+        static var userId: Int? {
+            get {
+                return defaults().userId
+            }
+
+            set {
+                defaults().userId = newValue
+            }
+        }
+        
     }
 
 }
@@ -67,6 +77,7 @@ fileprivate struct ParameterKey {
     static var registerComplete: String { return "hse.socialNetwork.client.registerComplete" }
     static var username: String { return "hse.socialNetwork.client.username" }
     static var password: String { return "hse.socialNetwork.client.password" }
+    static var userId: String { return "hse.socialNetwork.client.userId" }
 
 }
 
@@ -133,6 +144,16 @@ fileprivate extension UserDefaults.ClientSuite {
 
         set {
             set(newValue, forKey: ParameterKey.password)
+        }
+    }
+
+    var userId: Int? {
+        get {
+            return integer(forKey: ParameterKey.userId)
+        }
+
+        set {
+            set(newValue, forKey: ParameterKey.userId)
         }
     }
 

@@ -2,10 +2,29 @@ import UIKit
 
 class ConversationsViewController: UITableViewController {
 
+    let client = SocialNetworkClient.default
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 50
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+
+        client.receive(.all) { request in
+            print("S")
+        }
+    }
+
+}
+
+extension ConversationsViewController {
+
+    func refresh(_ sender: Any) {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
+        }
     }
 
 }

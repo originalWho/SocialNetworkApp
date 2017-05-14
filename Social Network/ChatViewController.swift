@@ -31,16 +31,18 @@ class ChatViewController: UIViewController {
 
     var id = [
         "TheirMessageCell",
-        "YourMessageCell",
         "YourMessageCell"
     ]
 
     var messages = [
         "Hello my friend, I expected to see you",
         "What a beautiful day to develop some kind of app!",
-        "Imagine all the people\nLiving life in peace\nOhoo hoo"
+        "Imagine all the people\nLiving life in peace",
+        "To be or not to be? Two bee or not two bee?",
+        "I know what you did"
     ]
 
+    var translationHistory = [[String:String]]()
 
 }
 
@@ -49,6 +51,12 @@ class ChatViewController: UIViewController {
 extension ChatViewController {
 
     // MARK: - Actions
+    
+    @IBAction func showTranslateHistory(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatPage) as! ChatPageViewController
+        vc.translationHistory = translationHistory
+        present(vc, animated: true, completion: nil)
+    }
 
     @IBAction func enableSendButton(_ sender: Any) {
         guard let text = messageTextField.text, !text.isEmpty else {
@@ -68,13 +76,14 @@ extension ChatViewController {
             return
         }
 
-        messageTextField.text = ""
-        sendButton.isEnabled = false
-        translateButton.isEnabled = false
-        translateButton.imageView?.image = #imageLiteral(resourceName: "Translation-Disabled")
-
-        //guard let vc = storyboard?.instantiateViewController(withIdentifier: "ChatPageViewController") else { return }
-        //present(vc, animated: true, completion: nil)
+        messages.append(text)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.messageTextField.text = ""
+            self.sendButton.isEnabled = false
+            self.translateButton.isEnabled = false
+            self.translateButton.imageView?.image = #imageLiteral(resourceName: "Translation-Disabled")
+        }
     }
 
     @IBAction func translateEntered(_ sender: Any) {
@@ -92,7 +101,10 @@ extension ChatViewController {
                     bottomSheet?.setTranslated(text: "ERROR: Couldn't translate.")
                     return
                 }
+
                 bottomSheet?.setTranslated(text: translated)
+                let translation = [text: translated]
+                this.translationHistory.append(translation)
             }
         }
     }
@@ -114,7 +126,10 @@ extension ChatViewController {
                     bottomSheet?.setTranslated(text: "ERROR: Couldn't translate.")
                     return
                 }
+                
                 bottomSheet?.setTranslated(text: translated)
+                let translation = [text: translated]
+                this.translationHistory.append(translation)
             }
         }
     }
@@ -150,9 +165,9 @@ extension ChatViewController {
 extension ChatViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = id.popLast()
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier!) as! MessageTableViewCell
-        cell.messageTextView.text = messages.popLast()
+        let identifier = id[indexPath.row % id.count]
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as! MessageTableViewCell
+        cell.messageTextView.text = messages[indexPath.row]
 
         return cell
     }

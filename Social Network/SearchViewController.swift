@@ -10,6 +10,7 @@ class SearchViewController: UIViewController {
     // MARK: - Outlets
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var warningLabel: UILabel!
 
     // MARK: - Overrides
 
@@ -17,11 +18,56 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         let rightBarButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(showSearchParameters(_:)))
         navigationItem.setRightBarButton(rightBarButton, animated: true)
+        tableView.estimatedRowHeight = 110.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(search(_:)), for: .valueChanged)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         search()
     }
 
     func showSearchParameters(_ sender: Any) {
         print("edit")
+    }
+
+}
+
+// MARK: - Public methods
+
+extension SearchViewController {
+
+    private typealias ParameterKey = SocialNetworkClient.ParameterKeys
+    private typealias QueryKey = SocialNetworkClient.Methods.Search.Key
+
+    func search(_ sender: Any? = nil) {
+        let query: [String:Any] = [
+            QueryKey.Count: 20,
+            QueryKey.Offset: 0
+        ]
+
+        let parameters: [String:Any] = [
+            ParameterKey.Languages: [
+                LanguageName.Tatar.stringValue: LanguageLevel.Intermediate.stringValue
+            ]
+        ]
+
+        client.search(parameters: parameters, query: query) { [weak self] response in
+            guard let this = self else {
+                return
+            }
+
+            switch response {
+            case .fail(let response):
+                this.warn(with: response)
+
+            case .success(let users):
+                this.updateSearchResults(with: users)
+            }
+        }
     }
 
 }
@@ -38,6 +84,7 @@ extension SearchViewController: UITableViewDelegate {
         let profileViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Profile) as! ProfileViewController
         profileViewController.user = user
         navigationController?.pushViewController(profileViewController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
 }
@@ -64,24 +111,25 @@ extension SearchViewController: UITableViewDataSource {
 
 fileprivate extension SearchViewController {
 
-    private typealias QueryKey = SocialNetworkClient.ParameterKeys
-    private typealias ParameterKey = SocialNetworkClient.Methods.Search.Key
-
-    func search() {
-        let parameters: [String:Any] = [
-            ParameterKey.Count: 20,
-            ParameterKey.Offset: 0
-        ]
-
-        let query: [String:Any] = [
-            QueryKey.Languages: [
-                LanguageName.English.stringValue: LanguageLevel.Native.stringValue
-            ]
-        ]
-
-        client.search(parameters: parameters, query: query) { response in
+    func updateSearchResults(with users: [User]) {
+        tableView.isHidden = false
+        warningLabel.isHidden = true
+        searchResult = users
+        DispatchQueue.main.async { [weak self] in
+            guard let this = self else {
+                return
+            }
             
+            this.tableView.reloadData()
+            this.tableView.refreshControl?.endRefreshing()
         }
+
+    }
+
+    func warn(with: SocialNetworkClient.ServerResponse) {
+        tableView.isHidden = true
+        warningLabel.isHidden = false
+        warningLabel.text = "Couldn't Load"
     }
 
 }

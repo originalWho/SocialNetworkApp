@@ -11,8 +11,7 @@
 		757BA6901EB248A300CD2829 /* TranslateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA68F1EB248A300CD2829 /* TranslateService.swift */; };
 		757BA6A01EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA69F1EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift */; };
 		757BA6A21EC47C9000CD2829 /* ChatPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA6A11EC47C9000CD2829 /* ChatPageViewController.swift */; };
-		757BA6A41EC4852900CD2829 /* TranslateHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA6A31EC4852900CD2829 /* TranslateHistoryViewController.swift */; };
-		757BA6A61EC4853300CD2829 /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA6A51EC4853300CD2829 /* DictionaryViewController.swift */; };
+		757BA6A41EC4852900CD2829 /* ChatHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA6A31EC4852900CD2829 /* ChatHelperViewController.swift */; };
 		758B61A01EA38BC600152AA4 /* CompleteRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B619F1EA38BC600152AA4 /* CompleteRegisterViewController.swift */; };
 		758B61A31EA38D4100152AA4 /* ControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61A21EA38D4100152AA4 /* ControllerCoordinator.swift */; };
 		758B61A51EA3C98800152AA4 /* Client+Interaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B61A41EA3C98800152AA4 /* Client+Interaction.swift */; };
@@ -37,6 +36,9 @@
 		75D4A78F1EC7269E0029812E /* Enums+Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D4A78E1EC7269E0029812E /* Enums+Server.swift */; };
 		75D4A7911EC730400029812E /* String+Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D4A7901EC730400029812E /* String+Server.swift */; };
 		75DA6A861EC78866005563C8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DA6A851EC78866005563C8 /* SearchTableViewCell.swift */; };
+		75DC1CD51EC8BF34008B6017 /* SearchEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC1CD41EC8BF34008B6017 /* SearchEditViewController.swift */; };
+		75DC1CE11EC8BF48008B6017 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC1CE01EC8BF48008B6017 /* ProfileEditViewController.swift */; };
+		75DC1CE51EC8BFE3008B6017 /* UserListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC1CE41EC8BFE3008B6017 /* UserListTableViewController.swift */; };
 		75E617891E5050310033C236 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E617881E5050310033C236 /* AppDelegate.swift */; };
 		75E6178B1E5050310033C236 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E6178A1E5050310033C236 /* LoginViewController.swift */; };
 		75E6178E1E5050310033C236 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75E6178C1E5050310033C236 /* Main.storyboard */; };
@@ -184,8 +186,7 @@
 		757BA68F1EB248A300CD2829 /* TranslateService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateService.swift; sourceTree = "<group>"; };
 		757BA69F1EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateBottomSheetViewController.swift; sourceTree = "<group>"; };
 		757BA6A11EC47C9000CD2829 /* ChatPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPageViewController.swift; sourceTree = "<group>"; };
-		757BA6A31EC4852900CD2829 /* TranslateHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateHistoryViewController.swift; sourceTree = "<group>"; };
-		757BA6A51EC4853300CD2829 /* DictionaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
+		757BA6A31EC4852900CD2829 /* ChatHelperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatHelperViewController.swift; sourceTree = "<group>"; };
 		758B619F1EA38BC600152AA4 /* CompleteRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRegisterViewController.swift; sourceTree = "<group>"; };
 		758B61A21EA38D4100152AA4 /* ControllerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerCoordinator.swift; sourceTree = "<group>"; };
 		758B61A41EA3C98800152AA4 /* Client+Interaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Interaction.swift"; sourceTree = "<group>"; };
@@ -212,6 +213,9 @@
 		75D4A78E1EC7269E0029812E /* Enums+Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Enums+Server.swift"; sourceTree = "<group>"; };
 		75D4A7901EC730400029812E /* String+Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Server.swift"; sourceTree = "<group>"; };
 		75DA6A851EC78866005563C8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		75DC1CD41EC8BF34008B6017 /* SearchEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchEditViewController.swift; sourceTree = "<group>"; };
+		75DC1CE01EC8BF48008B6017 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		75DC1CE41EC8BFE3008B6017 /* UserListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListTableViewController.swift; sourceTree = "<group>"; };
 		75E617851E5050310033C236 /* Social Network.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Social Network.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75E617881E5050310033C236 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75E6178A1E5050310033C236 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -374,7 +378,7 @@
 				75DA6A871EC7886B005563C8 /* Search */,
 				758B61D01EB1F47500152AA4 /* Conversations */,
 				758B61CC1EAFC63E00152AA4 /* Chat */,
-				758B61C31EAFB94200152AA4 /* ProfileViewController.swift */,
+				75DC1CE31EC8BF7B008B6017 /* Profile */,
 				758B61C51EAFB94C00152AA4 /* NewsViewController.swift */,
 			);
 			name = Main;
@@ -388,8 +392,7 @@
 				758B61D11EB1FE0100152AA4 /* ChatTextView.swift */,
 				757BA69F1EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift */,
 				757BA6A11EC47C9000CD2829 /* ChatPageViewController.swift */,
-				757BA6A31EC4852900CD2829 /* TranslateHistoryViewController.swift */,
-				757BA6A51EC4853300CD2829 /* DictionaryViewController.swift */,
+				757BA6A31EC4852900CD2829 /* ChatHelperViewController.swift */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -442,8 +445,19 @@
 			children = (
 				758B61C71EAFB95600152AA4 /* SearchViewController.swift */,
 				75DA6A851EC78866005563C8 /* SearchTableViewCell.swift */,
+				75DC1CD41EC8BF34008B6017 /* SearchEditViewController.swift */,
 			);
 			name = Search;
+			sourceTree = "<group>";
+		};
+		75DC1CE31EC8BF7B008B6017 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				758B61C31EAFB94200152AA4 /* ProfileViewController.swift */,
+				75DC1CE01EC8BF48008B6017 /* ProfileEditViewController.swift */,
+				75DC1CE41EC8BFE3008B6017 /* UserListTableViewController.swift */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		75E6177C1E5050300033C236 = {
@@ -770,7 +784,6 @@
 				758B61C21EAFB02900152AA4 /* ChatViewController.swift in Sources */,
 				75D4A78F1EC7269E0029812E /* Enums+Server.swift in Sources */,
 				75D4A78D1EC714C10029812E /* String+Localized.swift in Sources */,
-				757BA6A61EC4853300CD2829 /* DictionaryViewController.swift in Sources */,
 				757BA68E1EB2489100CD2829 /* YandexTranslateService.swift in Sources */,
 				758B61AD1EA939CA00152AA4 /* Models.swift in Sources */,
 				75E617C21E50A2F70033C236 /* Client+Authentication.swift in Sources */,
@@ -780,6 +793,8 @@
 				75D4A7911EC730400029812E /* String+Server.swift in Sources */,
 				758B61CB1EAFC63500152AA4 /* MessageTableViewCell.swift in Sources */,
 				758B61D21EB1FE0100152AA4 /* ChatTextView.swift in Sources */,
+				75DC1CE51EC8BFE3008B6017 /* UserListTableViewController.swift in Sources */,
+				75DC1CE11EC8BF48008B6017 /* ProfileEditViewController.swift in Sources */,
 				75E617BD1E505E240033C236 /* Client.swift in Sources */,
 				75E617891E5050310033C236 /* AppDelegate.swift in Sources */,
 				75E617C41E50A4230033C236 /* Client+Constants.swift in Sources */,
@@ -788,6 +803,7 @@
 				75E617BA1E5056C70033C236 /* RegisterViewController.swift in Sources */,
 				758B61A01EA38BC600152AA4 /* CompleteRegisterViewController.swift in Sources */,
 				757BA6A21EC47C9000CD2829 /* ChatPageViewController.swift in Sources */,
+				75DC1CD51EC8BF34008B6017 /* SearchEditViewController.swift in Sources */,
 				758B61A51EA3C98800152AA4 /* Client+Interaction.swift in Sources */,
 				758B61C81EAFB95600152AA4 /* SearchViewController.swift in Sources */,
 				758B61C61EAFB94C00152AA4 /* NewsViewController.swift in Sources */,
@@ -798,7 +814,7 @@
 				75A5A8BB1E72116200ABA2CC /* OAuth2RetryHandler.swift in Sources */,
 				75A5A8BD1E7217C000ABA2CC /* OAuthInstances.swift in Sources */,
 				75E617C61E50CAD80033C236 /* Constants.swift in Sources */,
-				757BA6A41EC4852900CD2829 /* TranslateHistoryViewController.swift in Sources */,
+				757BA6A41EC4852900CD2829 /* ChatHelperViewController.swift in Sources */,
 				758B61AF1EA93A0B00152AA4 /* Enums.swift in Sources */,
 				758B61A31EA38D4100152AA4 /* ControllerCoordinator.swift in Sources */,
 				758B61CF1EB1F46900152AA4 /* ConversationTableViewCell.swift in Sources */,
