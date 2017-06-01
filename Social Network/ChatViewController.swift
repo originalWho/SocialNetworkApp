@@ -1,6 +1,6 @@
 import UIKit
 
-class ChatViewController: UIViewController {
+final class ChatViewController: UIViewController {
 
     // MARK: - Outlets
 
@@ -11,13 +11,12 @@ class ChatViewController: UIViewController {
 
     // MARK: - Private properties
 
-    fileprivate var translateService: TranslateService = YandexTranslate()
+    fileprivate let translateService: TranslateService = YandexTranslate()
 
     // MARK: - Overrides
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tabBarController?.tabBar.isHidden = true
         subscribeToNotifications()
         configureUIMenuController()
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -25,7 +24,6 @@ class ChatViewController: UIViewController {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        //tabBarController?.tabBar.isHidden = false
         unsubscribeFromNotifications()
     }
 
@@ -43,7 +41,6 @@ class ChatViewController: UIViewController {
     ]
 
     var translationHistory = [[String:String]]()
-
 }
 
 // MARK: - Public methods

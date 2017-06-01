@@ -1,6 +1,6 @@
 import UIKit
 
-class TranslateBottomSheetViewController: UIViewController {
+final class TranslateBottomSheetViewController: UIViewController {
 
     // MARK: - Private properties
 

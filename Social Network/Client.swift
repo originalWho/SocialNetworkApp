@@ -2,7 +2,7 @@ import Foundation
 import Alamofire
 import OAuth2
 
-class SocialNetworkClient {
+final class SocialNetworkClient {
 
     // MARK: - Static properties
 
@@ -10,7 +10,7 @@ class SocialNetworkClient {
     
     // MARK: - Private properties
 
-    fileprivate let serverTrustPolicy: [String: ServerTrustPolicy] = ["localhost": .disableEvaluation]      // Debug
+    fileprivate let serverTrustPolicy: [String: ServerTrustPolicy] = [Constants.APIHost: .disableEvaluation]      // Debug
 
     // MARK: - Internal properties
 
@@ -27,7 +27,7 @@ class SocialNetworkClient {
     // MARK: - Public methods
 
     func setOAuth(oauth2: OAuth2) {
-        oauth2.sessionDelegate = OAuth2DebugURLSessionDelegate(host: "localhost")               // Debug
+        oauth2.sessionDelegate = OAuth2DebugURLSessionDelegate(host: Constants.APIHost)               // Debug
         oauth2.logger = OAuth2DebugLogger(.trace)                                               // Debug
         let retrier = OAuth2RetryHandler(oauth2: oauth2)
         alamofireManager?.adapter = retrier

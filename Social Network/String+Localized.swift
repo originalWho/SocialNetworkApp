@@ -5,13 +5,13 @@ extension String {
     struct Localized {
 
         struct Gender {
-            static var None: String { return "None" }
+            static var None: String { return "Any" }
             static var Male: String { return "Male" }
             static var Female: String { return "Female" }
         }
 
         struct Country {
-            static var None: String { return "None" }
+            static var None: String { return "Any" }
             static var Afghanistan: String { return "Afghanistan" }
             static var Albania: String { return "Albania" }
             static var Algeria: String { return "Algeria" }
@@ -217,7 +217,7 @@ extension String {
         }
 
         struct LanguageName {
-            static var None: String { return "None" }
+            static var None: String { return "Any" }
             static var Afrikaans: String { return "Afrikaans" }
             static var Albanian: String { return "Albanian" }
             static var Amharic: String { return "Amharic" }
@@ -362,7 +362,7 @@ extension String {
         }
         
         struct LanguageLevel {
-            static var None: String { return "None" }
+            static var None: String { return "Any" }
             static var Beginner: String { return "Beginner" }
             static var Intermediate: String { return "Intermediate" }
             static var Advanced: String { return "Advanced" }

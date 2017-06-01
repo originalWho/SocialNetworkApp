@@ -74,8 +74,8 @@ struct User {
     let photoLink: URL?
     let online: Bool?
 
-    init(id: Int?, name: String? = nil, email: String?, age: Int?, gender: Gender? = Gender.None,
-         about: String? = nil, country: Country? = Country.None, languages: [Language]?, photoLink: URL? = nil, online: Bool?) {
+    init(id: Int?, name: String? = nil, email: String?, age: Int?, gender: Gender? = Gender.none,
+         about: String? = nil, country: Country? = Country.none, languages: [Language]?, photoLink: URL? = nil, online: Bool?) {
         self.id = id
         self.name = name
         self.email = email

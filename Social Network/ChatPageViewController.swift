@@ -1,6 +1,6 @@
 import UIKit
 
-class ChatPageViewController: UIPageViewController {
+final class ChatPageViewController: UIPageViewController {
 
     // MARK: - Public properties
 

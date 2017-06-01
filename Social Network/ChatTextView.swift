@@ -1,6 +1,6 @@
 import UIKit
 
-class ChatTextView: UITextView {
+final class ChatTextView: UITextView {
 
     private let customActions: [Selector] = [
         #selector(translateSelected(_:)),

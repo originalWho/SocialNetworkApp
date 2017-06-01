@@ -1,6 +1,6 @@
 import UIKit
 
-class MessageTableViewCell: UITableViewCell {
+final class MessageTableViewCell: UITableViewCell {
 
     @IBOutlet weak var messageTextView: UITextView!
 

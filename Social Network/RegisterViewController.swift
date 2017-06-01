@@ -1,10 +1,10 @@
 import UIKit
 
-class RegisterViewController: UIViewController {
+final class RegisterViewController: UIViewController {
 
     // MARK: - Typealiases
 
-    fileprivate typealias ParameterKeys = SocialNetworkClient.ParameterKeys
+    fileprivate typealias Key = SocialNetworkClient.ParameterKeys
 
     // MARK: - Outlets
 
@@ -40,33 +40,33 @@ extension RegisterViewController {
             setUI(enabled: true)
         }
         
-        func validate(string: String, pattern: String) -> Bool {
-            let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+        func validate(string: String, pattern: ValidationPattern) -> Bool {
+            let predicate = NSPredicate(format: "SELF MATCHES %@", pattern.rawValue)
             return predicate.evaluate(with: string)
         }
         
         guard let name = nameTextField.text, !name.isEmpty,
-            validate(string: name, pattern: Constants.Patterns.Name) else {
+            validate(string: name, pattern: .name) else {
             warn(with: .incorrectName)
             return
         }
         
         guard let email = emailTextField.text, !email.isEmpty,
-            validate(string: email, pattern: Constants.Patterns.Email) else {
+            validate(string: email, pattern: .email) else {
             warn(with: .incorrectEmail)
             return
         }
         
         guard let password = passwordTextField.text, !password.isEmpty,
-            validate(string: password, pattern: Constants.Patterns.Password) else {
+            validate(string: password, pattern: .password) else {
             warn(with: .weakPassword)
             return
         }
         
         let parameters = [
-            ParameterKeys.Name: name,
-            ParameterKeys.Email: email,
-            ParameterKeys.Password: password
+            Key.Name: name,
+            Key.Email: email,
+            Key.Password: password
         ]
         
         client.register(parameters: parameters) { [weak self] response in
@@ -94,14 +94,16 @@ extension RegisterViewController {
     }
 
     private func setUI(enabled: Bool) {
-        signupButton.isEnabled = enabled
-        signupButton.isHidden = !enabled
-        cancelButton.isEnabled = enabled
-        warningLabel.isHidden = !enabled
-        indicator.isHidden = enabled
-        nameTextField.isEnabled = enabled
-        emailTextField.isEnabled = enabled
-        passwordTextField.isEnabled = enabled
+        DispatchQueue.main.async {
+            self.signupButton.isEnabled = enabled
+            self.signupButton.isHidden = !enabled
+            self.cancelButton.isEnabled = enabled
+            self.warningLabel.isHidden = !enabled
+            self.indicator.isHidden = enabled
+            self.nameTextField.isEnabled = enabled
+            self.emailTextField.isEnabled = enabled
+            self.passwordTextField.isEnabled = enabled
+        }
     }
 
 }

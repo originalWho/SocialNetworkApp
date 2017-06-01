@@ -1,6 +1,6 @@
 import UIKit
 
-class CompleteRegisterViewController: UIViewController {
+final class CompleteRegisterViewController: UIViewController {
 
     // MARK: - Typealiases
 
@@ -49,8 +49,8 @@ class CompleteRegisterViewController: UIViewController {
     }
 
     override func viewDidDisappear(_ animated: Bool) {
-        unsubscribeFromNotifications()
         super.viewDidDisappear(animated)
+        unsubscribeFromNotifications()
     }
 
 }
@@ -78,7 +78,7 @@ extension CompleteRegisterViewController {
         }
 
         if userInfo[Key.Gender] == nil {
-            userInfo[Key.Gender] = Gender.Male.stringValue
+            userInfo[Key.Gender] = Gender.male.stringValue
         }
 
         guard !selectedLanguages.isEmpty else {
@@ -87,7 +87,7 @@ extension CompleteRegisterViewController {
         }
 
         var languages = [String:String]()
-        selectedLanguages.filter { $0.value.name != .None && $0.value.level != .None }
+        selectedLanguages.filter { $0.value.name != .none && $0.value.level != .none }
             .forEach { languages[$0.value.name.stringValue] = $0.value.level.stringValue }
         userInfo[Key.Languages] = languages
 
@@ -111,15 +111,17 @@ extension CompleteRegisterViewController {
     }
 
     private func setUI(enabled: Bool) {
-        submitButton.isEnabled = enabled
-        submitButton.isHidden = !enabled
-        indicator.isHidden = enabled
-        warningLabel.isHidden = !enabled
-        countryTextField.isEnabled = enabled
-        birthdayTextField.isEnabled = enabled
-        genderSegmentedControl.isEnabled = enabled
+        DispatchQueue.main.async {
+            self.submitButton.isEnabled = enabled
+            self.submitButton.isHidden = !enabled
+            self.indicator.isHidden = enabled
+            self.warningLabel.isHidden = !enabled
+            self.countryTextField.isEnabled = enabled
+            self.birthdayTextField.isEnabled = enabled
+            self.genderSegmentedControl.isEnabled = enabled
 
-        languageTextFields.forEach { $0.isEnabled = enabled }
+            self.languageTextFields.forEach { $0.isEnabled = enabled }
+        }
     }
 
 }
@@ -142,15 +144,6 @@ extension CompleteRegisterViewController {
         userInfo[Key.Birthday] = birthday
     }
 
-    func didSelectCountry(_ notification: Notification) {
-        guard let country = notification.object as? Country else {
-            return
-        }
-
-        countryTextField.text = country.localized
-        userInfo[Key.Country] = country.stringValue
-    }
-
     @IBAction func didSelectGender(_ sender: Any) {
         let index = genderSegmentedControl.selectedSegmentIndex
         guard let gender = Gender(rawValue: index + 1) else {
@@ -158,17 +151,6 @@ extension CompleteRegisterViewController {
         }
 
         userInfo[Key.Gender] = gender.stringValue
-    }
-
-    func didSelectLanguage(_ notification: Notification) {
-        guard let language = notification.object as? Language else {
-            return
-        }
-
-        languageTextFields.filter { $0.isFirstResponder }.forEach {
-            $0.text = language.name.localized
-            selectedLanguages[$0] = language
-        }
     }
 
     func didAddAnotherLanguage(_ sender: Any) {
@@ -193,28 +175,49 @@ extension CompleteRegisterViewController {
 
 }
 
+extension CompleteRegisterViewController: UserInfoPickerDelegate {
+
+    func userInfoPicker(_ picker: UserInfoPicker, pickedType type: UserInfoPicker.PickedType) {
+        switch type {
+        case .country(let country):
+            countryTextField.text = country.localized
+            userInfo[Key.Country] = country.stringValue
+
+        case .language(let language):
+            languageTextFields.filter { $0.isFirstResponder }.forEach {
+                $0.text = language.name.localized
+                selectedLanguages[$0] = language
+            }
+
+        }
+    }
+
+}
+
 // MARK: - Private methods
 
 fileprivate extension CompleteRegisterViewController {
 
     func configureCountryPicker() {
         countryPicker = UIPickerView()
-        countryPickerDelegate = UserInfoPicker(type: .country)
+        countryPickerDelegate = UserInfoPicker(mode: .country)
+        countryPickerDelegate?.delegate = self
         countryPicker?.delegate = countryPickerDelegate
         countryPicker?.dataSource = countryPickerDelegate
         countryTextField.inputView = countryPicker
     }
 
     func configureLanguagePicker(for textField: UITextField) {
-        let picker = UIPickerView()
-        let delegate = UserInfoPicker(type: .language)
-        picker.delegate = delegate
-        picker.dataSource = delegate
+        let languagePicker = UIPickerView()
+        let languagePickerDelegate = UserInfoPicker(mode: .language)
+        languagePickerDelegate.delegate = self
+        languagePicker.delegate = languagePickerDelegate
+        languagePicker.dataSource = languagePickerDelegate
 
-        languagePickers.append(picker)
-        languagePickerDelegates.append(delegate)
+        languagePickers.append(languagePicker)
+        languagePickerDelegates.append(languagePickerDelegate)
 
-        textField.inputView = picker
+        textField.inputView = languagePicker
     }
 
     func configureBirthdayPicker() {
@@ -225,44 +228,36 @@ fileprivate extension CompleteRegisterViewController {
     }
 
     func makeAnotherLanguageField() {
-        let stackView = UIStackView()
-        stackView.distribution = .fillProportionally
+        DispatchQueue.main.async {
+            let stackView = UIStackView()
+            stackView.distribution = .fillProportionally
 
-        let textField = UITextField()
-        textField.placeholder = "Another Language"
-        textField.borderStyle = .roundedRect
-        textField.font = countryTextField.font
-        configureLanguagePicker(for: textField)
+            let textField = UITextField()
+            textField.placeholder = "Another Language"
+            textField.borderStyle = .roundedRect
+            textField.font = self.countryTextField.font
+            self.configureLanguagePicker(for: textField)
 
-        languageTextFields.append(textField)
-        stackView.addArrangedSubview(textField)
+            self.languageTextFields.append(textField)
+            stackView.addArrangedSubview(textField)
 
-        let button = UIButton(type: .system)
-        button.setTitle("+", for: .normal)
-        button.addTarget(self, action: #selector(didAddAnotherLanguage(_:)), for: .touchUpInside)
+            let button = UIButton(type: .system)
+            button.setTitle("+", for: .normal)
+            button.addTarget(self, action: #selector(self.didAddAnotherLanguage(_:)), for: .touchUpInside)
 
-        addLanguageButtons.last?.isEnabled = false
-        if languageTextFields.count > 3 {
-            button.isEnabled = false
-        } else {
-            addLanguageButtons.append(button)
+            self.addLanguageButtons.last?.isEnabled = false
+            if self.languageTextFields.count > 3 {
+                button.isEnabled = false
+            } else {
+                self.addLanguageButtons.append(button)
+            }
+            
+            stackView.addArrangedSubview(button)
+            self.languagesStackView.addArrangedSubview(stackView)
         }
-
-        stackView.addArrangedSubview(button)
-        languagesStackView.addArrangedSubview(stackView)
     }
 
     func subscribeToNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectCountry(_:)),
-                                               name: .UICountryPicked, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectLanguage(_:)),
-                                               name: .UILanguagePicked, object: nil)
-        /*
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
-                                               name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
-                                               name: .UIKeyboardWillHide, object: nil)
-        */
         birthdayPicker?.addTarget(self, action: #selector(didSelectBirthday(_:)), for: .valueChanged)
     }
 

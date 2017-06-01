@@ -1,6 +1,6 @@
 import UIKit
 
-class ConversationTableViewCell: UITableViewCell {
+final class ConversationTableViewCell: UITableViewCell {
 
 
     @IBOutlet weak var userImageView: UIImageView!

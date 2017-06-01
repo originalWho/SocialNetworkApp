@@ -1,6 +1,6 @@
 import UIKit
 
-class SearchTableViewCell: UITableViewCell {
+final class SearchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -9,6 +9,11 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var languagesStackView: UIStackView!
 
     func configure(with user: User) {
+        if true {
+            nameLabel.isHidden = false
+            nameLabel.text = "Lorem Ipsum"
+        }
+
         if let name = user.name {
             nameLabel.isHidden = false
             nameLabel.text = name

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7546DC631EE02D690099AA66 /* SearchParameterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7546DC621EE02D690099AA66 /* SearchParameterTableViewCell.swift */; };
+		7546DC671EE056190099AA66 /* SearchParameterSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7546DC661EE056180099AA66 /* SearchParameterSelectionViewController.swift */; };
 		757BA68E1EB2489100CD2829 /* YandexTranslateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA68D1EB2489100CD2829 /* YandexTranslateService.swift */; };
 		757BA6901EB248A300CD2829 /* TranslateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA68F1EB248A300CD2829 /* TranslateService.swift */; };
 		757BA6A01EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757BA69F1EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift */; };
@@ -36,7 +38,7 @@
 		75D4A78F1EC7269E0029812E /* Enums+Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D4A78E1EC7269E0029812E /* Enums+Server.swift */; };
 		75D4A7911EC730400029812E /* String+Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D4A7901EC730400029812E /* String+Server.swift */; };
 		75DA6A861EC78866005563C8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DA6A851EC78866005563C8 /* SearchTableViewCell.swift */; };
-		75DC1CD51EC8BF34008B6017 /* SearchEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC1CD41EC8BF34008B6017 /* SearchEditViewController.swift */; };
+		75DC1CD51EC8BF34008B6017 /* SearchParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC1CD41EC8BF34008B6017 /* SearchParametersViewController.swift */; };
 		75DC1CE11EC8BF48008B6017 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC1CE01EC8BF48008B6017 /* ProfileEditViewController.swift */; };
 		75DC1CE51EC8BFE3008B6017 /* UserListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC1CE41EC8BFE3008B6017 /* UserListTableViewController.swift */; };
 		75E617891E5050310033C236 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E617881E5050310033C236 /* AppDelegate.swift */; };
@@ -182,6 +184,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7546DC621EE02D690099AA66 /* SearchParameterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchParameterTableViewCell.swift; sourceTree = "<group>"; };
+		7546DC661EE056180099AA66 /* SearchParameterSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchParameterSelectionViewController.swift; sourceTree = "<group>"; };
 		757BA68D1EB2489100CD2829 /* YandexTranslateService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexTranslateService.swift; sourceTree = "<group>"; };
 		757BA68F1EB248A300CD2829 /* TranslateService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateService.swift; sourceTree = "<group>"; };
 		757BA69F1EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateBottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -213,7 +217,7 @@
 		75D4A78E1EC7269E0029812E /* Enums+Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Enums+Server.swift"; sourceTree = "<group>"; };
 		75D4A7901EC730400029812E /* String+Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Server.swift"; sourceTree = "<group>"; };
 		75DA6A851EC78866005563C8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
-		75DC1CD41EC8BF34008B6017 /* SearchEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchEditViewController.swift; sourceTree = "<group>"; };
+		75DC1CD41EC8BF34008B6017 /* SearchParametersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchParametersViewController.swift; sourceTree = "<group>"; };
 		75DC1CE01EC8BF48008B6017 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		75DC1CE41EC8BFE3008B6017 /* UserListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListTableViewController.swift; sourceTree = "<group>"; };
 		75E617851E5050310033C236 /* Social Network.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Social Network.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -445,7 +449,9 @@
 			children = (
 				758B61C71EAFB95600152AA4 /* SearchViewController.swift */,
 				75DA6A851EC78866005563C8 /* SearchTableViewCell.swift */,
-				75DC1CD41EC8BF34008B6017 /* SearchEditViewController.swift */,
+				75DC1CD41EC8BF34008B6017 /* SearchParametersViewController.swift */,
+				7546DC661EE056180099AA66 /* SearchParameterSelectionViewController.swift */,
+				7546DC621EE02D690099AA66 /* SearchParameterTableViewCell.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -621,6 +627,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = G9EJHD637F;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 					75E6179B1E5050310033C236 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -781,6 +792,7 @@
 				758B61BB1EABC99200152AA4 /* Notifications.swift in Sources */,
 				75E6178B1E5050310033C236 /* LoginViewController.swift in Sources */,
 				757BA6A01EBB30CE00CD2829 /* TranslateBottomSheetViewController.swift in Sources */,
+				7546DC631EE02D690099AA66 /* SearchParameterTableViewCell.swift in Sources */,
 				758B61C21EAFB02900152AA4 /* ChatViewController.swift in Sources */,
 				75D4A78F1EC7269E0029812E /* Enums+Server.swift in Sources */,
 				75D4A78D1EC714C10029812E /* String+Localized.swift in Sources */,
@@ -790,6 +802,7 @@
 				757BA6901EB248A300CD2829 /* TranslateService.swift in Sources */,
 				75D4A7811EC713700029812E /* Enums+Localized.swift in Sources */,
 				75E617911E5050310033C236 /* Social_Network.xcdatamodeld in Sources */,
+				7546DC671EE056190099AA66 /* SearchParameterSelectionViewController.swift in Sources */,
 				75D4A7911EC730400029812E /* String+Server.swift in Sources */,
 				758B61CB1EAFC63500152AA4 /* MessageTableViewCell.swift in Sources */,
 				758B61D21EB1FE0100152AA4 /* ChatTextView.swift in Sources */,
@@ -803,7 +816,7 @@
 				75E617BA1E5056C70033C236 /* RegisterViewController.swift in Sources */,
 				758B61A01EA38BC600152AA4 /* CompleteRegisterViewController.swift in Sources */,
 				757BA6A21EC47C9000CD2829 /* ChatPageViewController.swift in Sources */,
-				75DC1CD51EC8BF34008B6017 /* SearchEditViewController.swift in Sources */,
+				75DC1CD51EC8BF34008B6017 /* SearchParametersViewController.swift in Sources */,
 				758B61A51EA3C98800152AA4 /* Client+Interaction.swift in Sources */,
 				758B61C81EAFB95600152AA4 /* SearchViewController.swift in Sources */,
 				758B61C61EAFB94C00152AA4 /* NewsViewController.swift in Sources */,

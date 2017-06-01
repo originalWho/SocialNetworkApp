@@ -1,6 +1,6 @@
 import UIKit
 
-class UserListTableViewController: UITableViewController {
+final class UserListTableViewController: UITableViewController {
 
     var users: [User]?
 

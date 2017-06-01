@@ -1,31 +1,48 @@
 import UIKit
 
-class UserInfoPicker: NSObject {
+protocol UserInfoPickerDelegate: class {
+    func userInfoPicker(_ picker: UserInfoPicker, pickedType type: UserInfoPicker.PickedType)
+}
 
-    // MARK: - Enum
+final class UserInfoPicker: NSObject {
 
-    enum PickerType {
+    // MARK: - Public types
+
+    enum Mode {
         case country
         case language
     }
+
+    enum PickedType {
+        case country(Country)
+        case language(Language)
+    }
+
+    // MARK: - Private types
 
     fileprivate enum PickLanguage: Int {
         case name
         case level
     }
 
-    // MARK: - Properties
+    // MARK: - Public properties
 
-    let type: PickerType
+    weak var delegate: UserInfoPickerDelegate?
+
+    // MARK: - Private properties
+
+    fileprivate let mode: Mode
     fileprivate var pickedCountry: Country
     fileprivate var pickedLanguageName: LanguageName
     fileprivate var pickedLanguageLevel: LanguageLevel
 
-    init(type: PickerType) {
-        self.type = type
-        pickedCountry = .None
-        pickedLanguageName = .None
-        pickedLanguageLevel = .None
+    // MARK: - Init
+
+    init(mode: Mode) {
+        self.mode = mode
+        pickedCountry = .afghanistan
+        pickedLanguageName = .afrikaans
+        pickedLanguageLevel = .beginner
     }
 
 }
@@ -35,7 +52,7 @@ class UserInfoPicker: NSObject {
 extension UserInfoPicker: UIPickerViewDelegate {
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch type {
+        switch mode {
         case .country:
             return country(value: row).localized
 
@@ -54,10 +71,10 @@ extension UserInfoPicker: UIPickerViewDelegate {
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        switch type {
+        switch mode {
         case .country:
             pickedCountry = country(value: row)
-            NotificationCenter.default.post(name: .UICountryPicked, object: pickedCountry)
+            delegate?.userInfoPicker(self, pickedType: .country(pickedCountry))
 
         case .language:
             switch component {
@@ -71,12 +88,8 @@ extension UserInfoPicker: UIPickerViewDelegate {
                 return
             }
 
-            guard pickedLanguageName != .None, pickedLanguageLevel != .None else {
-                return
-            }
-
-            let language = Language(with: pickedLanguageName, and: pickedLanguageLevel)
-            NotificationCenter.default.post(name: .UILanguagePicked, object: language)
+            let pickedLanguage = Language(with: pickedLanguageName, and: pickedLanguageLevel)
+            delegate?.userInfoPicker(self, pickedType: .language(pickedLanguage))
         }
     }
 
@@ -87,7 +100,7 @@ extension UserInfoPicker: UIPickerViewDelegate {
 extension UserInfoPicker: UIPickerViewDataSource {
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        switch type {
+        switch mode {
         case .country:
             return 1
 
@@ -97,7 +110,7 @@ extension UserInfoPicker: UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch type {
+        switch mode {
         case .country:
             return Country.count
 
@@ -123,7 +136,7 @@ fileprivate extension UserInfoPicker {
 
     func country(value: Int) -> Country {
         guard let country = Country(rawValue: value + 1) else {
-            return .None
+            return .none
         }
 
         return country
@@ -131,7 +144,7 @@ fileprivate extension UserInfoPicker {
 
     func languageName(value: Int) -> LanguageName {
         guard let languageName = LanguageName(rawValue: value + 1) else {
-            return .None
+            return .none
         }
 
         return languageName
@@ -139,7 +152,7 @@ fileprivate extension UserInfoPicker {
 
     func languageLevel(value: Int) -> LanguageLevel {
         guard let languageLevel = LanguageLevel(rawValue: value + 1) else {
-            return .None
+            return .none
         }
         
         return languageLevel

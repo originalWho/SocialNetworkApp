@@ -12,7 +12,7 @@ extension SocialNetworkClient {
                 completion(nil)
                 return
             }
-
+            print(response.debugDescription)
             let response = this.serverResponse(from: response.data)
             guard response == .success else {
                 completion(response)
@@ -22,6 +22,7 @@ extension SocialNetworkClient {
             var parameters = parameters
             parameters[OAuth.ParameterKeys.GrantType] = OAuth.GrantType.password
             this.authenticate(parameters: parameters) { response in
+                print(response.debugDescription)
                 completion(response)
             }
         }

@@ -4,12 +4,10 @@ import UIKit
 
 extension UIViewController {
 
-    struct Constants {
-        struct Patterns {
-            static let Name = "[A-Za-z]{2,20}"
-            static let Email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-            static let Password = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$"
-        }
+    enum ValidationPattern: String {
+        case name = "[A-Za-z]{2,20}"
+        case email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        case password = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$"
     }
 
     enum WarningMessage: String {
@@ -39,14 +37,18 @@ extension UIStoryboard {
     static var Profile: String { return "ProfileViewController" }
     static var ProfileEdit: String { return "ProfileEditViewController" }
     static var UserList: String { return "UserListTableViewController" }
-    static var SearchEdit: String { return "SearchEditViewController" }
+    static var SearchParameters: String { return "SearchParametersViewController" }
+    static var SearchParameterSelection: String { return "SearchParameterSelectionViewController" }
     
 }
 
 extension UITableViewCell {
 
     static var Search: String { return "SearchTableViewCell" }
-    
+    static var SearchParameterCheckmark: String { return "SearchParameterCheckmarkTableViewCell" }
+    static var SearchParameterDisclosure: String { return "SearchParameterDisclosureTableViewCell" }
+    static var SearchParameterSelection: String { return "SearchParameterSelectionTableViewCell" }
+
 }
 
 extension UIStoryboardSegue {

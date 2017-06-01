@@ -1,17 +1,6 @@
 import UIKit
 
-class ControllerCoordinator {
-    
-    fileprivate struct StoryboardIdentifier {
-        static let Login = "LoginViewController"
-        static let Register = "RegisterViewController"
-        static let CompleteRegister = "CompleteRegisterViewController"
-        static let Initial = "InitialViewController"
-    }
-    
-    fileprivate struct SegueIdentifier {
-        
-    }
+final class ControllerCoordinator {
     
     static func presentLoginViewController() {
         
@@ -24,4 +13,5 @@ class ControllerCoordinator {
     static func presentCompleteRegisterViewController() {
         
     }
+    
 }

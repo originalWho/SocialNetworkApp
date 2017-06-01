@@ -1,6 +1,6 @@
 import UIKit
 
-class ConversationsViewController: UITableViewController {
+final class ConversationsViewController: UITableViewController {
 
     let client = SocialNetworkClient.default
 

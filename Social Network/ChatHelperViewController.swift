@@ -1,6 +1,6 @@
 import UIKit
 
-class ChatHelperViewController: UITableViewController {
+final class ChatHelperViewController: UITableViewController {
 
     var translationHistory: [[String:String]]?
 

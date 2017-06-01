@@ -1,8 +1,9 @@
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
 
     // MARK: - Typealiases
+    
     fileprivate typealias OAuth = SocialNetworkClient.OAuth
     fileprivate typealias ParameterKeys = SocialNetworkClient.ParameterKeys
 
@@ -40,19 +41,19 @@ extension LoginViewController {
             setUI(enabled: true)
         }
         
-        func validate(string: String, pattern: String) -> Bool {
-            let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+        func validate(string: String, pattern: ValidationPattern) -> Bool {
+            let predicate = NSPredicate(format: "SELF MATCHES %@", pattern.rawValue)
             return predicate.evaluate(with: string)
         }
         
         guard let email = emailTextField.text, !email.isEmpty,
-            validate(string: email, pattern: Constants.Patterns.Email) else {
+            validate(string: email, pattern: .email) else {
             warn(with: .incorrectEmail)
             return
         }
         
         guard let password = passwordTextField.text, !password.isEmpty,
-            validate(string: password, pattern: Constants.Patterns.Password) else {
+            validate(string: password, pattern: .password) else {
             warn(with: .incorrectPassword)
             return
         }
@@ -88,11 +89,13 @@ extension LoginViewController {
     }
 
     private func setUI(enabled: Bool) {
-        warningLabel.isHidden = !enabled
-        signinButton.isEnabled = enabled
-        signinButton.isHidden = !enabled
-        registerButton.isEnabled = enabled
-        indicator.isHidden = enabled
+        DispatchQueue.main.async {
+            self.warningLabel.isHidden = !enabled
+            self.signinButton.isEnabled = enabled
+            self.signinButton.isHidden = !enabled
+            self.registerButton.isEnabled = enabled
+            self.indicator.isHidden = enabled
+        }
     }
 
 }

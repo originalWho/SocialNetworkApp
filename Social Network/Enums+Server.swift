@@ -7,25 +7,25 @@ extension Gender {
     init(stringValue: String) {
         switch stringValue {
         case Server.Male:
-            self = .Male
+            self = .male
 
         case Server.Female:
-            self = .Female
+            self = .female
 
         default:
-            self = .None
+            self = .none
         }
     }
 
     var stringValue: String {
         switch self {
-        case .None:
+        case .none:
             return Server.None
 
-        case .Male:
+        case .male:
             return Server.Male
 
-        case .Female:
+        case .female:
             return Server.Female
         }
     }
@@ -39,1225 +39,1225 @@ extension Country {
     init(stringValue: String) {
         switch stringValue {
         case Server.Afghanistan:
-            self = .Afghanistan
+            self = .afghanistan
 
         case Server.Albania:
-            self = .Albania
+            self = .albania
 
         case Server.Algeria:
-            self = .Algeria
+            self = .algeria
 
         case Server.Andorra:
-            self = .Andorra
+            self = .andorra
 
         case Server.Angola:
-            self = .Angola
+            self = .angola
 
         case Server.AntiguaAndBarbuda:
-            self = .AntiguaAndBarbuda
+            self = .antiguaAndBarbuda
 
         case Server.Argentina:
-            self = .Argentina
+            self = .argentina
 
         case Server.Armenia:
-            self = .Armenia
+            self = .armenia
 
         case Server.Aruba:
-            self = .Aruba
+            self = .aruba
 
         case Server.Australia:
-            self = .Australia
+            self = .australia
 
         case Server.Austria:
-            self = .Austria
+            self = .austria
 
         case Server.Azerbaijan:
-            self = .Azerbaijan
+            self = .azerbaijan
 
         case Server.Bahamas:
-            self = .Bahamas
+            self = .bahamas
 
         case Server.Bahrain:
-            self = .Bahrain
+            self = .bahrain
 
         case Server.Bangladesh:
-            self = .Bangladesh
+            self = .bangladesh
 
         case Server.Barbados:
-            self = .Barbados
+            self = .barbados
 
         case Server.Belarus:
-            self = .Belarus
+            self = .belarus
 
         case Server.Belgium:
-            self = .Belgium
+            self = .belgium
 
         case Server.Belize:
-            self = .Belize
+            self = .belize
 
         case Server.Benin:
-            self = .Benin
+            self = .benin
 
         case Server.Bhutan:
-            self = .Bhutan
+            self = .bhutan
 
         case Server.Bolivia:
-            self = .Bolivia
+            self = .bolivia
 
         case Server.BosniaAndHerzegovina:
-            self = .BosniaAndHerzegovina
+            self = .bosniaAndHerzegovina
 
         case Server.Botswana:
-            self = .Botswana
+            self = .botswana
 
         case Server.Brazil:
-            self = .Brazil
+            self = .brazil
 
         case Server.Brunei:
-            self = .Brunei
+            self = .brunei
 
         case Server.Bulgaria:
-            self = .Bulgaria
+            self = .bulgaria
 
         case Server.BurkinaFaso:
-            self = .BurkinaFaso
+            self = .burkinaFaso
 
         case Server.Burma:
-            self = .Burma
+            self = .burma
 
         case Server.Burundi:
-            self = .Burundi
+            self = .burundi
 
         case Server.Cambodia:
-            self = .Cambodia
+            self = .cambodia
 
         case Server.Cameroon:
-            self = .Cameroon
+            self = .cameroon
 
         case Server.Canada:
-            self = .Canada
+            self = .canada
 
         case Server.CaboVerde:
-            self = .CaboVerde
+            self = .caboVerde
 
         case Server.CentralAfricanRepublic:
-            self = .CentralAfricanRepublic
+            self = .centralAfricanRepublic
 
         case Server.Chad:
-            self = .Chad
+            self = .chad
 
         case Server.Chile:
-            self = .Chile
+            self = .chile
 
         case Server.China:
-            self = .China
+            self = .china
 
         case Server.Colombia:
-            self = .Colombia
+            self = .colombia
 
         case Server.Comoros:
-            self = .Comoros
+            self = .comoros
 
         case Server.CostaRica:
-            self = .CostaRica
+            self = .costaRica
 
         case Server.CotedIvoire:
-            self = .CotedIvoire
+            self = .cotedIvoire
 
         case Server.Croatia:
-            self = .Croatia
+            self = .croatia
 
         case Server.Cuba:
-            self = .Cuba
+            self = .cuba
 
         case Server.Curacao:
-            self = .Curacao
+            self = .curacao
 
         case Server.Cyprus:
-            self = .Cyprus
+            self = .cyprus
 
         case Server.Czechia:
-            self = .Czechia
+            self = .czechia
 
         case Server.DemocraticRepublicOfTheCongo:
-            self = .DemocraticRepublicOfTheCongo
+            self = .democraticRepublicOfTheCongo
 
         case Server.Denmark:
-            self = .Denmark
+            self = .denmark
 
         case Server.Djibouti:
-            self = .Djibouti
+            self = .djibouti
 
         case Server.Dominica:
-            self = .Dominica
+            self = .dominica
 
         case Server.DominicanRepublic:
-            self = .DominicanRepublic
+            self = .dominicanRepublic
 
         case Server.Ecuador:
-            self = .Ecuador
+            self = .ecuador
 
         case Server.Egypt:
-            self = .Egypt
+            self = .egypt
 
         case Server.ElSalvador:
-            self = .ElSalvador
+            self = .elSalvador
 
         case Server.EquatorialGuinea:
-            self = .EquatorialGuinea
+            self = .equatorialGuinea
 
         case Server.Eritrea:
-            self = .Eritrea
+            self = .eritrea
 
         case Server.Estonia:
-            self = .Estonia
+            self = .estonia
 
         case Server.Ethiopia:
-            self = .Ethiopia
+            self = .ethiopia
 
         case Server.Fiji:
-            self = .Fiji
+            self = .fiji
 
         case Server.Finland:
-            self = .Finland
+            self = .finland
 
         case Server.France:
-            self = .France
+            self = .france
 
         case Server.Gabon:
-            self = .Gabon
+            self = .gabon
 
         case Server.Gambia:
-            self = .Gambia
+            self = .gambia
 
         case Server.Georgia:
-            self = .Georgia
+            self = .georgia
 
         case Server.Germany:
-            self = .Germany
+            self = .germany
 
         case Server.Ghana:
-            self = .Ghana
+            self = .ghana
 
         case Server.Greece:
-            self = .Greece
+            self = .greece
 
         case Server.Grenada:
-            self = .Grenada
+            self = .grenada
 
         case Server.Guatemala:
-            self = .Guatemala
+            self = .guatemala
 
         case Server.Guinea:
-            self = .Guinea
+            self = .guinea
 
         case Server.GuineaBissau:
-            self = .GuineaBissau
+            self = .guineaBissau
 
         case Server.Guyana:
-            self = .Guyana
+            self = .guyana
 
         case Server.Haiti:
-            self = .Haiti
+            self = .haiti
 
         case Server.HolySee:
-            self = .HolySee
+            self = .holySee
 
         case Server.Honduras:
-            self = .Honduras
+            self = .honduras
 
         case Server.HongKong:
-            self = .HongKong
+            self = .hongKong
 
         case Server.Hungary:
-            self = .Hungary
+            self = .hungary
 
         case Server.Iceland:
-            self = .Iceland
+            self = .iceland
 
         case Server.India:
-            self = .India
+            self = .india
 
         case Server.Indonesia:
-            self = .Indonesia
+            self = .indonesia
 
         case Server.Iran:
-            self = .Iran
+            self = .iran
 
         case Server.Iraq:
-            self = .Iraq
+            self = .iraq
 
         case Server.Ireland:
-            self = .Ireland
+            self = .ireland
 
         case Server.Israel:
-            self = .Israel
+            self = .israel
 
         case Server.Italy:
-            self = .Italy
+            self = .italy
 
         case Server.Jamaica:
-            self = .Jamaica
+            self = .jamaica
 
         case Server.Japan:
-            self = .Japan
+            self = .japan
 
         case Server.Jordan:
-            self = .Jordan
+            self = .jordan
 
         case Server.Kazakhstan:
-            self = .Kazakhstan
+            self = .kazakhstan
 
         case Server.Kenya:
-            self = .Kenya
+            self = .kenya
 
         case Server.Kiribati:
-            self = .Kiribati
+            self = .kiribati
 
         case Server.Kosovo:
-            self = .Kosovo
+            self = .kosovo
 
         case Server.Kuwait:
-            self = .Kuwait
+            self = .kuwait
 
         case Server.Kyrgyzstan:
-            self = .Kyrgyzstan
+            self = .kyrgyzstan
 
         case Server.Laos:
-            self = .Laos
+            self = .laos
 
         case Server.Latvia:
-            self = .Latvia
+            self = .latvia
 
         case Server.Lebanon:
-            self = .Lebanon
+            self = .lebanon
 
         case Server.Lesotho:
-            self = .Lesotho
+            self = .lesotho
 
         case Server.Liberia:
-            self = .Liberia
+            self = .liberia
 
         case Server.Libya:
-            self = .Libya
+            self = .libya
 
         case Server.Liechtenstein:
-            self = .Liechtenstein
+            self = .liechtenstein
 
         case Server.Lithuania:
-            self = .Lithuania
+            self = .lithuania
 
         case Server.Luxembourg:
-            self = .Luxembourg
+            self = .luxembourg
 
         case Server.Macau:
-            self = .Macau
+            self = .macau
 
         case Server.Macedonia:
-            self = .Macedonia
+            self = .macedonia
 
         case Server.Madagascar:
-            self = .Madagascar
+            self = .madagascar
 
         case Server.Malawi:
-            self = .Malawi
+            self = .malawi
 
         case Server.Malaysia:
-            self = .Malaysia
+            self = .malaysia
 
         case Server.Maldives:
-            self = .Maldives
+            self = .maldives
 
         case Server.Mali:
-            self = .Mali
+            self = .mali
 
         case Server.Malta:
-            self = .Malta
+            self = .malta
 
         case Server.MarshallIslands:
-            self = .MarshallIslands
+            self = .marshallIslands
 
         case Server.Mauritania:
-            self = .Mauritania
+            self = .mauritania
 
         case Server.Mauritius:
-            self = .Mauritius
+            self = .mauritius
 
         case Server.Mexico:
-            self = .Mexico
+            self = .mexico
 
         case Server.Micronesia:
-            self = .Micronesia
+            self = .micronesia
 
         case Server.Moldova:
-            self = .Moldova
+            self = .moldova
 
         case Server.Monaco:
-            self = .Monaco
+            self = .monaco
 
         case Server.Mongolia:
-            self = .Mongolia
+            self = .mongolia
 
         case Server.Montenegro:
-            self = .Montenegro
+            self = .montenegro
 
         case Server.Morocco:
-            self = .Morocco
+            self = .morocco
 
         case Server.Mozambique:
-            self = .Mozambique
+            self = .mozambique
 
         case Server.Namibia:
-            self = .Namibia
+            self = .namibia
 
         case Server.Nauru:
-            self = .Nauru
+            self = .nauru
 
         case Server.Nepal:
-            self = .Nepal
+            self = .nepal
 
         case Server.Netherlands:
-            self = .Netherlands
+            self = .netherlands
 
         case Server.NewZealand:
-            self = .NewZealand
+            self = .newZealand
 
         case Server.Nicaragua:
-            self = .Nicaragua
+            self = .nicaragua
 
         case Server.Niger:
-            self = .Niger
+            self = .niger
 
         case Server.Nigeria:
-            self = .Nigeria
+            self = .nigeria
 
         case Server.NorthKorea:
-            self = .NorthKorea
+            self = .northKorea
 
         case Server.Norway:
-            self = .Norway
+            self = .norway
 
         case Server.Oman:
-            self = .Oman
+            self = .oman
 
         case Server.Pakistan:
-            self = .Pakistan
+            self = .pakistan
 
         case Server.Palau:
-            self = .Palau
+            self = .palau
 
         case Server.PalestinianTerritories:
-            self = .PalestinianTerritories
+            self = .palestinianTerritories
 
         case Server.Panama:
-            self = .Panama
+            self = .panama
 
         case Server.PapuaNewGuinea:
-            self = .PapuaNewGuinea
+            self = .papuaNewGuinea
 
         case Server.Paraguay:
-            self = .Paraguay
+            self = .paraguay
 
         case Server.Peru:
-            self = .Peru
+            self = .peru
 
         case Server.Philippines:
-            self = .Philippines
+            self = .philippines
 
         case Server.Poland:
-            self = .Poland
+            self = .poland
 
         case Server.Portugal:
-            self = .Portugal
+            self = .portugal
 
         case Server.Qatar:
-            self = .Qatar
+            self = .qatar
 
         case Server.RepublicOfTheCongo:
-            self = .RepublicOfTheCongo
+            self = .republicOfTheCongo
 
         case Server.Romania:
-            self = .Romania
+            self = .romania
 
         case Server.Russia:
-            self = .Russia
+            self = .russia
 
         case Server.Rwanda:
-            self = .Rwanda
+            self = .rwanda
 
         case Server.SaintKittsAndNevis:
-            self = .SaintKittsAndNevis
+            self = .saintKittsAndNevis
 
         case Server.SaintLucia:
-            self = .SaintLucia
+            self = .saintLucia
 
         case Server.SaintVincentAndTheGrenadines:
-            self = .SaintVincentAndTheGrenadines
+            self = .saintVincentAndTheGrenadines
 
         case Server.Samoa:
-            self = .Samoa
+            self = .samoa
 
         case Server.SanMarino:
-            self = .SanMarino
+            self = .sanMarino
 
         case Server.SaoTomeAndPrincipe:
-            self = .SaoTomeAndPrincipe
+            self = .saoTomeAndPrincipe
 
         case Server.SaudiArabia:
-            self = .SaudiArabia
+            self = .saudiArabia
 
         case Server.Senegal:
-            self = .Senegal
+            self = .senegal
 
         case Server.Serbia:
-            self = .Serbia
+            self = .serbia
 
         case Server.Seychelles:
-            self = .Seychelles
+            self = .seychelles
 
         case Server.SierraLeone:
-            self = .SierraLeone
+            self = .sierraLeone
 
         case Server.Singapore:
-            self = .Singapore
+            self = .singapore
 
         case Server.SintMaarten:
-            self = .SintMaarten
+            self = .sintMaarten
 
         case Server.Slovakia:
-            self = .Slovakia
+            self = .slovakia
 
         case Server.Slovenia:
-            self = .Slovenia
+            self = .slovenia
 
         case Server.SolomonIslands:
-            self = .SolomonIslands
+            self = .solomonIslands
 
         case Server.Somalia:
-            self = .Somalia
+            self = .somalia
 
         case Server.SouthAfrica:
-            self = .SouthAfrica
+            self = .southAfrica
 
         case Server.SouthKorea:
-            self = .SouthKorea
+            self = .southKorea
 
         case Server.SouthSudan:
-            self = .SouthSudan
+            self = .southSudan
 
         case Server.Spain:
-            self = .Spain
+            self = .spain
 
         case Server.SriLanka:
-            self = .SriLanka
+            self = .sriLanka
             
         case Server.Sudan:
-            self = .Sudan
+            self = .sudan
             
         case Server.Suriname:
-            self = .Suriname
+            self = .suriname
             
         case Server.Swaziland:
-            self = .Swaziland
+            self = .swaziland
             
         case Server.Sweden:
-            self = .Sweden
+            self = .sweden
             
         case Server.Switzerland:
-            self = .Switzerland
+            self = .switzerland
             
         case Server.Syria:
-            self = .Syria
+            self = .syria
             
         case Server.Taiwan:
-            self = .Taiwan
+            self = .taiwan
             
         case Server.Tajikistan:
-            self = .Tajikistan
+            self = .tajikistan
             
         case Server.Tanzania:
-            self = .Tanzania
+            self = .tanzania
             
         case Server.Thailand:
-            self = .Thailand
+            self = .thailand
             
         case Server.TimorLeste:
-            self = .TimorLeste
+            self = .timorLeste
             
         case Server.Togo:
-            self = .Togo
+            self = .togo
             
         case Server.Tonga:
-            self = .Tonga
+            self = .tonga
             
         case Server.TrinidadAndTobago:
-            self = .TrinidadAndTobago
+            self = .trinidadAndTobago
             
         case Server.Tunisia:
-            self = .Tunisia
+            self = .tunisia
             
         case Server.Turkey:
-            self = .Turkey
+            self = .turkey
             
         case Server.Turkmenistan:
-            self = .Turkmenistan
+            self = .turkmenistan
             
         case Server.Tuvalu:
-            self = .Tuvalu
+            self = .tuvalu
             
         case Server.Uganda:
-            self = .Uganda
+            self = .uganda
             
         case Server.Ukraine:
-            self = .Ukraine
+            self = .ukraine
             
         case Server.UnitedArabEmirates:
-            self = .UnitedArabEmirates
+            self = .unitedArabEmirates
             
         case Server.UnitedKingdom:
-            self = .UnitedKingdom
+            self = .unitedKingdom
             
         case Server.UnitedStatesOfAmerica:
-            self = .UnitedStatesOfAmerica
+            self = .unitedStatesOfAmerica
             
         case Server.Uruguay:
-            self = .Uruguay
+            self = .uruguay
             
         case Server.Uzbekistan:
-            self = .Uzbekistan
+            self = .uzbekistan
             
         case Server.Vanuatu:
-            self = .Vanuatu
+            self = .vanuatu
             
         case Server.Venezuela:
-            self = .Venezuela
+            self = .venezuela
             
         case Server.Vietnam:
-            self = .Vietnam
+            self = .vietnam
             
         case Server.Yemen:
-            self = .Yemen
+            self = .yemen
             
         case Server.Zambia:
-            self = .Zambia
+            self = .zambia
             
         case Server.Zimbabwe:
-            self = .Zimbabwe
+            self = .zimbabwe
 
         default:
-            self = .None
+            self = .none
         }
     }
 
     var stringValue: String {
         switch self {
-        case .None:
+        case .none:
             return Server.None
 
-        case .Afghanistan:
+        case .afghanistan:
             return Server.Afghanistan
 
-        case .Albania:
+        case .albania:
             return Server.Albania
 
-        case .Algeria:
+        case .algeria:
             return Server.Algeria
 
-        case .Andorra:
+        case .andorra:
             return Server.Andorra
 
-        case .Angola:
+        case .angola:
             return Server.Angola
 
-        case .AntiguaAndBarbuda:
+        case .antiguaAndBarbuda:
             return Server.AntiguaAndBarbuda
 
-        case .Argentina:
+        case .argentina:
             return Server.Argentina
 
-        case .Armenia:
+        case .armenia:
             return Server.Armenia
 
-        case .Aruba:
+        case .aruba:
             return Server.Aruba
 
-        case .Australia:
+        case .australia:
             return Server.Australia
 
-        case .Austria:
+        case .austria:
             return Server.Austria
 
-        case .Azerbaijan:
+        case .azerbaijan:
             return Server.Azerbaijan
 
-        case .Bahamas:
+        case .bahamas:
             return Server.Bahamas
 
-        case .Bahrain:
+        case .bahrain:
             return Server.Bahrain
 
-        case .Bangladesh:
+        case .bangladesh:
             return Server.Bangladesh
 
-        case .Barbados:
+        case .barbados:
             return Server.Barbados
 
-        case .Belarus:
+        case .belarus:
             return Server.Belarus
 
-        case .Belgium:
+        case .belgium:
             return Server.Belgium
 
-        case .Belize:
+        case .belize:
             return Server.Belize
 
-        case .Benin:
+        case .benin:
             return Server.Benin
 
-        case .Bhutan:
+        case .bhutan:
             return Server.Bhutan
 
-        case .Bolivia:
+        case .bolivia:
             return Server.Bolivia
 
-        case .BosniaAndHerzegovina:
+        case .bosniaAndHerzegovina:
             return Server.BosniaAndHerzegovina
 
-        case .Botswana:
+        case .botswana:
             return Server.Botswana
 
-        case .Brazil:
+        case .brazil:
             return Server.Brazil
 
-        case .Brunei:
+        case .brunei:
             return Server.Brunei
 
-        case .Bulgaria:
+        case .bulgaria:
             return Server.Bulgaria
 
-        case .BurkinaFaso:
+        case .burkinaFaso:
             return Server.BurkinaFaso
 
-        case .Burma:
+        case .burma:
             return Server.Burma
 
-        case .Burundi:
+        case .burundi:
             return Server.Burundi
 
-        case .Cambodia:
+        case .cambodia:
             return Server.Cambodia
 
-        case .Cameroon:
+        case .cameroon:
             return Server.Cameroon
 
-        case .Canada:
+        case .canada:
             return Server.Canada
 
-        case .CaboVerde:
+        case .caboVerde:
             return Server.CaboVerde
 
-        case .CentralAfricanRepublic:
+        case .centralAfricanRepublic:
             return Server.CentralAfricanRepublic
 
-        case .Chad:
+        case .chad:
             return Server.Chad
 
-        case .Chile:
+        case .chile:
             return Server.Chile
 
-        case .China:
+        case .china:
             return Server.China
 
-        case .Colombia:
+        case .colombia:
             return Server.Colombia
 
-        case .Comoros:
+        case .comoros:
             return Server.Comoros
 
-        case .CostaRica:
+        case .costaRica:
             return Server.CostaRica
 
-        case .CotedIvoire:
+        case .cotedIvoire:
             return Server.CotedIvoire
 
-        case .Croatia:
+        case .croatia:
             return Server.Croatia
 
-        case .Cuba:
+        case .cuba:
             return Server.Cuba
 
-        case .Curacao:
+        case .curacao:
             return Server.Curacao
 
-        case .Cyprus:
+        case .cyprus:
             return Server.Cyprus
 
-        case .Czechia:
+        case .czechia:
             return Server.Czechia
 
-        case .DemocraticRepublicOfTheCongo:
+        case .democraticRepublicOfTheCongo:
             return Server.DemocraticRepublicOfTheCongo
 
-        case .Denmark:
+        case .denmark:
             return Server.Denmark
 
-        case .Djibouti:
+        case .djibouti:
             return Server.Djibouti
 
-        case .Dominica:
+        case .dominica:
             return Server.Dominica
 
-        case .DominicanRepublic:
+        case .dominicanRepublic:
             return Server.DominicanRepublic
 
-        case .Ecuador:
+        case .ecuador:
             return Server.Ecuador
 
-        case .Egypt:
+        case .egypt:
             return Server.Egypt
 
-        case .ElSalvador:
+        case .elSalvador:
             return Server.ElSalvador
 
-        case .EquatorialGuinea:
+        case .equatorialGuinea:
             return Server.EquatorialGuinea
 
-        case .Eritrea:
+        case .eritrea:
             return Server.Eritrea
 
-        case .Estonia:
+        case .estonia:
             return Server.Estonia
 
-        case .Ethiopia:
+        case .ethiopia:
             return Server.Ethiopia
 
-        case .Fiji:
+        case .fiji:
             return Server.Fiji
 
-        case .Finland:
+        case .finland:
             return Server.Finland
 
-        case .France:
+        case .france:
             return Server.France
 
-        case .Gabon:
+        case .gabon:
             return Server.Gabon
 
-        case .Gambia:
+        case .gambia:
             return Server.Gambia
 
-        case .Georgia:
+        case .georgia:
             return Server.Georgia
 
-        case .Germany:
+        case .germany:
             return Server.Germany
 
-        case .Ghana:
+        case .ghana:
             return Server.Ghana
 
-        case .Greece:
+        case .greece:
             return Server.Greece
 
-        case .Grenada:
+        case .grenada:
             return Server.Grenada
 
-        case .Guatemala:
+        case .guatemala:
             return Server.Guatemala
 
-        case .Guinea:
+        case .guinea:
             return Server.Guinea
 
-        case .GuineaBissau:
+        case .guineaBissau:
             return Server.GuineaBissau
 
-        case .Guyana:
+        case .guyana:
             return Server.Guyana
 
-        case .Haiti:
+        case .haiti:
             return Server.Haiti
 
-        case .HolySee:
+        case .holySee:
             return Server.HolySee
 
-        case .Honduras:
+        case .honduras:
             return Server.Honduras
 
-        case .HongKong:
+        case .hongKong:
             return Server.HongKong
 
-        case .Hungary:
+        case .hungary:
             return Server.Hungary
 
-        case .Iceland:
+        case .iceland:
             return Server.Iceland
 
-        case .India:
+        case .india:
             return Server.India
 
-        case .Indonesia:
+        case .indonesia:
             return Server.Indonesia
 
-        case .Iran:
+        case .iran:
             return Server.Iran
 
-        case .Iraq:
+        case .iraq:
             return Server.Iraq
 
-        case .Ireland:
+        case .ireland:
             return Server.Ireland
 
-        case .Israel:
+        case .israel:
             return Server.Israel
 
-        case .Italy:
+        case .italy:
             return Server.Italy
 
-        case .Jamaica:
+        case .jamaica:
             return Server.Jamaica
 
-        case .Japan:
+        case .japan:
             return Server.Japan
 
-        case .Jordan:
+        case .jordan:
             return Server.Jordan
 
-        case .Kazakhstan:
+        case .kazakhstan:
             return Server.Kazakhstan
 
-        case .Kenya:
+        case .kenya:
             return Server.Kenya
 
-        case .Kiribati:
+        case .kiribati:
             return Server.Kiribati
 
-        case .Kosovo:
+        case .kosovo:
             return Server.Kosovo
 
-        case .Kuwait:
+        case .kuwait:
             return Server.Kuwait
 
-        case .Kyrgyzstan:
+        case .kyrgyzstan:
             return Server.Kyrgyzstan
 
-        case .Laos:
+        case .laos:
             return Server.Laos
 
-        case .Latvia:
+        case .latvia:
             return Server.Latvia
 
-        case .Lebanon:
+        case .lebanon:
             return Server.Lebanon
 
-        case .Lesotho:
+        case .lesotho:
             return Server.Lesotho
 
-        case .Liberia:
+        case .liberia:
             return Server.Liberia
 
-        case .Libya:
+        case .libya:
             return Server.Libya
 
-        case .Liechtenstein:
+        case .liechtenstein:
             return Server.Liechtenstein
 
-        case .Lithuania:
+        case .lithuania:
             return Server.Lithuania
 
-        case .Luxembourg:
+        case .luxembourg:
             return Server.Luxembourg
 
-        case .Macau:
+        case .macau:
             return Server.Macau
 
-        case .Macedonia:
+        case .macedonia:
             return Server.Macedonia
 
-        case .Madagascar:
+        case .madagascar:
             return Server.Madagascar
 
-        case .Malawi:
+        case .malawi:
             return Server.Malawi
 
-        case .Malaysia:
+        case .malaysia:
             return Server.Malaysia
 
-        case .Maldives:
+        case .maldives:
             return Server.Maldives
 
-        case .Mali:
+        case .mali:
             return Server.Mali
 
-        case .Malta:
+        case .malta:
             return Server.Malta
 
-        case .MarshallIslands:
+        case .marshallIslands:
             return Server.MarshallIslands
 
-        case .Mauritania:
+        case .mauritania:
             return Server.Mauritania
 
-        case .Mauritius:
+        case .mauritius:
             return Server.Mauritius
 
-        case .Mexico:
+        case .mexico:
             return Server.Mexico
 
-        case .Micronesia:
+        case .micronesia:
             return Server.Micronesia
 
-        case .Moldova:
+        case .moldova:
             return Server.Moldova
 
-        case .Monaco:
+        case .monaco:
             return Server.Monaco
 
-        case .Mongolia:
+        case .mongolia:
             return Server.Mongolia
 
-        case .Montenegro:
+        case .montenegro:
             return Server.Montenegro
 
-        case .Morocco:
+        case .morocco:
             return Server.Morocco
 
-        case .Mozambique:
+        case .mozambique:
             return Server.Mozambique
 
-        case .Namibia:
+        case .namibia:
             return Server.Namibia
 
-        case .Nauru:
+        case .nauru:
             return Server.Nauru
 
-        case .Nepal:
+        case .nepal:
             return Server.Nepal
 
-        case .Netherlands:
+        case .netherlands:
             return Server.Netherlands
 
-        case .NewZealand:
+        case .newZealand:
             return Server.NewZealand
 
-        case .Nicaragua:
+        case .nicaragua:
             return Server.Nicaragua
 
-        case .Niger:
+        case .niger:
             return Server.Niger
 
-        case .Nigeria:
+        case .nigeria:
             return Server.Nigeria
 
-        case .NorthKorea:
+        case .northKorea:
             return Server.NorthKorea
 
-        case .Norway:
+        case .norway:
             return Server.Norway
 
-        case .Oman:
+        case .oman:
             return Server.Oman
 
-        case .Pakistan:
+        case .pakistan:
             return Server.Pakistan
 
-        case .Palau:
+        case .palau:
             return Server.Palau
 
-        case .PalestinianTerritories:
+        case .palestinianTerritories:
             return Server.PalestinianTerritories
 
-        case .Panama:
+        case .panama:
             return Server.Panama
 
-        case .PapuaNewGuinea:
+        case .papuaNewGuinea:
             return Server.PapuaNewGuinea
 
-        case .Paraguay:
+        case .paraguay:
             return Server.Paraguay
 
-        case .Peru:
+        case .peru:
             return Server.Peru
 
-        case .Philippines:
+        case .philippines:
             return Server.Philippines
 
-        case .Poland:
+        case .poland:
             return Server.Poland
 
-        case .Portugal:
+        case .portugal:
             return Server.Portugal
 
-        case .Qatar:
+        case .qatar:
             return Server.Qatar
 
-        case .RepublicOfTheCongo:
+        case .republicOfTheCongo:
             return Server.RepublicOfTheCongo
 
-        case .Romania:
+        case .romania:
             return Server.Romania
 
-        case .Russia:
+        case .russia:
             return Server.Russia
 
-        case .Rwanda:
+        case .rwanda:
             return Server.Rwanda
 
-        case .SaintKittsAndNevis:
+        case .saintKittsAndNevis:
             return Server.SaintKittsAndNevis
 
-        case .SaintLucia:
+        case .saintLucia:
             return Server.SaintLucia
 
-        case .SaintVincentAndTheGrenadines:
+        case .saintVincentAndTheGrenadines:
             return Server.SaintVincentAndTheGrenadines
 
-        case .Samoa:
+        case .samoa:
             return Server.Samoa
 
-        case .SanMarino:
+        case .sanMarino:
             return Server.SanMarino
 
-        case .SaoTomeAndPrincipe:
+        case .saoTomeAndPrincipe:
             return Server.SaoTomeAndPrincipe
 
-        case .SaudiArabia:
+        case .saudiArabia:
             return Server.SaudiArabia
 
-        case .Senegal:
+        case .senegal:
             return Server.Senegal
 
-        case .Serbia:
+        case .serbia:
             return Server.Serbia
 
-        case .Seychelles:
+        case .seychelles:
             return Server.Seychelles
 
-        case .SierraLeone:
+        case .sierraLeone:
             return Server.SierraLeone
 
-        case .Singapore:
+        case .singapore:
             return Server.Singapore
 
-        case .SintMaarten:
+        case .sintMaarten:
             return Server.SintMaarten
 
-        case .Slovakia:
+        case .slovakia:
             return Server.Slovakia
 
-        case .Slovenia:
+        case .slovenia:
             return Server.Slovenia
 
-        case .SolomonIslands:
+        case .solomonIslands:
             return Server.SolomonIslands
 
-        case .Somalia:
+        case .somalia:
             return Server.Somalia
 
-        case .SouthAfrica:
+        case .southAfrica:
             return Server.SouthAfrica
 
-        case .SouthKorea:
+        case .southKorea:
             return Server.SouthKorea
 
-        case .SouthSudan:
+        case .southSudan:
             return Server.SouthSudan
 
-        case .Spain:
+        case .spain:
             return Server.Spain
 
-        case .SriLanka:
+        case .sriLanka:
             return Server.SriLanka
 
-        case .Sudan:
+        case .sudan:
             return Server.Sudan
 
-        case .Suriname:
+        case .suriname:
             return Server.Suriname
 
-        case .Swaziland:
+        case .swaziland:
             return Server.Swaziland
 
-        case .Sweden:
+        case .sweden:
             return Server.Sweden
 
-        case .Switzerland:
+        case .switzerland:
             return Server.Switzerland
 
-        case .Syria:
+        case .syria:
             return Server.Syria
             
-        case .Taiwan:
+        case .taiwan:
             return Server.Taiwan
             
-        case .Tajikistan:
+        case .tajikistan:
             return Server.Tajikistan
             
-        case .Tanzania:
+        case .tanzania:
             return Server.Tanzania
             
-        case .Thailand:
+        case .thailand:
             return Server.Thailand
             
-        case .TimorLeste:
+        case .timorLeste:
             return Server.TimorLeste
             
-        case .Togo:
+        case .togo:
             return Server.Togo
             
-        case .Tonga:
+        case .tonga:
             return Server.Tonga
             
-        case .TrinidadAndTobago:
+        case .trinidadAndTobago:
             return Server.TrinidadAndTobago
             
-        case .Tunisia:
+        case .tunisia:
             return Server.Tunisia
             
-        case .Turkey:
+        case .turkey:
             return Server.Turkey
             
-        case .Turkmenistan:
+        case .turkmenistan:
             return Server.Turkmenistan
             
-        case .Tuvalu:
+        case .tuvalu:
             return Server.Tuvalu
             
-        case .Uganda:
+        case .uganda:
             return Server.Uganda
             
-        case .Ukraine:
+        case .ukraine:
             return Server.Ukraine
             
-        case .UnitedArabEmirates:
+        case .unitedArabEmirates:
             return Server.UnitedArabEmirates
             
-        case .UnitedKingdom:
+        case .unitedKingdom:
             return Server.UnitedKingdom
             
-        case .UnitedStatesOfAmerica:
+        case .unitedStatesOfAmerica:
             return Server.UnitedStatesOfAmerica
             
-        case .Uruguay:
+        case .uruguay:
             return Server.Uruguay
             
-        case .Uzbekistan:
+        case .uzbekistan:
             return Server.Uzbekistan
             
-        case .Vanuatu:
+        case .vanuatu:
             return Server.Vanuatu
             
-        case .Venezuela:
+        case .venezuela:
             return Server.Venezuela
             
-        case .Vietnam:
+        case .vietnam:
             return Server.Vietnam
             
-        case .Yemen:
+        case .yemen:
             return Server.Yemen
             
-        case .Zambia:
+        case .zambia:
             return Server.Zambia
             
-        case .Zimbabwe:
+        case .zimbabwe:
             return Server.Zimbabwe
         }
     }
@@ -1271,859 +1271,859 @@ extension LanguageName {
     init(stringValue: String) {
         switch stringValue {
         case Server.Afrikaans:
-            self = .Afrikaans
+            self = .afrikaans
 
         case Server.Albanian:
-            self = .Albanian
+            self = .albanian
 
         case Server.Amharic:
-            self = .Amharic
+            self = .amharic
 
         case Server.Arabic:
-            self = .Arabic
+            self = .arabic
 
         case Server.Aramaic:
-            self = .Aramaic
+            self = .aramaic
 
         case Server.Armenian:
-            self = .Armenian
+            self = .armenian
 
         case Server.Assamese:
-            self = .Assamese
+            self = .assamese
 
         case Server.Aymara:
-            self = .Aymara
+            self = .aymara
 
         case Server.Azerbaijani:
-            self = .Azerbaijani
+            self = .azerbaijani
 
         case Server.Balochi:
-            self = .Balochi
+            self = .balochi
 
         case Server.Bamanankan:
-            self = .Bamanankan
+            self = .bamanankan
 
         case Server.Bashkir:
-            self = .Bashkir
+            self = .bashkir
 
         case Server.Basque:
-            self = .Basque
+            self = .basque
 
         case Server.Belarusian:
-            self = .Belarusian
+            self = .belarusian
 
         case Server.Bengali:
-            self = .Bengali
+            self = .bengali
 
         case Server.Bhojpuri:
-            self = .Bhojpuri
+            self = .bhojpuri
 
         case Server.Bislama:
-            self = .Bislama
+            self = .bislama
 
         case Server.Bosnian:
-            self = .Bosnian
+            self = .bosnian
 
         case Server.Brahui:
-            self = .Brahui
+            self = .brahui
 
         case Server.Bulgarian:
-            self = .Bulgarian
+            self = .bulgarian
 
         case Server.Burmese:
-            self = .Burmese
+            self = .burmese
 
         case Server.Cantonese:
-            self = .Cantonese
+            self = .cantonese
 
         case Server.Catalan:
-            self = .Catalan
+            self = .catalan
 
         case Server.Cebuano:
-            self = .Cebuano
+            self = .cebuano
 
         case Server.Chechen:
-            self = .Chechen
+            self = .chechen
 
         case Server.Cherokee:
-            self = .Cherokee
+            self = .cherokee
 
         case Server.Croatian:
-            self = .Croatian
+            self = .croatian
 
         case Server.Czech:
-            self = .Czech
+            self = .czech
 
         case Server.Dakota:
-            self = .Dakota
+            self = .dakota
 
         case Server.Danish:
-            self = .Danish
+            self = .danish
 
         case Server.Dari:
-            self = .Dari
+            self = .dari
 
         case Server.Dholuo:
-            self = .Dholuo
+            self = .dholuo
 
         case Server.Dutch:
-            self = .Dutch
+            self = .dutch
 
         case Server.English:
-            self = .English
+            self = .english
 
         case Server.Esperanto:
-            self = .Esperanto
+            self = .esperanto
 
         case Server.Estonian:
-            self = .Estonian
+            self = .estonian
 
         case Server.Ewe:
-            self = .Ewe
+            self = .ewe
 
         case Server.Finnish:
-            self = .Finnish
+            self = .finnish
 
         case Server.French:
-            self = .French
+            self = .french
 
         case Server.Georgian:
-            self = .Georgian
+            self = .georgian
 
         case Server.German:
-            self = .German
+            self = .german
 
         case Server.Gikuyu:
-            self = .Gikuyu
+            self = .gikuyu
 
         case Server.Greek:
-            self = .Greek
+            self = .greek
 
         case Server.Guarani:
-            self = .Guarani
+            self = .guarani
 
         case Server.Gujarati:
-            self = .Gujarati
+            self = .gujarati
 
         case Server.HaitianCreole:
-            self = .HaitianCreole
+            self = .haitianCreole
 
         case Server.Hausa:
-            self = .Hausa
+            self = .hausa
 
         case Server.Hawaiian:
-            self = .Hawaiian
+            self = .hawaiian
 
         case Server.Hebrew:
-            self = .Hebrew
+            self = .hebrew
 
         case Server.Hiligaynon:
-            self = .Hiligaynon
+            self = .hiligaynon
 
         case Server.Hindi:
-            self = .Hindi
+            self = .hindi
 
         case Server.Hungarian:
-            self = .Hungarian
+            self = .hungarian
 
         case Server.Icelandic:
-            self = .Icelandic
+            self = .icelandic
 
         case Server.Igbo:
-            self = .Igbo
+            self = .igbo
 
         case Server.Ilocano:
-            self = .Ilocano
+            self = .ilocano
 
         case Server.Indonesian:
-            self = .Indonesian
+            self = .indonesian
 
         case Server.Inuit:
-            self = .Inuit
+            self = .inuit
 
         case Server.IrishGaelic:
-            self = .IrishGaelic
+            self = .irishGaelic
 
         case Server.Italian:
-            self = .Italian
+            self = .italian
 
         case Server.Japanese:
-            self = .Japanese
+            self = .japanese
 
         case Server.Jarai:
-            self = .Jarai
+            self = .jarai
 
         case Server.Javanese:
-            self = .Javanese
+            self = .javanese
 
         case Server.Kiche:
-            self = .Kiche
+            self = .kiche
 
         case Server.Kabyle:
-            self = .Kabyle
+            self = .kabyle
 
         case Server.Kannada:
-            self = .Kannada
+            self = .kannada
 
         case Server.Kashmiri:
-            self = .Kashmiri
+            self = .kashmiri
 
         case Server.Kazakh:
-            self = .Kazakh
+            self = .kazakh
 
         case Server.Khmer:
-            self = .Khmer
+            self = .khmer
 
         case Server.Khoekhoe:
-            self = .Khoekhoe
+            self = .khoekhoe
 
         case Server.Korean:
-            self = .Korean
+            self = .korean
 
         case Server.Kurdish:
-            self = .Kurdish
+            self = .kurdish
 
         case Server.Kyrgyz:
-            self = .Kyrgyz
+            self = .kyrgyz
 
         case Server.Lao:
-            self = .Lao
+            self = .lao
 
         case Server.Latin:
-            self = .Latin
+            self = .latin
 
         case Server.Latvian:
-            self = .Latvian
+            self = .latvian
 
         case Server.Lingala:
-            self = .Lingala
+            self = .lingala
 
         case Server.Lithuanian:
-            self = .Lithuanian
+            self = .lithuanian
 
         case Server.Macedonian:
-            self = .Macedonian
+            self = .macedonian
 
         case Server.Maithili:
-            self = .Maithili
+            self = .maithili
 
         case Server.Malagasy:
-            self = .Malagasy
+            self = .malagasy
 
         case Server.Malay:
-            self = .Malay
+            self = .malay
 
         case Server.Malayalam:
-            self = .Malayalam
+            self = .malayalam
 
         case Server.Mandarin:
-            self = .Mandarin
+            self = .mandarin
 
         case Server.Marathi:
-            self = .Marathi
+            self = .marathi
 
         case Server.Mende:
-            self = .Mende
+            self = .mende
 
         case Server.Mongolian:
-            self = .Mongolian
+            self = .mongolian
 
         case Server.Nahuatl:
-            self = .Nahuatl
+            self = .nahuatl
 
         case Server.Navajo:
-            self = .Navajo
+            self = .navajo
 
         case Server.Nepali:
-            self = .Nepali
+            self = .nepali
 
         case Server.Norwegian:
-            self = .Norwegian
+            self = .norwegian
 
         case Server.Ojibwa:
-            self = .Ojibwa
+            self = .ojibwa
 
         case Server.Oriya:
-            self = .Oriya
+            self = .oriya
 
         case Server.Oromo:
-            self = .Oromo
+            self = .oromo
 
         case Server.Pashto:
-            self = .Pashto
+            self = .pashto
 
         case Server.Persian:
-            self = .Persian
+            self = .persian
 
         case Server.Polish:
-            self = .Polish
+            self = .polish
 
         case Server.Portuguese:
-            self = .Portuguese
+            self = .portuguese
 
         case Server.Punjabi:
-            self = .Punjabi
+            self = .punjabi
 
         case Server.Quechua:
-            self = .Quechua
+            self = .quechua
 
         case Server.Romani:
-            self = .Romani
+            self = .romani
 
         case Server.Romanian:
-            self = .Romanian
+            self = .romanian
 
         case Server.Russian:
-            self = .Russian
+            self = .russian
 
         case Server.Rwanda:
-            self = .Rwanda
+            self = .rwanda
 
         case Server.Samoan:
-            self = .Samoan
+            self = .samoan
 
         case Server.Sanskrit:
-            self = .Sanskrit
+            self = .sanskrit
 
         case Server.Serbian:
-            self = .Serbian
+            self = .serbian
 
         case Server.Shona:
-            self = .Shona
+            self = .shona
 
         case Server.Sindhi:
-            self = .Sindhi
+            self = .sindhi
 
         case Server.Sinhala:
-            self = .Sinhala
+            self = .sinhala
 
         case Server.Slovak:
-            self = .Slovak
+            self = .slovak
 
         case Server.Slovene:
-            self = .Slovene
+            self = .slovene
 
         case Server.Somali:
-            self = .Somali
+            self = .somali
 
         case Server.Spanish:
-            self = .Spanish
+            self = .spanish
 
         case Server.Swahili:
-            self = .Swahili
+            self = .swahili
 
         case Server.Swedish:
-            self = .Swedish
+            self = .swedish
 
         case Server.Tachelhit:
-            self = .Tachelhit
+            self = .tachelhit
 
         case Server.Tagalog:
-            self = .Tagalog
+            self = .tagalog
 
         case Server.Tajiki:
-            self = .Tajiki
+            self = .tajiki
 
         case Server.Tamil:
-            self = .Tamil
+            self = .tamil
 
         case Server.Tatar:
-            self = .Tatar
+            self = .tatar
 
         case Server.Telugu:
-            self = .Telugu
+            self = .telugu
 
         case Server.Thai:
-            self = .Thai
+            self = .thai
 
         case Server.Tigrigna:
-            self = .Tigrigna
+            self = .tigrigna
 
         case Server.TokPisin:
-            self = .TokPisin
+            self = .tokPisin
 
         case Server.Turkish:
-            self = .Turkish
+            self = .turkish
 
         case Server.Turkmen:
-            self = .Turkmen
+            self = .turkmen
 
         case Server.Ukrainian:
-            self = .Ukrainian
+            self = .ukrainian
 
         case Server.Urdu:
-            self = .Urdu
+            self = .urdu
 
         case Server.Uyghur:
-            self = .Uyghur
+            self = .uyghur
 
         case Server.Uzbek:
-            self = .Uzbek
+            self = .uzbek
 
         case Server.Vietnamese:
-            self = .Vietnamese
+            self = .vietnamese
 
         case Server.Warlpiri:
-            self = .Warlpiri
+            self = .warlpiri
 
         case Server.Welsh:
-            self = .Welsh
+            self = .welsh
 
         case Server.Wolof:
-            self = .Wolof
+            self = .wolof
 
         case Server.Xhosa:
-            self = .Xhosa
+            self = .xhosa
 
         case Server.Yakut:
-            self = .Yakut
+            self = .yakut
 
         case Server.Yiddish:
-            self = .Yiddish
+            self = .yiddish
 
         case Server.Yoruba:
-            self = .Yoruba
+            self = .yoruba
 
         case Server.Yucatec:
-            self = .Yucatec
+            self = .yucatec
 
         case Server.Zapotec:
-            self = .Zapotec
+            self = .zapotec
 
         case Server.Zulu:
-            self = .Zulu
+            self = .zulu
 
         default:
-            self = .None
+            self = .none
         }
     }
 
     var stringValue: String {
         switch self {
-        case .None:
+        case .none:
             return Server.None
 
-        case .Afrikaans:
+        case .afrikaans:
             return Server.Afrikaans
 
-        case .Albanian:
+        case .albanian:
             return Server.Albanian
 
-        case .Amharic:
+        case .amharic:
             return Server.Amharic
 
-        case .Arabic:
+        case .arabic:
             return Server.Arabic
 
-        case .Aramaic:
+        case .aramaic:
             return Server.Aramaic
 
-        case .Armenian:
+        case .armenian:
             return Server.Armenian
 
-        case .Assamese:
+        case .assamese:
             return Server.Assamese
 
-        case .Aymara:
+        case .aymara:
             return Server.Aymara
 
-        case .Azerbaijani:
+        case .azerbaijani:
             return Server.Azerbaijani
 
-        case .Balochi:
+        case .balochi:
             return Server.Balochi
 
-        case .Bamanankan:
+        case .bamanankan:
             return Server.Bamanankan
 
-        case .Bashkir:
+        case .bashkir:
             return Server.Bashkir
 
-        case .Basque:
+        case .basque:
             return Server.Basque
 
-        case .Belarusian:
+        case .belarusian:
             return Server.Belarusian
 
-        case .Bengali:
+        case .bengali:
             return Server.Bengali
 
-        case .Bhojpuri:
+        case .bhojpuri:
             return Server.Bhojpuri
 
-        case .Bislama:
+        case .bislama:
             return Server.Bislama
 
-        case .Bosnian:
+        case .bosnian:
             return Server.Bosnian
 
-        case .Brahui:
+        case .brahui:
             return Server.Brahui
 
-        case .Bulgarian:
+        case .bulgarian:
             return Server.Bulgarian
 
-        case .Burmese:
+        case .burmese:
             return Server.Burmese
 
-        case .Cantonese:
+        case .cantonese:
             return Server.Cantonese
 
-        case .Catalan:
+        case .catalan:
             return Server.Catalan
 
-        case .Cebuano:
+        case .cebuano:
             return Server.Cebuano
 
-        case .Chechen:
+        case .chechen:
             return Server.Chechen
 
-        case .Cherokee:
+        case .cherokee:
             return Server.Cherokee
 
-        case .Croatian:
+        case .croatian:
             return Server.Croatian
 
-        case .Czech:
+        case .czech:
             return Server.Czech
 
-        case .Dakota:
+        case .dakota:
             return Server.Dakota
 
-        case .Danish:
+        case .danish:
             return Server.Danish
 
-        case .Dari:
+        case .dari:
             return Server.Dari
 
-        case .Dholuo:
+        case .dholuo:
             return Server.Dholuo
 
-        case .Dutch:
+        case .dutch:
             return Server.Dutch
 
-        case .English:
+        case .english:
             return Server.English
 
-        case .Esperanto:
+        case .esperanto:
             return Server.Esperanto
 
-        case .Estonian:
+        case .estonian:
             return Server.Estonian
 
-        case .Ewe:
+        case .ewe:
             return Server.Ewe
 
-        case .Finnish:
+        case .finnish:
             return Server.Finnish
 
-        case .French:
+        case .french:
             return Server.French
 
-        case .Georgian:
+        case .georgian:
             return Server.Georgian
 
-        case .German:
+        case .german:
             return Server.German
 
-        case .Gikuyu:
+        case .gikuyu:
             return Server.Gikuyu
 
-        case .Greek:
+        case .greek:
             return Server.Greek
 
-        case .Guarani:
+        case .guarani:
             return Server.Guarani
 
-        case .Gujarati:
+        case .gujarati:
             return Server.Gujarati
 
-        case .HaitianCreole:
+        case .haitianCreole:
             return Server.HaitianCreole
 
-        case .Hausa:
+        case .hausa:
             return Server.Hausa
 
-        case .Hawaiian:
+        case .hawaiian:
             return Server.Hawaiian
 
-        case .Hebrew:
+        case .hebrew:
             return Server.Hebrew
 
-        case .Hiligaynon:
+        case .hiligaynon:
             return Server.Hiligaynon
 
-        case .Hindi:
+        case .hindi:
             return Server.Hindi
 
-        case .Hungarian:
+        case .hungarian:
             return Server.Hungarian
 
-        case .Icelandic:
+        case .icelandic:
             return Server.Icelandic
 
-        case .Igbo:
+        case .igbo:
             return Server.Igbo
 
-        case .Ilocano:
+        case .ilocano:
             return Server.Ilocano
 
-        case .Indonesian:
+        case .indonesian:
             return Server.Indonesian
 
-        case .Inuit:
+        case .inuit:
             return Server.Inuit
 
-        case .IrishGaelic:
+        case .irishGaelic:
             return Server.IrishGaelic
 
-        case .Italian:
+        case .italian:
             return Server.Italian
 
-        case .Japanese:
+        case .japanese:
             return Server.Japanese
 
-        case .Jarai:
+        case .jarai:
             return Server.Jarai
 
-        case .Javanese:
+        case .javanese:
             return Server.Javanese
 
-        case .Kiche:
+        case .kiche:
             return Server.Kiche
 
-        case .Kabyle:
+        case .kabyle:
             return Server.Kabyle
 
-        case .Kannada:
+        case .kannada:
             return Server.Kannada
 
-        case .Kashmiri:
+        case .kashmiri:
             return Server.Kashmiri
 
-        case .Kazakh:
+        case .kazakh:
             return Server.Kazakh
 
-        case .Khmer:
+        case .khmer:
             return Server.Khmer
 
-        case .Khoekhoe:
+        case .khoekhoe:
             return Server.Khoekhoe
 
-        case .Korean:
+        case .korean:
             return Server.Korean
 
-        case .Kurdish:
+        case .kurdish:
             return Server.Kurdish
 
-        case .Kyrgyz:
+        case .kyrgyz:
             return Server.Kyrgyz
 
-        case .Lao:
+        case .lao:
             return Server.Lao
 
-        case .Latin:
+        case .latin:
             return Server.Latin
 
-        case .Latvian:
+        case .latvian:
             return Server.Latvian
 
-        case .Lingala:
+        case .lingala:
             return Server.Lingala
 
-        case .Lithuanian:
+        case .lithuanian:
             return Server.Lithuanian
 
-        case .Macedonian:
+        case .macedonian:
             return Server.Macedonian
 
-        case .Maithili:
+        case .maithili:
             return Server.Maithili
 
-        case .Malagasy:
+        case .malagasy:
             return Server.Malagasy
 
-        case .Malay:
+        case .malay:
             return Server.Malay
 
-        case .Malayalam:
+        case .malayalam:
             return Server.Malayalam
 
-        case .Mandarin:
+        case .mandarin:
             return Server.Mandarin
 
-        case .Marathi:
+        case .marathi:
             return Server.Marathi
 
-        case .Mende:
+        case .mende:
             return Server.Mende
 
-        case .Mongolian:
+        case .mongolian:
             return Server.Mongolian
 
-        case .Nahuatl:
+        case .nahuatl:
             return Server.Nahuatl
 
-        case .Navajo:
+        case .navajo:
             return Server.Navajo
 
-        case .Nepali:
+        case .nepali:
             return Server.Nepali
 
-        case .Norwegian:
+        case .norwegian:
             return Server.Norwegian
 
-        case .Ojibwa:
+        case .ojibwa:
             return Server.Ojibwa
 
-        case .Oriya:
+        case .oriya:
             return Server.Oriya
 
-        case .Oromo:
+        case .oromo:
             return Server.Oromo
 
-        case .Pashto:
+        case .pashto:
             return Server.Pashto
 
-        case .Persian:
+        case .persian:
             return Server.Persian
 
-        case .Polish:
+        case .polish:
             return Server.Polish
 
-        case .Portuguese:
+        case .portuguese:
             return Server.Portuguese
 
-        case .Punjabi:
+        case .punjabi:
             return Server.Punjabi
 
-        case .Quechua:
+        case .quechua:
             return Server.Quechua
 
-        case .Romani:
+        case .romani:
             return Server.Romani
 
-        case .Romanian:
+        case .romanian:
             return Server.Romanian
 
-        case .Russian:
+        case .russian:
             return Server.Russian
 
-        case .Rwanda:
+        case .rwanda:
             return Server.Rwanda
 
-        case .Samoan:
+        case .samoan:
             return Server.Samoan
 
-        case .Sanskrit:
+        case .sanskrit:
             return Server.Sanskrit
 
-        case .Serbian:
+        case .serbian:
             return Server.Serbian
 
-        case .Shona:
+        case .shona:
             return Server.Shona
 
-        case .Sindhi:
+        case .sindhi:
             return Server.Sindhi
 
-        case .Sinhala:
+        case .sinhala:
             return Server.Sinhala
 
-        case .Slovak:
+        case .slovak:
             return Server.Slovak
 
-        case .Slovene:
+        case .slovene:
             return Server.Slovene
 
-        case .Somali:
+        case .somali:
             return Server.Somali
 
-        case .Spanish:
+        case .spanish:
             return Server.Spanish
 
-        case .Swahili:
+        case .swahili:
             return Server.Swahili
 
-        case .Swedish:
+        case .swedish:
             return Server.Swedish
 
-        case .Tachelhit:
+        case .tachelhit:
             return Server.Tachelhit
 
-        case .Tagalog:
+        case .tagalog:
             return Server.Tagalog
 
-        case .Tajiki:
+        case .tajiki:
             return Server.Tajiki
 
-        case .Tamil:
+        case .tamil:
             return Server.Tamil
 
-        case .Tatar:
+        case .tatar:
             return Server.Tatar
 
-        case .Telugu:
+        case .telugu:
             return Server.Telugu
 
-        case .Thai:
+        case .thai:
             return Server.Thai
 
-        case .Tigrigna:
+        case .tigrigna:
             return Server.Tigrigna
             
-        case .TokPisin:
+        case .tokPisin:
             return Server.TokPisin
             
-        case .Turkish:
+        case .turkish:
             return Server.Turkish
             
-        case .Turkmen:
+        case .turkmen:
             return Server.Turkmen
             
-        case .Ukrainian:
+        case .ukrainian:
             return Server.Ukrainian
             
-        case .Urdu:
+        case .urdu:
             return Server.Urdu
             
-        case .Uyghur:
+        case .uyghur:
             return Server.Uyghur
             
-        case .Uzbek:
+        case .uzbek:
             return Server.Uzbek
             
-        case .Vietnamese:
+        case .vietnamese:
             return Server.Vietnamese
             
-        case .Warlpiri:
+        case .warlpiri:
             return Server.Warlpiri
             
-        case .Welsh:
+        case .welsh:
             return Server.Welsh
             
-        case .Wolof:
+        case .wolof:
             return Server.Wolof
             
-        case .Xhosa:
+        case .xhosa:
             return Server.Xhosa
             
-        case .Yakut:
+        case .yakut:
             return Server.Yakut
             
-        case .Yiddish:
+        case .yiddish:
             return Server.Yiddish
             
-        case .Yoruba:
+        case .yoruba:
             return Server.Yoruba
             
-        case .Yucatec:
+        case .yucatec:
             return Server.Yucatec
             
-        case .Zapotec:
+        case .zapotec:
             return Server.Zapotec
             
-        case .Zulu:
+        case .zulu:
             return Server.Zulu
         }
     }
@@ -2137,43 +2137,43 @@ extension LanguageLevel {
     init(stringValue: String) {
         switch stringValue {
         case Server.Beginner:
-            self = .Beginner
+            self = .beginner
 
         case Server.Intermediate:
-            self = .Intermediate
+            self = .intermediate
 
         case Server.Advanced:
-            self = .Advanced
+            self = .advanced
 
         case Server.Fluent:
-            self = .Fluent
+            self = .fluent
 
         case Server.Native:
-            self = .Native
+            self = .native
 
         default:
-            self = .None
+            self = .none
         }
     }
 
     var stringValue: String {
         switch self {
-        case .None:
+        case .none:
             return Server.None
 
-        case .Beginner:
+        case .beginner:
             return Server.Beginner
 
-        case .Intermediate:
+        case .intermediate:
             return Server.Intermediate
 
-        case .Advanced:
+        case .advanced:
             return Server.Advanced
 
-        case .Fluent:
+        case .fluent:
             return Server.Fluent
 
-        case .Native:
+        case .native:
             return Server.Native
         }
     }

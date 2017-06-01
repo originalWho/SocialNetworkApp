@@ -8,13 +8,13 @@ extension Gender {
 
     var localized: String {
         switch self {
-        case .None:
+        case .none:
             return Localized.None
 
-        case .Male:
+        case .male:
             return Localized.Male
 
-        case .Female:
+        case .female:
             return Localized.Female
         }
     }
@@ -29,613 +29,613 @@ extension Country {
 
     var localized: String {
         switch self {
-        case .None:
+        case .none:
             return Localized.None
 
-        case .Afghanistan:
+        case .afghanistan:
             return Localized.Afghanistan
 
-        case .Albania:
+        case .albania:
             return Localized.Albania
 
-        case .Algeria:
+        case .algeria:
             return Localized.Algeria
 
-        case .Andorra:
+        case .andorra:
             return Localized.Andorra
 
-        case .Angola:
+        case .angola:
             return Localized.Angola
 
-        case .AntiguaAndBarbuda:
+        case .antiguaAndBarbuda:
             return Localized.AntiguaAndBarbuda
 
-        case .Argentina:
+        case .argentina:
             return Localized.Argentina
 
-        case .Armenia:
+        case .armenia:
             return Localized.Armenia
 
-        case .Aruba:
+        case .aruba:
             return Localized.Aruba
 
-        case .Australia:
+        case .australia:
             return Localized.Australia
 
-        case .Austria:
+        case .austria:
             return Localized.Austria
 
-        case .Azerbaijan:
+        case .azerbaijan:
             return Localized.Azerbaijan
 
-        case .Bahamas:
+        case .bahamas:
             return Localized.Bahamas
 
-        case .Bahrain:
+        case .bahrain:
             return Localized.Bahrain
 
-        case .Bangladesh:
+        case .bangladesh:
             return Localized.Bangladesh
 
-        case .Barbados:
+        case .barbados:
             return Localized.Barbados
 
-        case .Belarus:
+        case .belarus:
             return Localized.Belarus
 
-        case .Belgium:
+        case .belgium:
             return Localized.Belgium
 
-        case .Belize:
+        case .belize:
             return Localized.Belize
 
-        case .Benin:
+        case .benin:
             return Localized.Benin
 
-        case .Bhutan:
+        case .bhutan:
             return Localized.Bhutan
 
-        case .Bolivia:
+        case .bolivia:
             return Localized.Bolivia
 
-        case .BosniaAndHerzegovina:
+        case .bosniaAndHerzegovina:
             return Localized.BosniaAndHerzegovina
 
-        case .Botswana:
+        case .botswana:
             return Localized.Botswana
 
-        case .Brazil:
+        case .brazil:
             return Localized.Brazil
 
-        case .Brunei:
+        case .brunei:
             return Localized.Brunei
 
-        case .Bulgaria:
+        case .bulgaria:
             return Localized.Bulgaria
 
-        case .BurkinaFaso:
+        case .burkinaFaso:
             return Localized.BurkinaFaso
 
-        case .Burma:
+        case .burma:
             return Localized.Burma
 
-        case .Burundi:
+        case .burundi:
             return Localized.Burundi
 
-        case .Cambodia:
+        case .cambodia:
             return Localized.Cambodia
 
-        case .Cameroon:
+        case .cameroon:
             return Localized.Cameroon
 
-        case .Canada:
+        case .canada:
             return Localized.Canada
 
-        case .CaboVerde:
+        case .caboVerde:
             return Localized.CaboVerde
 
-        case .CentralAfricanRepublic:
+        case .centralAfricanRepublic:
             return Localized.CentralAfricanRepublic
 
-        case .Chad:
+        case .chad:
             return Localized.Chad
 
-        case .Chile:
+        case .chile:
             return Localized.Chile
 
-        case .China:
+        case .china:
             return Localized.China
 
-        case .Colombia:
+        case .colombia:
             return Localized.Colombia
 
-        case .Comoros:
+        case .comoros:
             return Localized.Comoros
 
-        case .CostaRica:
+        case .costaRica:
             return Localized.CostaRica
 
-        case .CotedIvoire:
+        case .cotedIvoire:
             return Localized.CotedIvoire
 
-        case .Croatia:
+        case .croatia:
             return Localized.Croatia
 
-        case .Cuba:
+        case .cuba:
             return Localized.Cuba
 
-        case .Curacao:
+        case .curacao:
             return Localized.Curacao
 
-        case .Cyprus:
+        case .cyprus:
             return Localized.Cyprus
 
-        case .Czechia:
+        case .czechia:
             return Localized.Czechia
 
-        case .DemocraticRepublicOfTheCongo:
+        case .democraticRepublicOfTheCongo:
             return Localized.DemocraticRepublicOfTheCongo
 
-        case .Denmark:
+        case .denmark:
             return Localized.Denmark
 
-        case .Djibouti:
+        case .djibouti:
             return Localized.Djibouti
 
-        case .Dominica:
+        case .dominica:
             return Localized.Dominica
 
-        case .DominicanRepublic:
+        case .dominicanRepublic:
             return Localized.DominicanRepublic
 
-        case .Ecuador:
+        case .ecuador:
             return Localized.Ecuador
 
-        case .Egypt:
+        case .egypt:
             return Localized.Egypt
 
-        case .ElSalvador:
+        case .elSalvador:
             return Localized.ElSalvador
 
-        case .EquatorialGuinea:
+        case .equatorialGuinea:
             return Localized.EquatorialGuinea
 
-        case .Eritrea:
+        case .eritrea:
             return Localized.Eritrea
 
-        case .Estonia:
+        case .estonia:
             return Localized.Estonia
 
-        case .Ethiopia:
+        case .ethiopia:
             return Localized.Ethiopia
 
-        case .Fiji:
+        case .fiji:
             return Localized.Fiji
 
-        case .Finland:
+        case .finland:
             return Localized.Finland
 
-        case .France:
+        case .france:
             return Localized.France
 
-        case .Gabon:
+        case .gabon:
             return Localized.Gabon
 
-        case .Gambia:
+        case .gambia:
             return Localized.Gambia
 
-        case .Georgia:
+        case .georgia:
             return Localized.Georgia
 
-        case .Germany:
+        case .germany:
             return Localized.Germany
 
-        case .Ghana:
+        case .ghana:
             return Localized.Ghana
 
-        case .Greece:
+        case .greece:
             return Localized.Greece
 
-        case .Grenada:
+        case .grenada:
             return Localized.Grenada
 
-        case .Guatemala:
+        case .guatemala:
             return Localized.Guatemala
 
-        case .Guinea:
+        case .guinea:
             return Localized.Guinea
 
-        case .GuineaBissau:
+        case .guineaBissau:
             return Localized.GuineaBissau
 
-        case .Guyana:
+        case .guyana:
             return Localized.Guyana
 
-        case .Haiti:
+        case .haiti:
             return Localized.Haiti
 
-        case .HolySee:
+        case .holySee:
             return Localized.HolySee
 
-        case .Honduras:
+        case .honduras:
             return Localized.Honduras
 
-        case .HongKong:
+        case .hongKong:
             return Localized.HongKong
 
-        case .Hungary:
+        case .hungary:
             return Localized.Hungary
 
-        case .Iceland:
+        case .iceland:
             return Localized.Iceland
 
-        case .India:
+        case .india:
             return Localized.India
 
-        case .Indonesia:
+        case .indonesia:
             return Localized.Indonesia
 
-        case .Iran:
+        case .iran:
             return Localized.Iran
 
-        case .Iraq:
+        case .iraq:
             return Localized.Iraq
 
-        case .Ireland:
+        case .ireland:
             return Localized.Ireland
 
-        case .Israel:
+        case .israel:
             return Localized.Israel
 
-        case .Italy:
+        case .italy:
             return Localized.Italy
 
-        case .Jamaica:
+        case .jamaica:
             return Localized.Jamaica
 
-        case .Japan:
+        case .japan:
             return Localized.Japan
 
-        case .Jordan:
+        case .jordan:
             return Localized.Jordan
 
-        case .Kazakhstan:
+        case .kazakhstan:
             return Localized.Kazakhstan
 
-        case .Kenya:
+        case .kenya:
             return Localized.Kenya
 
-        case .Kiribati:
+        case .kiribati:
             return Localized.Kiribati
 
-        case .Kosovo:
+        case .kosovo:
             return Localized.Kosovo
 
-        case .Kuwait:
+        case .kuwait:
             return Localized.Kuwait
 
-        case .Kyrgyzstan:
+        case .kyrgyzstan:
             return Localized.Kyrgyzstan
 
-        case .Laos:
+        case .laos:
             return Localized.Laos
 
-        case .Latvia:
+        case .latvia:
             return Localized.Latvia
 
-        case .Lebanon:
+        case .lebanon:
             return Localized.Lebanon
 
-        case .Lesotho:
+        case .lesotho:
             return Localized.Lesotho
 
-        case .Liberia:
+        case .liberia:
             return Localized.Liberia
 
-        case .Libya:
+        case .libya:
             return Localized.Libya
 
-        case .Liechtenstein:
+        case .liechtenstein:
             return Localized.Liechtenstein
 
-        case .Lithuania:
+        case .lithuania:
             return Localized.Lithuania
 
-        case .Luxembourg:
+        case .luxembourg:
             return Localized.Luxembourg
 
-        case .Macau:
+        case .macau:
             return Localized.Macau
 
-        case .Macedonia:
+        case .macedonia:
             return Localized.Macedonia
 
-        case .Madagascar:
+        case .madagascar:
             return Localized.Madagascar
 
-        case .Malawi:
+        case .malawi:
             return Localized.Malawi
 
-        case .Malaysia:
+        case .malaysia:
             return Localized.Malaysia
 
-        case .Maldives:
+        case .maldives:
             return Localized.Maldives
 
-        case .Mali:
+        case .mali:
             return Localized.Mali
 
-        case .Malta:
+        case .malta:
             return Localized.Malta
 
-        case .MarshallIslands:
+        case .marshallIslands:
             return Localized.MarshallIslands
 
-        case .Mauritania:
+        case .mauritania:
             return Localized.Mauritania
 
-        case .Mauritius:
+        case .mauritius:
             return Localized.Mauritius
 
-        case .Mexico:
+        case .mexico:
             return Localized.Mexico
 
-        case .Micronesia:
+        case .micronesia:
             return Localized.Micronesia
 
-        case .Moldova:
+        case .moldova:
             return Localized.Moldova
 
-        case .Monaco:
+        case .monaco:
             return Localized.Monaco
 
-        case .Mongolia:
+        case .mongolia:
             return Localized.Mongolia
 
-        case .Montenegro:
+        case .montenegro:
             return Localized.Montenegro
 
-        case .Morocco:
+        case .morocco:
             return Localized.Morocco
 
-        case .Mozambique:
+        case .mozambique:
             return Localized.Mozambique
 
-        case .Namibia:
+        case .namibia:
             return Localized.Namibia
 
-        case .Nauru:
+        case .nauru:
             return Localized.Nauru
 
-        case .Nepal:
+        case .nepal:
             return Localized.Nepal
 
-        case .Netherlands:
+        case .netherlands:
             return Localized.Netherlands
 
-        case .NewZealand:
+        case .newZealand:
             return Localized.NewZealand
 
-        case .Nicaragua:
+        case .nicaragua:
             return Localized.Nicaragua
 
-        case .Niger:
+        case .niger:
             return Localized.Niger
 
-        case .Nigeria:
+        case .nigeria:
             return Localized.Nigeria
 
-        case .NorthKorea:
+        case .northKorea:
             return Localized.NorthKorea
 
-        case .Norway:
+        case .norway:
             return Localized.Norway
 
-        case .Oman:
+        case .oman:
             return Localized.Oman
 
-        case .Pakistan:
+        case .pakistan:
             return Localized.Pakistan
 
-        case .Palau:
+        case .palau:
             return Localized.Palau
 
-        case .PalestinianTerritories:
+        case .palestinianTerritories:
             return Localized.PalestinianTerritories
 
-        case .Panama:
+        case .panama:
             return Localized.Panama
 
-        case .PapuaNewGuinea:
+        case .papuaNewGuinea:
             return Localized.PapuaNewGuinea
 
-        case .Paraguay:
+        case .paraguay:
             return Localized.Paraguay
 
-        case .Peru:
+        case .peru:
             return Localized.Peru
 
-        case .Philippines:
+        case .philippines:
             return Localized.Philippines
 
-        case .Poland:
+        case .poland:
             return Localized.Poland
 
-        case .Portugal:
+        case .portugal:
             return Localized.Portugal
 
-        case .Qatar:
+        case .qatar:
             return Localized.Qatar
 
-        case .RepublicOfTheCongo:
+        case .republicOfTheCongo:
             return Localized.RepublicOfTheCongo
 
-        case .Romania:
+        case .romania:
             return Localized.Romania
 
-        case .Russia:
+        case .russia:
             return Localized.Russia
 
-        case .Rwanda:
+        case .rwanda:
             return Localized.Rwanda
 
-        case .SaintKittsAndNevis:
+        case .saintKittsAndNevis:
             return Localized.SaintKittsAndNevis
 
-        case .SaintLucia:
+        case .saintLucia:
             return Localized.SaintLucia
 
-        case .SaintVincentAndTheGrenadines:
+        case .saintVincentAndTheGrenadines:
             return Localized.SaintVincentAndTheGrenadines
 
-        case .Samoa:
+        case .samoa:
             return Localized.Samoa
 
-        case .SanMarino:
+        case .sanMarino:
             return Localized.SanMarino
 
-        case .SaoTomeAndPrincipe:
+        case .saoTomeAndPrincipe:
             return Localized.SaoTomeAndPrincipe
 
-        case .SaudiArabia:
+        case .saudiArabia:
             return Localized.SaudiArabia
 
-        case .Senegal:
+        case .senegal:
             return Localized.Senegal
 
-        case .Serbia:
+        case .serbia:
             return Localized.Serbia
 
-        case .Seychelles:
+        case .seychelles:
             return Localized.Seychelles
 
-        case .SierraLeone:
+        case .sierraLeone:
             return Localized.SierraLeone
 
-        case .Singapore:
+        case .singapore:
             return Localized.Singapore
 
-        case .SintMaarten:
+        case .sintMaarten:
             return Localized.SintMaarten
 
-        case .Slovakia:
+        case .slovakia:
             return Localized.Slovakia
 
-        case .Slovenia:
+        case .slovenia:
             return Localized.Slovenia
 
-        case .SolomonIslands:
+        case .solomonIslands:
             return Localized.SolomonIslands
 
-        case .Somalia:
+        case .somalia:
             return Localized.Somalia
 
-        case .SouthAfrica:
+        case .southAfrica:
             return Localized.SouthAfrica
             
-        case .SouthKorea:
+        case .southKorea:
             return Localized.SouthKorea
             
-        case .SouthSudan:
+        case .southSudan:
             return Localized.SouthSudan
             
-        case .Spain:
+        case .spain:
             return Localized.Spain
             
-        case .SriLanka:
+        case .sriLanka:
             return Localized.SriLanka
             
-        case .Sudan:
+        case .sudan:
             return Localized.Sudan
             
-        case .Suriname:
+        case .suriname:
             return Localized.Suriname
             
-        case .Swaziland:
+        case .swaziland:
             return Localized.Swaziland
             
-        case .Sweden:
+        case .sweden:
             return Localized.Sweden
             
-        case .Switzerland:
+        case .switzerland:
             return Localized.Switzerland
             
-        case .Syria:
+        case .syria:
             return Localized.Syria
             
-        case .Taiwan:
+        case .taiwan:
             return Localized.Taiwan
             
-        case .Tajikistan:
+        case .tajikistan:
             return Localized.Tajikistan
             
-        case .Tanzania:
+        case .tanzania:
             return Localized.Tanzania
             
-        case .Thailand:
+        case .thailand:
             return Localized.Thailand
             
-        case .TimorLeste:
+        case .timorLeste:
             return Localized.TimorLeste
             
-        case .Togo:
+        case .togo:
             return Localized.Togo
             
-        case .Tonga:
+        case .tonga:
             return Localized.Tonga
             
-        case .TrinidadAndTobago:
+        case .trinidadAndTobago:
             return Localized.TrinidadAndTobago
             
-        case .Tunisia:
+        case .tunisia:
             return Localized.Tunisia
             
-        case .Turkey:
+        case .turkey:
             return Localized.Turkey
             
-        case .Turkmenistan:
+        case .turkmenistan:
             return Localized.Turkmenistan
             
-        case .Tuvalu:
+        case .tuvalu:
             return Localized.Tuvalu
             
-        case .Uganda:
+        case .uganda:
             return Localized.Uganda
             
-        case .Ukraine:
+        case .ukraine:
             return Localized.Ukraine
             
-        case .UnitedArabEmirates:
+        case .unitedArabEmirates:
             return Localized.UnitedArabEmirates
             
-        case .UnitedKingdom:
+        case .unitedKingdom:
             return Localized.UnitedKingdom
             
-        case .UnitedStatesOfAmerica:
+        case .unitedStatesOfAmerica:
             return Localized.UnitedStatesOfAmerica
             
-        case .Uruguay:
+        case .uruguay:
             return Localized.Uruguay
             
-        case .Uzbekistan:
+        case .uzbekistan:
             return Localized.Uzbekistan
             
-        case .Vanuatu:
+        case .vanuatu:
             return Localized.Vanuatu
             
-        case .Venezuela:
+        case .venezuela:
             return Localized.Venezuela
             
-        case .Vietnam:
+        case .vietnam:
             return Localized.Vietnam
             
-        case .Yemen:
+        case .yemen:
             return Localized.Yemen
             
-        case .Zambia:
+        case .zambia:
             return Localized.Zambia
             
-        case .Zimbabwe:
+        case .zimbabwe:
             return Localized.Zimbabwe
         }
     }
@@ -650,430 +650,430 @@ extension LanguageName {
 
     var localized: String {
         switch self {
-        case .None:
+        case .none:
             return Localized.None
 
-        case .Afrikaans:
+        case .afrikaans:
             return Localized.Afrikaans
 
-        case .Albanian:
+        case .albanian:
             return Localized.Albanian
 
-        case .Amharic:
+        case .amharic:
             return Localized.Amharic
 
-        case .Arabic:
+        case .arabic:
             return Localized.Arabic
 
-        case .Aramaic:
+        case .aramaic:
             return Localized.Aramaic
 
-        case .Armenian:
+        case .armenian:
             return Localized.Armenian
 
-        case .Assamese:
+        case .assamese:
             return Localized.Assamese
 
-        case .Aymara:
+        case .aymara:
             return Localized.Aymara
 
-        case .Azerbaijani:
+        case .azerbaijani:
             return Localized.Azerbaijani
 
-        case .Balochi:
+        case .balochi:
             return Localized.Balochi
 
-        case .Bamanankan:
+        case .bamanankan:
             return Localized.Bamanankan
 
-        case .Bashkir:
+        case .bashkir:
             return Localized.Bashkir
 
-        case .Basque:
+        case .basque:
             return Localized.Basque
 
-        case .Belarusian:
+        case .belarusian:
             return Localized.Belarusian
 
-        case .Bengali:
+        case .bengali:
             return Localized.Bengali
 
-        case .Bhojpuri:
+        case .bhojpuri:
             return Localized.Bhojpuri
 
-        case .Bislama:
+        case .bislama:
             return Localized.Bislama
 
-        case .Bosnian:
+        case .bosnian:
             return Localized.Bosnian
 
-        case .Brahui:
+        case .brahui:
             return Localized.Brahui
 
-        case .Bulgarian:
+        case .bulgarian:
             return Localized.Bulgarian
 
-        case .Burmese:
+        case .burmese:
             return Localized.Burmese
 
-        case .Cantonese:
+        case .cantonese:
             return Localized.Cantonese
 
-        case .Catalan:
+        case .catalan:
             return Localized.Catalan
 
-        case .Cebuano:
+        case .cebuano:
             return Localized.Cebuano
 
-        case .Chechen:
+        case .chechen:
             return Localized.Chechen
 
-        case .Cherokee:
+        case .cherokee:
             return Localized.Cherokee
 
-        case .Croatian:
+        case .croatian:
             return Localized.Croatian
 
-        case .Czech:
+        case .czech:
             return Localized.Czech
 
-        case .Dakota:
+        case .dakota:
             return Localized.Dakota
 
-        case .Danish:
+        case .danish:
             return Localized.Danish
 
-        case .Dari:
+        case .dari:
             return Localized.Dari
 
-        case .Dholuo:
+        case .dholuo:
             return Localized.Dholuo
 
-        case .Dutch:
+        case .dutch:
             return Localized.Dutch
 
-        case .English:
+        case .english:
             return Localized.English
 
-        case .Esperanto:
+        case .esperanto:
             return Localized.Esperanto
 
-        case .Estonian:
+        case .estonian:
             return Localized.Estonian
 
-        case .Ewe:
+        case .ewe:
             return Localized.Ewe
 
-        case .Finnish:
+        case .finnish:
             return Localized.Finnish
 
-        case .French:
+        case .french:
             return Localized.French
 
-        case .Georgian:
+        case .georgian:
             return Localized.Georgian
 
-        case .German:
+        case .german:
             return Localized.German
 
-        case .Gikuyu:
+        case .gikuyu:
             return Localized.Gikuyu
 
-        case .Greek:
+        case .greek:
             return Localized.Greek
 
-        case .Guarani:
+        case .guarani:
             return Localized.Guarani
 
-        case .Gujarati:
+        case .gujarati:
             return Localized.Gujarati
 
-        case .HaitianCreole:
+        case .haitianCreole:
             return Localized.HaitianCreole
 
-        case .Hausa:
+        case .hausa:
             return Localized.Hausa
 
-        case .Hawaiian:
+        case .hawaiian:
             return Localized.Hawaiian
 
-        case .Hebrew:
+        case .hebrew:
             return Localized.Hebrew
 
-        case .Hiligaynon:
+        case .hiligaynon:
             return Localized.Hiligaynon
 
-        case .Hindi:
+        case .hindi:
             return Localized.Hindi
 
-        case .Hungarian:
+        case .hungarian:
             return Localized.Hungarian
 
-        case .Icelandic:
+        case .icelandic:
             return Localized.Icelandic
 
-        case .Igbo:
+        case .igbo:
             return Localized.Igbo
 
-        case .Ilocano:
+        case .ilocano:
             return Localized.Ilocano
 
-        case .Indonesian:
+        case .indonesian:
             return Localized.Indonesian
 
-        case .Inuit:
+        case .inuit:
             return Localized.Inuit
 
-        case .IrishGaelic:
+        case .irishGaelic:
             return Localized.IrishGaelic
 
-        case .Italian:
+        case .italian:
             return Localized.Italian
 
-        case .Japanese:
+        case .japanese:
             return Localized.Japanese
 
-        case .Jarai:
+        case .jarai:
             return Localized.Jarai
 
-        case .Javanese:
+        case .javanese:
             return Localized.Javanese
 
-        case .Kiche:
+        case .kiche:
             return Localized.Kiche
 
-        case .Kabyle:
+        case .kabyle:
             return Localized.Kabyle
 
-        case .Kannada:
+        case .kannada:
             return Localized.Kannada
 
-        case .Kashmiri:
+        case .kashmiri:
             return Localized.Kashmiri
 
-        case .Kazakh:
+        case .kazakh:
             return Localized.Kazakh
 
-        case .Khmer:
+        case .khmer:
             return Localized.Khmer
 
-        case .Khoekhoe:
+        case .khoekhoe:
             return Localized.Khoekhoe
 
-        case .Korean:
+        case .korean:
             return Localized.Korean
 
-        case .Kurdish:
+        case .kurdish:
             return Localized.Kurdish
 
-        case .Kyrgyz:
+        case .kyrgyz:
             return Localized.Kyrgyz
 
-        case .Lao:
+        case .lao:
             return Localized.Lao
 
-        case .Latin:
+        case .latin:
             return Localized.Latin
 
-        case .Latvian:
+        case .latvian:
             return Localized.Latvian
 
-        case .Lingala:
+        case .lingala:
             return Localized.Lingala
 
-        case .Lithuanian:
+        case .lithuanian:
             return Localized.Lithuanian
 
-        case .Macedonian:
+        case .macedonian:
             return Localized.Macedonian
 
-        case .Maithili:
+        case .maithili:
             return Localized.Maithili
 
-        case .Malagasy:
+        case .malagasy:
             return Localized.Malagasy
 
-        case .Malay:
+        case .malay:
             return Localized.Malay
 
-        case .Malayalam:
+        case .malayalam:
             return Localized.Malayalam
 
-        case .Mandarin:
+        case .mandarin:
             return Localized.Mandarin
 
-        case .Marathi:
+        case .marathi:
             return Localized.Marathi
 
-        case .Mende:
+        case .mende:
             return Localized.Mende
 
-        case .Mongolian:
+        case .mongolian:
             return Localized.Mongolian
 
-        case .Nahuatl:
+        case .nahuatl:
             return Localized.Nahuatl
 
-        case .Navajo:
+        case .navajo:
             return Localized.Navajo
 
-        case .Nepali:
+        case .nepali:
             return Localized.Nepali
 
-        case .Norwegian:
+        case .norwegian:
             return Localized.Norwegian
 
-        case .Ojibwa:
+        case .ojibwa:
             return Localized.Ojibwa
 
-        case .Oriya:
+        case .oriya:
             return Localized.Oriya
 
-        case .Oromo:
+        case .oromo:
             return Localized.Oromo
 
-        case .Pashto:
+        case .pashto:
             return Localized.Pashto
 
-        case .Persian:
+        case .persian:
             return Localized.Persian
 
-        case .Polish:
+        case .polish:
             return Localized.Polish
 
-        case .Portuguese:
+        case .portuguese:
             return Localized.Portuguese
 
-        case .Punjabi:
+        case .punjabi:
             return Localized.Punjabi
 
-        case .Quechua:
+        case .quechua:
             return Localized.Quechua
 
-        case .Romani:
+        case .romani:
             return Localized.Romani
 
-        case .Romanian:
+        case .romanian:
             return Localized.Romanian
 
-        case .Russian:
+        case .russian:
             return Localized.Russian
 
-        case .Rwanda:
+        case .rwanda:
             return Localized.Rwanda
 
-        case .Samoan:
+        case .samoan:
             return Localized.Samoan
 
-        case .Sanskrit:
+        case .sanskrit:
             return Localized.Sanskrit
 
-        case .Serbian:
+        case .serbian:
             return Localized.Serbian
 
-        case .Shona:
+        case .shona:
             return Localized.Shona
 
-        case .Sindhi:
+        case .sindhi:
             return Localized.Sindhi
 
-        case .Sinhala:
+        case .sinhala:
             return Localized.Sinhala
 
-        case .Slovak:
+        case .slovak:
             return Localized.Slovak
 
-        case .Slovene:
+        case .slovene:
             return Localized.Slovene
 
-        case .Somali:
+        case .somali:
             return Localized.Somali
 
-        case .Spanish:
+        case .spanish:
             return Localized.Spanish
 
-        case .Swahili:
+        case .swahili:
             return Localized.Swahili
 
-        case .Swedish:
+        case .swedish:
             return Localized.Swedish
             
-        case .Tachelhit:
+        case .tachelhit:
             return Localized.Tachelhit
             
-        case .Tagalog:
+        case .tagalog:
             return Localized.Tagalog
             
-        case .Tajiki:
+        case .tajiki:
             return Localized.Tajiki
             
-        case .Tamil:
+        case .tamil:
             return Localized.Tamil
             
-        case .Tatar:
+        case .tatar:
             return Localized.Tatar
             
-        case .Telugu:
+        case .telugu:
             return Localized.Telugu
             
-        case .Thai:
+        case .thai:
             return Localized.Thai
             
-        case .Tigrigna:
+        case .tigrigna:
             return Localized.Tigrigna
             
-        case .TokPisin:
+        case .tokPisin:
             return Localized.TokPisin
             
-        case .Turkish:
+        case .turkish:
             return Localized.Turkish
             
-        case .Turkmen:
+        case .turkmen:
             return Localized.Turkmen
             
-        case .Ukrainian:
+        case .ukrainian:
             return Localized.Ukrainian
             
-        case .Urdu:
+        case .urdu:
             return Localized.Urdu
             
-        case .Uyghur:
+        case .uyghur:
             return Localized.Uyghur
             
-        case .Uzbek:
+        case .uzbek:
             return Localized.Uzbek
             
-        case .Vietnamese:
+        case .vietnamese:
             return Localized.Vietnamese
             
-        case .Warlpiri:
+        case .warlpiri:
             return Localized.Warlpiri
             
-        case .Welsh:
+        case .welsh:
             return Localized.Welsh
             
-        case .Wolof:
+        case .wolof:
             return Localized.Wolof
             
-        case .Xhosa:
+        case .xhosa:
             return Localized.Xhosa
             
-        case .Yakut:
+        case .yakut:
             return Localized.Yakut
             
-        case .Yiddish:
+        case .yiddish:
             return Localized.Yiddish
             
-        case .Yoruba:
+        case .yoruba:
             return Localized.Yoruba
             
-        case .Yucatec:
+        case .yucatec:
             return Localized.Yucatec
             
-        case .Zapotec:
+        case .zapotec:
             return Localized.Zapotec
             
-        case .Zulu:
+        case .zulu:
             return Localized.Zulu
         }
     }
@@ -1088,22 +1088,22 @@ extension LanguageLevel {
 
     var localized: String {
         switch self {
-        case .None:
+        case .none:
             return Localized.None
 
-        case .Beginner:
+        case .beginner:
             return Localized.Beginner
 
-        case .Intermediate:
+        case .intermediate:
             return Localized.Intermediate
 
-        case .Advanced:
+        case .advanced:
             return Localized.Advanced
 
-        case .Fluent:
+        case .fluent:
             return Localized.Fluent
 
-        case .Native:
+        case .native:
             return Localized.Native
         }
     }

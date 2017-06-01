@@ -1,6 +1,8 @@
 import UIKit
 
-class SearchViewController: UIViewController {
+// MARK: - SearchViewController
+
+final class SearchViewController: UIViewController {
 
     // MARK: - Private properties
 
@@ -16,7 +18,10 @@ class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let rightBarButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(showSearchParameters(_:)))
+        let rightBarButton = UIBarButtonItem(title: "Edit",
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(showSearchParameters(_:)))
         navigationItem.setRightBarButton(rightBarButton, animated: true)
         tableView.estimatedRowHeight = 110.0
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -31,7 +36,12 @@ class SearchViewController: UIViewController {
     }
 
     func showSearchParameters(_ sender: Any) {
-        print("edit")
+        guard let searchParametersViewController = storyboard?
+            .instantiateViewController(withIdentifier: UIStoryboard.SearchParameters) else {
+                return
+        }
+
+        navigationController?.pushViewController(searchParametersViewController, animated: true)
     }
 
 }
@@ -51,7 +61,7 @@ extension SearchViewController {
 
         let parameters: [String:Any] = [
             ParameterKey.Languages: [
-                LanguageName.Tatar.stringValue: LanguageLevel.Intermediate.stringValue
+                LanguageName.tatar.stringValue: LanguageLevel.native.stringValue
             ]
         ]
 
