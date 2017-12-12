@@ -5,7 +5,7 @@ final class YandexTranslate: BaseTranslateService {
 
     private let serviceIdentifier = "Yandex.Translate"
     private let url = "https://translate.yandex.net/api/v1.5/tr.json/translate"
-    private let apiKey = "trnsl.1.1.20170427T151422Z.084e82edd3e294da.7974a9ce7e4f2d6a87a1b387c3e2899f1a8954c9"
+    private let apiKey = ""
 
     private struct QueryKey {
         static let key = "key"
