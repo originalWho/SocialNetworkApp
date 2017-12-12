@@ -30,15 +30,11 @@ final class ChatHelperViewController: UITableViewController {
         return cell
     }
 
-    @IBAction func dismiss(_ sender: Any) {
+    @IBAction private func dismiss(_ sender: Any) {
         dismiss(animated: true) { self.parent?.dismiss(animated: true, completion: nil) }
     }
 
-}
-
-fileprivate extension ChatHelperViewController {
-
-    func prepareBackgroundView() {
+    private func prepareBackgroundView() {
         view.backgroundColor = .clear
         let blurEffect = UIBlurEffect(style: .extraLight)
         let visualEffect = UIVisualEffectView(effect: blurEffect)

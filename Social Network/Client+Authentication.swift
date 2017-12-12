@@ -4,8 +4,8 @@ import Alamofire
 
 extension SocialNetworkClient {
     
-    func authenticate(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void ) {
-        guard let grantType = parameters[OAuth.ParameterKeys.GrantType] as? OAuth.GrantType else {
+    func authenticate(parameters: [String:Any], completion: @escaping (_ response: ClientConstants.ServerResponse?) -> Void) {
+        guard let grantType = parameters[ClientConstants.OAuth.ParameterKeys.GrantType] as? ClientConstants.OAuth.GrantType else {
             return
         }
         
@@ -32,10 +32,10 @@ extension SocialNetworkClient {
 
 fileprivate extension SocialNetworkClient {
 
-    private typealias Key = SocialNetworkClient.OAuth.ParameterKeys
+    private typealias Key = ClientConstants.OAuth.ParameterKeys
     
-    func authenticateWithPassword(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void) {
-        guard let username = parameters[ParameterKeys.Email] as? String,
+    func authenticateWithPassword(parameters: [String:Any], completion: @escaping (_ response: ClientConstants.ServerResponse?) -> Void) {
+        guard let username = parameters[ClientConstants.ParameterKeys.Email] as? String,
             let password = parameters[Key.Password] as? String else {
                 completion(nil)
                 return
@@ -47,15 +47,15 @@ fileprivate extension SocialNetworkClient {
         setOAuth(oauth2: oauth)
 
         alamofireManager?
-            .request("https://\(Constants.APIHost):8443/api/secured")
+            .request("https://\(ClientConstants.Constants.APIHost):8443/api/secured")
             .validate()
-            .response(completionHandler: { response in
+            .response() { response in
                 guard let response = response.response else {
                     completion(nil)
                     return
                 }
 
-                let result: ServerResponse = (response.statusCode < 400)
+                let result: ClientConstants.ServerResponse = (response.statusCode < 400)
                     ? .success
                     : .accessDenied
 
@@ -66,11 +66,11 @@ fileprivate extension SocialNetworkClient {
                 }
                 
                 completion(result)
-            })
+            }
     }
 
-    func authenticateWithCode(parameters: [String:Any], completion: @escaping (_ response: ServerResponse?) -> Void) {
-        guard let service = parameters[Key.Service] as? SocialNetworkClient.OAuth.Service else {
+    func authenticateWithCode(parameters: [String:Any], completion: @escaping (_ response: ClientConstants.ServerResponse?) -> Void) {
+        guard let service = parameters[Key.Service] as? ClientConstants.OAuth.Service else {
                 return
         }
         

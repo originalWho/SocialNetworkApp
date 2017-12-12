@@ -11,7 +11,7 @@ final class ChatTextView: UITextView {
         return customActions.contains(action)
     }
 
-    func translateSelected(_ sender: Any) {
+    private dynamic func translateSelected(_ sender: Any) {
         guard let selectedTextRange = selectedTextRange,
             let selectedText = text(in: selectedTextRange) else {
                 return
@@ -20,7 +20,7 @@ final class ChatTextView: UITextView {
         NotificationCenter.default.post(name: .UITranslateSelected, object: selectedText)
     }
 
-    func commentSelected(_ sender: Any) {
+    private dynamic func commentSelected(_ sender: Any) {
         guard let selectedTextRange = selectedTextRange,
             let selectedText = text(in: selectedTextRange) else {
                 return

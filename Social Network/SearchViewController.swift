@@ -50,8 +50,8 @@ final class SearchViewController: UIViewController {
 
 extension SearchViewController {
 
-    private typealias ParameterKey = SocialNetworkClient.ParameterKeys
-    private typealias QueryKey = SocialNetworkClient.Methods.Search.Key
+    private typealias ParameterKey = ClientConstants.ParameterKeys
+    private typealias QueryKey = ClientConstants.Methods.Search.Key
 
     func search(_ sender: Any? = nil) {
         let query: [String:Any] = [
@@ -136,7 +136,7 @@ fileprivate extension SearchViewController {
 
     }
 
-    func warn(with: SocialNetworkClient.ServerResponse) {
+    func warn(with: ClientConstants.ServerResponse) {
         tableView.isHidden = true
         warningLabel.isHidden = false
         warningLabel.text = "Couldn't Load"

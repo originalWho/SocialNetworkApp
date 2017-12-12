@@ -2,11 +2,11 @@ import UIKit
 
 final class SearchTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var countryLabel: UILabel!
-    @IBOutlet weak var onlineLabel: UILabel!
-    @IBOutlet weak var languagesStackView: UIStackView!
+    @IBOutlet private weak var profileImageView: UIImageView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var countryLabel: UILabel!
+    @IBOutlet private weak var onlineLabel: UILabel!
+    @IBOutlet private weak var languagesStackView: UIStackView!
 
     func configure(with user: User) {
         if true {
@@ -39,7 +39,7 @@ final class SearchTableViewCell: UITableViewCell {
         }
     }
 
-    fileprivate func makeStackView(for language: Language) -> UIStackView {
+    private func makeStackView(for language: Language) -> UIStackView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center

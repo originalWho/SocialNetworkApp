@@ -1,5 +1,5 @@
 
-extension SocialNetworkClient {
+struct ClientConstants {
     
     // MARK: - Constants
     
@@ -132,4 +132,34 @@ extension SocialNetworkClient {
         case unknownError
     }
 
+    enum SendRequest {
+        case fail(ServerResponse)
+        case success
+    }
+
+    enum ReceiveMode {
+        case latest(Int, Int)
+        case all
+    }
+
+    enum MessagesRequest {
+        case fail(ServerResponse)
+        case success([Message])
+    }
+
+    enum ActionRequest {
+        case fail(ServerResponse)
+        case success
+    }
+
+    enum ProfileRequest {
+        case fail(ServerResponse)
+        case success(User)
+    }
+
+    enum SearchRequest {
+        case fail(ServerResponse)
+        case success([User])
+    }
+    
 }

@@ -1,10 +1,10 @@
 import Foundation
 import OAuth2
 
-fileprivate typealias OAuth = SocialNetworkClient.OAuth
-fileprivate typealias ParameterKey = SocialNetworkClient.OAuth.ParameterKeys
-fileprivate typealias DefaultValue = SocialNetworkClient.OAuth.ParameterValuesDefault
-fileprivate typealias GoogleValue = SocialNetworkClient.OAuth.ParameterValuesGoogle
+fileprivate typealias OAuth = ClientConstants.OAuth
+fileprivate typealias ParameterKey = ClientConstants.OAuth.ParameterKeys
+fileprivate typealias DefaultValue = ClientConstants.OAuth.ParameterValuesDefault
+fileprivate typealias GoogleValue = ClientConstants.OAuth.ParameterValuesGoogle
 
 
 struct OAuthInstance {

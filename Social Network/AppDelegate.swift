@@ -7,8 +7,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Typealiases
 
     fileprivate typealias settings = SocialNetworkClient.Settings
-    fileprivate typealias OAuth = SocialNetworkClient.OAuth
-    fileprivate typealias Key = SocialNetworkClient.ParameterKeys
+    fileprivate typealias OAuth = ClientConstants.OAuth
+    fileprivate typealias Key = ClientConstants.ParameterKeys
 
     // MARK: - Private properties
 
@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        /*
         setRootViewController { [weak self] viewController in
             guard let this = self else {
                 return
@@ -24,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             this.window?.rootViewController = viewController
             this.window?.makeKeyAndVisible()
         }
-
+        */
         return true
     }
 

@@ -4,10 +4,10 @@ final class ChatViewController: UIViewController {
 
     // MARK: - Outlets
 
-    @IBOutlet weak var sendButton: UIButton!
-    @IBOutlet weak var translateButton: UIButton!
-    @IBOutlet weak var messageTextField: UITextField!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var sendButton: UIButton!
+    @IBOutlet private weak var translateButton: UIButton!
+    @IBOutlet private weak var messageTextField: UITextField!
+    @IBOutlet private weak var tableView: UITableView!
 
     // MARK: - Private properties
 
@@ -41,21 +41,16 @@ final class ChatViewController: UIViewController {
     ]
 
     var translationHistory = [[String:String]]()
-}
 
-// MARK: - Public methods
-
-extension ChatViewController {
-
-    // MARK: - Actions
+    // MARK: - IBActions
     
-    @IBAction func showTranslateHistory(_ sender: Any) {
+    @IBAction private func showTranslateHistory(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatPage) as! ChatPageViewController
         vc.translationHistory = translationHistory
         present(vc, animated: true, completion: nil)
     }
 
-    @IBAction func enableSendButton(_ sender: Any) {
+    @IBAction private func enableSendButton(_ sender: Any) {
         guard let text = messageTextField.text, !text.isEmpty else {
             sendButton.isEnabled = false
             translateButton.isEnabled = false
@@ -68,7 +63,7 @@ extension ChatViewController {
         translateButton.imageView?.image = #imageLiteral(resourceName: "Translation-Enabled")
     }
     
-    @IBAction func sendMessage(_ sender: Any) {
+    @IBAction private func sendMessage(_ sender: Any) {
         guard let text = messageTextField.text, !text.isEmpty else {
             return
         }
@@ -83,7 +78,7 @@ extension ChatViewController {
         }
     }
 
-    @IBAction func translateEntered(_ sender: Any) {
+    @IBAction private func translateEntered(_ sender: Any) {
         guard let text = messageTextField.text, !text.isEmpty else {
             return
         }
@@ -95,11 +90,11 @@ extension ChatViewController {
 
             this.translateService.translate(text) { translated in
                 guard let translated = translated else {
-                    bottomSheet?.setTranslated(text: "ERROR: Couldn't translate.")
+                    bottomSheet?.setTranslated(text: "ERROR: Couldn't translate.", with: this.translateService)
                     return
                 }
 
-                bottomSheet?.setTranslated(text: translated)
+                bottomSheet?.setTranslated(text: translated, with: this.translateService)
                 let translation = [text: translated]
                 this.translationHistory.append(translation)
             }
@@ -108,7 +103,7 @@ extension ChatViewController {
 
     // MARK: - Notifications
 
-    func translateSelected(_ notification: Notification) {
+    private dynamic func translateSelected(_ notification: Notification) {
         guard let text = notification.object as? String else {
             return
         }
@@ -120,18 +115,18 @@ extension ChatViewController {
 
             this.translateService.translate(text) { translated in
                 guard let translated = translated else {
-                    bottomSheet?.setTranslated(text: "ERROR: Couldn't translate.")
+                    bottomSheet?.setTranslated(text: "ERROR: Couldn't translate.", with: this.translateService)
                     return
                 }
                 
-                bottomSheet?.setTranslated(text: translated)
+                bottomSheet?.setTranslated(text: translated, with: this.translateService)
                 let translation = [text: translated]
                 this.translationHistory.append(translation)
             }
         }
     }
 
-    func commentSelected(_ notification: Notification) {
+    private dynamic func commentSelected(_ notification: Notification) {
         guard let text = notification.object as? String else {
             return
         }
@@ -139,7 +134,7 @@ extension ChatViewController {
         print(text)
     }
 
-    func keyboardWillShow(_ notification: Notification) {
+    private dynamic func keyboardWillShow(_ notification: Notification) {
         let keyboardHeight = getKeyboardHeight(notification)
         let offset = getOffset(notification)
         if keyboardHeight == offset {
@@ -149,37 +144,15 @@ extension ChatViewController {
         }
     }
 
-    func keyboardWillHide(_ notification: Notification) {
+    private dynamic func keyboardWillHide(_ notification: Notification) {
         if self.view.frame.origin.y < 0 {
             self.view.frame.origin.y += getKeyboardHeight(notification)
         }
     }
 
-}
+    // MARK: - Private methods
 
-// MARK: - UITableViewDataSource protocol
-
-extension ChatViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = id[indexPath.row % id.count]
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as! MessageTableViewCell
-        cell.messageTextView.text = messages[indexPath.row]
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
-    }
-
-}
-
-// MARK: - Private methods
-
-fileprivate extension ChatViewController {
-
-    func presentTranslateBottomSheetView(with text: String, completion: @escaping (TranslateBottomSheetViewController?) -> Void) {
+    private func presentTranslateBottomSheetView(with text: String, completion: @escaping (TranslateBottomSheetViewController?) -> Void) {
         guard childViewControllers.isEmpty else {
             let bottomSheet = childViewControllers.last as! TranslateBottomSheetViewController
             bottomSheet.selectedTextLabel.text = text
@@ -205,35 +178,55 @@ fileprivate extension ChatViewController {
         completion(bottomSheet)
     }
 
-    func subscribeToNotifications() {
+    private func subscribeToNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
                                                name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
                                                name: .UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(translateSelected(_:)), name: .UITranslateSelected, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(commentSelected(_:)), name: .UICommentSelected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(translateSelected(_:)),
+                                               name: .UITranslateSelected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(commentSelected(_:)),
+                                               name: .UICommentSelected, object: nil)
     }
 
-    func unsubscribeFromNotifications() {
+    private func unsubscribeFromNotifications() {
         NotificationCenter.default.removeObserver(self)
     }
 
-    func configureUIMenuController() {
+    private func configureUIMenuController() {
         let translateMenuItem = UIMenuItem(title: "Translate", action: #selector(ChatViewController.translateSelected(_:)))
         let commentMenuItem = UIMenuItem(title: "Comment", action: #selector(ChatViewController.commentSelected(_:)))
         UIMenuController.shared.menuItems = [translateMenuItem, commentMenuItem]
     }
 
-    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+    private func getKeyboardHeight(_ notification:Notification) -> CGFloat {
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.height
     }
 
-    func getOffset(_ notification:Notification) -> CGFloat {
+    private func getOffset(_ notification:Notification) -> CGFloat {
         let userInfo = notification.userInfo
         let offset = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return offset.cgRectValue.height
+    }
+
+}
+
+// MARK: - UITableViewDataSource protocol
+
+extension ChatViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let identifier = id[indexPath.row % id.count]
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as! MessageTableViewCell
+        cell.configure(message: messages[indexPath.row])
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
     }
 
 }

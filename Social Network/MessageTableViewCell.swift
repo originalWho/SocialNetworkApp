@@ -2,10 +2,10 @@ import UIKit
 
 final class MessageTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var messageTextView: UITextView!
+    @IBOutlet private weak var messageTextView: UITextView!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    func configure(message: String?) {
+        messageTextView.text = message
     }
 
 }

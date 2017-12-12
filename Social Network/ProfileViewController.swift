@@ -8,27 +8,27 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Private properties
 
-    fileprivate let client = SocialNetworkClient.default
+    private let client = SocialNetworkClient.default
 
     // MARK: - Outlets
 
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var sexLabel: UILabel!
-    @IBOutlet weak var ageLabel: UILabel!
-    @IBOutlet weak var countryLabel: UILabel!
-    @IBOutlet weak var actionStackView: UIStackView!
-    @IBOutlet weak var languageStackView: UIStackView!
-    @IBOutlet weak var relationshipsStackView: UIStackView!
-    @IBOutlet weak var friendsNumberLabel: UILabel!
-    @IBOutlet weak var friendsLabel: UILabel!
-    @IBOutlet weak var subscribersNumberLabel: UILabel!
-    @IBOutlet weak var subscribtionsNumberLabel: UILabel!
-    @IBOutlet weak var bioLabel: UILabel!
-    @IBOutlet weak var bioTextView: UITextView!
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
-    @IBOutlet weak var warningLabel: UILabel!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var profileImageView: UIImageView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var sexLabel: UILabel!
+    @IBOutlet private weak var ageLabel: UILabel!
+    @IBOutlet private weak var countryLabel: UILabel!
+    @IBOutlet private weak var actionStackView: UIStackView!
+    @IBOutlet private weak var languageStackView: UIStackView!
+    @IBOutlet private weak var relationshipsStackView: UIStackView!
+    @IBOutlet private weak var friendsNumberLabel: UILabel!
+    @IBOutlet private weak var friendsLabel: UILabel!
+    @IBOutlet private weak var subscribersNumberLabel: UILabel!
+    @IBOutlet private weak var subscribtionsNumberLabel: UILabel!
+    @IBOutlet private weak var bioLabel: UILabel!
+    @IBOutlet private weak var bioTextView: UITextView!
+    @IBOutlet private weak var indicator: UIActivityIndicatorView!
+    @IBOutlet private weak var warningLabel: UILabel!
 
     // MARK: - Overrides
 
@@ -49,30 +49,30 @@ final class ProfileViewController: UIViewController {
         scrollView.refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
     }
 
-}
+    // MARK: - IBActions
 
-extension ProfileViewController {
-
-    @IBAction func showFriends(_ sender: Any) {
+    @IBAction private func showFriends(_ sender: Any) {
         show(.friends)
     }
 
-    @IBAction func showSubscribers(_ sender: Any) {
+    @IBAction private func showSubscribers(_ sender: Any) {
         show(.subsribers)
     }
 
-    @IBAction func showSubscribtions(_ sender: Any) {
+    @IBAction private func showSubscribtions(_ sender: Any) {
         show(.subscribtions)
     }
 
-    func refresh(_ sender: UIRefreshControl) {
+    // MARK: - Private methods
+
+    private dynamic func refresh(_ sender: UIRefreshControl) {
         DispatchQueue.main.async {
             self.loadProfile()
             sender.endRefreshing()
         }
     }
 
-    func logout(_ sender: Any) {
+    private dynamic func logout(_ sender: Any) {
         client.logout { [weak self] _ in
             let viewController = self?.storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Login)
             let window = (UIApplication.shared.delegate as! AppDelegate).window
@@ -84,23 +84,18 @@ extension ProfileViewController {
         }
     }
 
-
-}
-
-fileprivate extension ProfileViewController {
-
-    enum Relationships {
+    private enum Relationships {
         case friends
         case subsribers
         case subscribtions
     }
 
-    func show(_ relationship: Relationships) {
+    private func show(_ relationship: Relationships) {
         let usersViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.UserList)
         navigationController?.pushViewController(usersViewController!, animated: true)
     }
 
-    func loadProfile() {
+    private func loadProfile() {
         client.getProfile(user?.id) { [weak self] request in
             guard let this = self else {
                 return
@@ -116,7 +111,7 @@ fileprivate extension ProfileViewController {
         }
     }
 
-    func warn(with serverResponse: SocialNetworkClient.ServerResponse) {
+    private func warn(with serverResponse: ClientConstants.ServerResponse) {
         warningLabel.isHidden = false
         warningLabel.text = "Couldn't Load"
         print(serverResponse)
@@ -124,7 +119,7 @@ fileprivate extension ProfileViewController {
         indicator.isHidden = true
     }
 
-    func populateUI(with user: User) {
+    private func populateUI(with user: User) {
         if true {
             profileImageView.isHidden = false
         }
@@ -185,7 +180,7 @@ fileprivate extension ProfileViewController {
         indicator.isHidden = true
     }
 
-    func makeStackView(for language: Language) -> UIStackView {
+    private func makeStackView(for language: Language) -> UIStackView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
@@ -205,12 +200,12 @@ fileprivate extension ProfileViewController {
         return stackView
     }
 
-    enum Profile {
+    private enum Profile {
         case mine
         case theirs
     }
 
-    func makeActions(for profile: Profile) -> [UIButton] {
+    private func makeActions(for profile: Profile) -> [UIButton] {
         switch profile {
         case .mine:
             let editButton = UIButton(type: .system)
@@ -231,4 +226,5 @@ fileprivate extension ProfileViewController {
             return [followButton, messageButton]
         }
     }
+    
 }

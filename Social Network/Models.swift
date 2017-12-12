@@ -88,7 +88,7 @@ struct User {
         self.online = online
     }
 
-    private typealias Key = SocialNetworkClient.ParameterKeys
+    private typealias Key = ClientConstants.ParameterKeys
 
     init(from json: [String:Any]) {
         var languages = [Language]()

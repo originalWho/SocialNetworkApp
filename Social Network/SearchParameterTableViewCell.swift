@@ -5,19 +5,31 @@ final class SearchParameterTableViewCell: UITableViewCell {
     @IBOutlet weak var parameterLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    func configure(with parameter: SearchParameters) {
+    func configure(with parameter: SearchParameter) {
         switch parameter {
-        case .country(let country):
-            parameterLabel.text = "Country"
-            valueLabel.text = country.localized
+        case .countries(let countries):
+            parameterLabel.text = "Countries"
+            if countries.isEmpty {
+                valueLabel.text = "None"
+            }
+            else if countries.count == 1 {
+                valueLabel.text = countries.first?.localized
+            }
+            else {
+                valueLabel.text = "\(countries.count) countries"
+            }
 
-        case .language(let language):
-            parameterLabel.text = language.name.localized
-            valueLabel.text = language.level.localized
+        case .languages(let languages):
+            parameterLabel.text = "Languages"
+            if languages.isEmpty {
+                valueLabel.text = "None"
+            }
+            else if languages.count == 1 {
+                valueLabel.text = languages.first?.name.localized
+            }
+            else {
+                valueLabel.text = "\(languages.count) countries"
+            }
 
         case .gender(let gender):
             parameterLabel.text = "Gender"
@@ -27,12 +39,12 @@ final class SearchParameterTableViewCell: UITableViewCell {
             parameterLabel.text = "Online"
             
             valueLabel.text = nil
-            accessoryType = (isOnline) ? .checkmark : .none
+            accessoryType = isOnline ? .checkmark : .none
 
         case .withPhoto(let isWithPhoto):
             parameterLabel.text = "With Photo"
             valueLabel.text = nil
-            accessoryType = (isWithPhoto) ? .checkmark : .none
+            accessoryType = isWithPhoto ? .checkmark : .none
         }
     }
 

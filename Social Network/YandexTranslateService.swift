@@ -3,6 +3,7 @@ import Alamofire
 
 final class YandexTranslate: BaseTranslateService {
 
+    private let serviceIdentifier = "Yandex.Translate"
     private let url = "https://translate.yandex.net/api/v1.5/tr.json/translate"
     private let apiKey = "trnsl.1.1.20170427T151422Z.084e82edd3e294da.7974a9ce7e4f2d6a87a1b387c3e2899f1a8954c9"
 
@@ -15,7 +16,7 @@ final class YandexTranslate: BaseTranslateService {
     }
 
     init() {
-        super.init(url: url, apiKey: apiKey)!
+        super.init(identifier: serviceIdentifier, url: url, apiKey: apiKey)!
     }
 
     override func translate(_ text: String, completion: @escaping (String?) -> Void) {
@@ -32,7 +33,7 @@ final class YandexTranslate: BaseTranslateService {
         let url = makeURL(with: parameters)
         sessionManager.request(url).validate().responseJSON { response in
             guard let response = response.result.value as? [String:Any],
-                let textArray = response[QueryKey.text]! as? NSArray,
+                let textArray = response[QueryKey.text] as? NSArray,
                 let text = textArray[0] as? String else {
                     completion(nil)
                     return

@@ -4,21 +4,21 @@ final class RegisterViewController: UIViewController {
 
     // MARK: - Typealiases
 
-    fileprivate typealias Key = SocialNetworkClient.ParameterKeys
+    private typealias Key = ClientConstants.ParameterKeys
 
-    // MARK: - Outlets
+    // MARK: - IBOutlets
 
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var signupButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var warningLabel: UILabel!
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet private weak var nameTextField: UITextField!
+    @IBOutlet private weak var emailTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var signupButton: UIButton!
+    @IBOutlet private weak var cancelButton: UIButton!
+    @IBOutlet private weak var warningLabel: UILabel!
+    @IBOutlet private weak var indicator: UIActivityIndicatorView!
 
     // MARK: - Private properties
 
-    fileprivate let client = SocialNetworkClient.default
+    private let client = SocialNetworkClient.default
 
     // MARK: - Overrides
 
@@ -28,11 +28,9 @@ final class RegisterViewController: UIViewController {
         indicator.isHidden = true
     }
 
-}
+    // MARK: - IBActions
 
-extension RegisterViewController {
-
-    @IBAction func signup(_ sender: Any) {
+    @IBAction private func signup(_ sender: Any) {
         setUI(enabled: false)
         
         func warn(with warning: WarningMessage) {
@@ -89,7 +87,7 @@ extension RegisterViewController {
         }
     }
 
-    @IBAction func cancel(_ sender: Any) {
+    @IBAction private func cancel(_ sender: Any) {
         dismiss(animated: true)
     }
 

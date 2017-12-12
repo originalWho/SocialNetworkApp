@@ -2,7 +2,7 @@ import UIKit
 
 protocol SearchParameterSelectionDelegate: class {
     func searchParameterSelection(_ viewController: SearchParameterSelectionViewController,
-                                  didSelectParameter parameter: SearchParameters)
+                                  didSelectParameter parameter: SearchParameter)
 }
 
 final class SearchParameterSelectionViewController: UIViewController {
@@ -10,7 +10,7 @@ final class SearchParameterSelectionViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     weak var delegate: SearchParameterSelectionDelegate?
-    var parameter: SearchParameters?
+    var parameter: SearchParameter?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +20,7 @@ final class SearchParameterSelectionViewController: UIViewController {
         super.viewWillAppear(animated)
         setNavigationItemTitle()
     }
+
 }
 
 // MARK: - UITableViewDelegate protocol
@@ -27,44 +28,53 @@ final class SearchParameterSelectionViewController: UIViewController {
 extension SearchParameterSelectionViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        DispatchQueue.main.async {
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
+        tableView.deselectRow(at: indexPath, animated: true)
 
         guard let parameter = parameter else { return }
 
-        let previouslySelected: IndexPath
-        let selectedParameter: SearchParameters
+        var previouslySelected: IndexPath?
+        let selectedParameter: SearchParameter
         let index = indexPath.row
 
         switch parameter {
-        case .country(let previousCountry):
+        case .countries(var countries):
             let selectedCountry = Country(rawValue: index) ?? .none
-            selectedParameter = .country(selectedCountry)
-            previouslySelected = IndexPath(row: previousCountry.rawValue, section: 0)
+            if let selectedCountryIndex = countries.index(where: { $0.rawValue == selectedCountry.rawValue }) {
+                countries.remove(at: selectedCountryIndex)
+                previouslySelected = IndexPath(row: selectedCountry.rawValue, section: 0)
+            }
+            else {
+                countries.append(selectedCountry)
+            }
+            selectedParameter = .countries(countries)
 
-        case .gender(let previousGender):
+        case .gender(let gender):
             let selectedGender = Gender(rawValue: index) ?? .none
             selectedParameter = .gender(selectedGender)
-            previouslySelected = IndexPath(row: previousGender.rawValue, section: 0)
+            previouslySelected = IndexPath(row: gender.rawValue, section: 0)
 
-        case .language(let previousLanguage):
+        case .languages(var languages):
             let languageName = LanguageName(rawValue: index) ?? .none
             let selectedLanguage = Language(with: languageName, and: .none)
-            selectedParameter = .language(selectedLanguage)
-            previouslySelected = IndexPath(row: previousLanguage.name.rawValue, section: 0)
+            if let selectedLanguageIndex = languages.index(where: { $0.name.rawValue == selectedLanguage.name.rawValue }) {
+                languages.remove(at: selectedLanguageIndex)
+                previouslySelected = IndexPath(row: selectedLanguage.name.rawValue, section: 0)
+            }
+            else {
+                languages.append(selectedLanguage)
+            }
+            selectedParameter = .languages(languages)
+
 
         case .online, .withPhoto:
             return
         }
 
-        guard indexPath != previouslySelected else { return }
-
         self.parameter = selectedParameter
         delegate?.searchParameterSelection(self, didSelectParameter: selectedParameter)
 
-        DispatchQueue.main.async {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        if let previouslySelected = previouslySelected {
             tableView.cellForRow(at: previouslySelected)?.accessoryType = .none
         }
     }
@@ -79,13 +89,13 @@ extension SearchParameterSelectionViewController: UITableViewDataSource {
         guard let parameter = parameter else { return 0 }
 
         switch parameter {
-        case .country:
+        case .countries:
             return Country.count
 
         case .gender:
             return Gender.count
 
-        case .language:
+        case .languages:
             return LanguageName.count
 
         case .online, .withPhoto:
@@ -94,25 +104,25 @@ extension SearchParameterSelectionViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.SearchParameterSelection)!
+        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.SearchParameterSelection, for: indexPath)
 
         guard let parameter = parameter else { return cell }
 
         switch parameter {
-        case .country(let selectedCountry):
+        case .countries(let selectedCountries):
             let country = Country(rawValue: indexPath.row) ?? .none
             cell.textLabel?.text = country.localized
-            cell.accessoryType = (country == selectedCountry) ? .checkmark : .none
+            cell.accessoryType = selectedCountries.contains(where: { $0 == country }) ? .checkmark : .none
 
         case .gender(let selectedGender):
             let gender = Gender(rawValue: indexPath.row) ?? .none
             cell.textLabel?.text = gender.localized
             cell.accessoryType = (gender == selectedGender) ? .checkmark : .none
 
-        case .language(let selectedLanguage):
+        case .languages(let selectedLanguages):
             let language = LanguageName(rawValue: indexPath.row) ?? .none
             cell.textLabel?.text = language.localized
-            cell.accessoryType = (language == selectedLanguage.name) ? .checkmark : .none
+            cell.accessoryType = selectedLanguages.contains(where: { $0.name == language }) ? .checkmark : .none
 
         case .online, .withPhoto:
             break
@@ -131,13 +141,13 @@ fileprivate extension SearchParameterSelectionViewController {
         guard let parameter = parameter else { return }
 
         switch parameter {
-        case .country:
+        case .countries:
             navigationItem.title = "Country"
 
         case .gender:
             navigationItem.title = "Gender"
 
-        case .language:
+        case .languages:
             navigationItem.title = "Language"
 
         case .online, .withPhoto:

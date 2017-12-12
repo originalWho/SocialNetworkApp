@@ -4,36 +4,23 @@ import Alamofire
 
 extension SocialNetworkClient {
 
-    enum SendRequest {
-        case fail(ServerResponse)
-        case success
-    }
-
-    func send(message: Message, to userId: Int, completion: @escaping (SendRequest) -> Void) {
-        let method = String(format: Methods.Conversation.SendMessageTo, userId)
-        let sendMessageToURL = url(from: nil, path: Constants.APIPath, method: method)
+    func send(message: Message, to userId: Int, completion: @escaping (ClientConstants.SendRequest) -> Void) {
+        let method = String(format: ClientConstants.Methods.Conversation.SendMessageTo, userId)
+        let sendMessageToURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
         alamofireRequest(url: sendMessageToURL, method: .post) { response in
             print(response)
         }
     }
 
-    func send(status: Message.Status, for messageID: String, to userId: String, completion: @escaping (SendRequest) -> Void) {
+    func send(status: Message.Status, for messageID: String, to userId: String,
+              completion: @escaping (ClientConstants.SendRequest) -> Void) {
 
     }
 
-    enum ReceiveMode {
-        case latest(Int, Int)
-        case all
-    }
-
-    enum MessagesRequest {
-        case fail(ServerResponse)
-        case success([Message])
-    }
-
-    func receive(_ mode: ReceiveMode, from userId: Int? = nil, completion: @escaping (MessagesRequest) -> Void) {
-        typealias Key = Methods.Conversation.Key
+    func receive(_ mode: ClientConstants.ReceiveMode, from userId: Int? = nil,
+                 completion: @escaping (ClientConstants.MessagesRequest) -> Void) {
+        typealias Key = ClientConstants.Methods.Conversation.Key
 
         var parameters = [String:Any]()
         parameters[Key.ID] = userId
@@ -47,7 +34,8 @@ extension SocialNetworkClient {
             break
         }
 
-        let messagesFromURL = url(from: parameters, path: Constants.APIPath, method: Methods.Conversation.Messages)
+        let messagesFromURL = url(from: parameters, path: ClientConstants.Constants.APIPath,
+                                  method: ClientConstants.Methods.Conversation.Messages)
         print(messagesFromURL)
         alamofireRequest(url: messagesFromURL) { response in
             print(response)
@@ -66,50 +54,45 @@ extension SocialNetworkClient {
 
 extension SocialNetworkClient {
 
-    enum ActionRequest {
-        case fail(ServerResponse)
-        case success
-    }
-
-    func getFriends(of userId: Int, completion: @escaping (ActionRequest) -> Void) {
-        let method = String(format: Methods.Profile.Friends, userId)
-        let friendsURL = url(from: nil, path: Constants.APIPath, method: method)
+    func getFriends(of userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+        let method = String(format: ClientConstants.Methods.Profile.Friends, userId)
+        let friendsURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
         alamofireRequest(url: friendsURL) { response in
             print(response)
         }
     }
 
-    func getSubscribers(of userId: Int, completion: @escaping (ActionRequest) -> Void) {
-        let method = String(format: Methods.Profile.Subscribers, userId)
-        let subscribersURL = url(from: nil, path: Constants.APIPath, method: method)
+    func getSubscribers(of userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+        let method = String(format: ClientConstants.Methods.Profile.Subscribers, userId)
+        let subscribersURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
         alamofireRequest(url: subscribersURL) { response in
             print(response)
         }
     }
 
-    func getSubscribtions(of userId: Int, completion: @escaping (ActionRequest) -> Void) {
-        let method = String(format: Methods.Profile.Subscriptions, userId)
-        let subscribtionsURL = url(from: nil, path: Constants.APIPath, method: method)
+    func getSubscribtions(of userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+        let method = String(format: ClientConstants.Methods.Profile.Subscriptions, userId)
+        let subscribtionsURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
         alamofireRequest(url: subscribtionsURL) { response in
             print(response)
         }
     }
 
-    func getBlacklist(of userId: Int, completion: @escaping (ActionRequest) -> Void) {
-        let method = String(format: Methods.Profile.Blacklist, userId)
-        let blacklistURL = url(from: nil, path: Constants.APIPath, method: method)
+    func getBlacklist(of userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+        let method = String(format: ClientConstants.Methods.Profile.Blacklist, userId)
+        let blacklistURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
         alamofireRequest(url: blacklistURL) { response in
             print(response)
         }
     }
 
-    func friend(_ userId: Int, completion: @escaping (ActionRequest) -> Void) {
-        let method = String(format: Methods.Profile.Add, userId)
-        let friendURL = url(from: nil, path: Constants.APIPath, method: method)
+    func friend(_ userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+        let method = String(format: ClientConstants.Methods.Profile.Add, userId)
+        let friendURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
         alamofireRequest(url: friendURL, method: .post) { [weak self] response in
             guard let response = self?.serverResponse(from: response.data) else {
@@ -121,9 +104,9 @@ extension SocialNetworkClient {
         }
     }
 
-    func unfriend(_ userId: Int, completion: @escaping (ActionRequest) -> Void) {
-        let method = String(format: Methods.Profile.Remove, userId)
-        let unfriendURL = url(from: nil, path: Constants.APIPath, method: method)
+    func unfriend(_ userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+        let method = String(format: ClientConstants.Methods.Profile.Remove, userId)
+        let unfriendURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
         alamofireRequest(url: unfriendURL, method: .post) { [weak self] response in
             guard let response = self?.serverResponse(from: response.data) else {
@@ -135,9 +118,9 @@ extension SocialNetworkClient {
         }
     }
 
-    func block(_ userId: Int, completion: @escaping (ActionRequest) -> Void) {
-        let method = String(format: Methods.Profile.Block, userId)
-        let blockURL = url(from: nil, path: Constants.APIPath, method: method)
+    func block(_ userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+        let method = String(format: ClientConstants.Methods.Profile.Block, userId)
+        let blockURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
         alamofireRequest(url: blockURL, method: .post) { [weak self] response in
             guard let response = self?.serverResponse(from: response.data) else {
@@ -149,9 +132,9 @@ extension SocialNetworkClient {
         }
     }
 
-    func unblock(_ userId: Int, completion: @escaping (ActionRequest) -> Void) {
-        let method = String(format: Methods.Profile.Unblock, userId)
-        let unblockURL = url(from: nil, path: Constants.APIPath, method: method)
+    func unblock(_ userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+        let method = String(format: ClientConstants.Methods.Profile.Unblock, userId)
+        let unblockURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
         alamofireRequest(url: unblockURL, method: .post) { [weak self] response in
             guard let response = self?.serverResponse(from: response.data) else {

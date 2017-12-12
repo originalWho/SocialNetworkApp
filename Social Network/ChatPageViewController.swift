@@ -32,8 +32,38 @@ final class ChatPageViewController: UIPageViewController {
         view.backgroundColor = .clear
     }
 
-    @IBAction func dismiss(_ sender: Any) {
+    // MARK: - IBActions
+
+    @IBAction private func dismiss(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+
+    // MARK: - Private methods
+
+    private func instantiateViewControllers() -> [UIViewController] {
+        var viewControllers = [UIViewController]()
+        guard let historyViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatHelper) as? ChatHelperViewController,
+            let dictViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatHelper) else {
+                return viewControllers
+        }
+
+        historyViewController.translationHistory = translationHistory
+        viewControllers.append(historyViewController)
+        viewControllers.append(dictViewController)
+
+        return viewControllers
+    }
+
+    private func configurePageControl() {
+        let screenBounds = UIScreen.main.bounds
+        let frame = CGRect(x: 0, y: screenBounds.maxY - 50, width: screenBounds.width, height: 50)
+        pageControl = UIPageControl(frame: frame)
+        pageControl.numberOfPages = orderedViewControllers.count
+        pageControl.currentPage = 0
+        pageControl.tintColor = .black
+        pageControl.pageIndicatorTintColor = .white
+        pageControl.currentPageIndicatorTintColor = .black
+        self.view.addSubview(pageControl)
     }
 
 }
@@ -82,38 +112,6 @@ extension ChatPageViewController: UIPageViewControllerDataSource {
         }
 
         return orderedViewControllers[nextIndex]
-    }
-
-}
-
-// MARK: - Private methods
-
-fileprivate extension ChatPageViewController {
-
-    func instantiateViewControllers() -> [UIViewController] {
-        var viewControllers = [UIViewController]()
-        guard let historyViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatHelper) as? ChatHelperViewController,
-            let dictViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatHelper) else {
-                return viewControllers
-        }
-
-        historyViewController.translationHistory = translationHistory
-        viewControllers.append(historyViewController)
-        viewControllers.append(dictViewController)
-
-        return viewControllers
-    }
-
-    func configurePageControl() {
-        let screenBounds = UIScreen.main.bounds
-        let frame = CGRect(x: 0, y: screenBounds.maxY - 50, width: screenBounds.width, height: 50)
-        pageControl = UIPageControl(frame: frame)
-        pageControl.numberOfPages = orderedViewControllers.count
-        pageControl.currentPage = 0
-        pageControl.tintColor = .black
-        pageControl.pageIndicatorTintColor = .white
-        pageControl.currentPageIndicatorTintColor = .black
-        self.view.addSubview(pageControl)
     }
 
 }

@@ -4,17 +4,17 @@ final class LoginViewController: UIViewController {
 
     // MARK: - Typealiases
     
-    fileprivate typealias OAuth = SocialNetworkClient.OAuth
-    fileprivate typealias ParameterKeys = SocialNetworkClient.ParameterKeys
+    private typealias OAuth = ClientConstants.OAuth
+    private typealias ParameterKeys = ClientConstants.ParameterKeys
 
     // MARK: - Outlets
 
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var signinButton: UIButton!
-    @IBOutlet weak var registerButton: UIButton!
-    @IBOutlet weak var warningLabel: UILabel!
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet private weak var emailTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var signinButton: UIButton!
+    @IBOutlet private weak var registerButton: UIButton!
+    @IBOutlet private weak var warningLabel: UILabel!
+    @IBOutlet private weak var indicator: UIActivityIndicatorView!
 
     // MARK: - Private properties
 
@@ -27,13 +27,9 @@ final class LoginViewController: UIViewController {
         indicator.isHidden = true
     }
 
-}
+    // MARK: - IBActions
 
-// MARK: - Actions
-
-extension LoginViewController {
-
-    @IBAction func signIn(_ sender: Any) {
+    @IBAction private func signIn(_ sender: Any) {
         setUI(enabled: false)
         
         func warn(with warning: WarningMessage) {
@@ -80,7 +76,7 @@ extension LoginViewController {
         }
     }
 
-    @IBAction func register(_ sender: Any) {
+    @IBAction private func register(_ sender: Any) {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Register) else {
             return
         }

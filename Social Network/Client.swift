@@ -2,15 +2,64 @@ import Foundation
 import Alamofire
 import OAuth2
 
-final class SocialNetworkClient {
+protocol Client {
+
+    static var `default`: Client { get }
+
+    func setOAuth(oauth2: OAuth2)
+
+    func authenticate(parameters: [String:Any],
+                      completion: @escaping (_ response: ClientConstants.ServerResponse?) -> Void)
+    func register(parameters: [String:Any],
+                  completion: @escaping (_ response: ClientConstants.ServerResponse?) -> Void)
+    func completeRegister(parameters: [String:Any],
+                          completion: @escaping (_ response: ClientConstants.ServerResponse?) -> Void)
+
+    func getProfile(_ userId: Int?,
+                    completion: @escaping (ClientConstants.ProfileRequest) -> Void)
+    func search(parameters: [String:Any], query: [String:Any],
+                completion: @escaping (ClientConstants.SearchRequest) -> Void)
+    
+    func send(message: Message, to userId: Int,
+              completion: @escaping (ClientConstants.SendRequest) -> Void)
+    func send(status: Message.Status, for messageID: String, to userId: String,
+              completion: @escaping (ClientConstants.SendRequest) -> Void)
+    func receive(_ mode: ClientConstants.ReceiveMode, from userId: Int?,
+                 completion: @escaping (ClientConstants.MessagesRequest) -> Void)
+
+    func getFriends(of userId: Int,
+                    completion: @escaping (ClientConstants.ActionRequest) -> Void)
+    func getSubscribers(of userId: Int,
+                        completion: @escaping (ClientConstants.ActionRequest) -> Void)
+    func getSubscribtions(of userId: Int,
+                          completion: @escaping (ClientConstants.ActionRequest) -> Void)
+    func getBlacklist(of userId: Int,
+                      completion: @escaping (ClientConstants.ActionRequest) -> Void)
+
+    func friend(_ userId: Int,
+                completion: @escaping (ClientConstants.ActionRequest) -> Void)
+    func unfriend(_ userId: Int,
+                  completion: @escaping (ClientConstants.ActionRequest) -> Void)
+    func block(_ userId: Int,
+               completion: @escaping (ClientConstants.ActionRequest) -> Void)
+    func unblock(_ userId: Int,
+                 completion: @escaping (ClientConstants.ActionRequest) -> Void)
+
+    func editProfile(with parameters: [String:Any],
+                     completion: @escaping (ClientConstants.ServerResponse?) -> Void)
+    func logout(completion: @escaping (ClientConstants.ServerResponse?) -> Void)
+    
+}
+
+final class SocialNetworkClient: Client {
 
     // MARK: - Static properties
 
-    static let `default`: SocialNetworkClient = SocialNetworkClient()
+    static let `default`: Client = SocialNetworkClient()
     
     // MARK: - Private properties
 
-    fileprivate let serverTrustPolicy: [String: ServerTrustPolicy] = [Constants.APIHost: .disableEvaluation]      // Debug
+    fileprivate let serverTrustPolicy: [String: ServerTrustPolicy] = [ClientConstants.Constants.APIHost: .disableEvaluation]      // Debug
 
     // MARK: - Internal properties
 
@@ -27,7 +76,7 @@ final class SocialNetworkClient {
     // MARK: - Public methods
 
     func setOAuth(oauth2: OAuth2) {
-        oauth2.sessionDelegate = OAuth2DebugURLSessionDelegate(host: Constants.APIHost)               // Debug
+        oauth2.sessionDelegate = OAuth2DebugURLSessionDelegate(host: ClientConstants.Constants.APIHost)               // Debug
         oauth2.logger = OAuth2DebugLogger(.trace)                                               // Debug
         let retrier = OAuth2RetryHandler(oauth2: oauth2)
         alamofireManager?.adapter = retrier
@@ -36,9 +85,9 @@ final class SocialNetworkClient {
     
     func url(from parameters: [String:Any]?, path: String, method: String) -> URL {
         var components = URLComponents()
-        components.scheme = Constants.APIScheme
-        components.host = Constants.APIHost
-        components.port = Constants.APIPort
+        components.scheme = ClientConstants.Constants.APIScheme
+        components.host = ClientConstants.Constants.APIHost
+        components.port = ClientConstants.Constants.APIPort
         components.path = path
         components.path.append(method)
 
@@ -55,9 +104,9 @@ final class SocialNetworkClient {
         return components.url!
     }
 
-    func serverResponse(from data: Data?) -> ServerResponse {
+    func serverResponse(from data: Data?) -> ClientConstants.ServerResponse {
         guard let data = data, let stringValue = String(data: data, encoding: .utf8),
-            let intValue = Int(stringValue), let response = ServerResponse(rawValue: intValue) else {
+            let intValue = Int(stringValue), let response = ClientConstants.ServerResponse(rawValue: intValue) else {
                 return .unknownError
         }
 

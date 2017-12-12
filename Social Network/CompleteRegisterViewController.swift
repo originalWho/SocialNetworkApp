@@ -4,30 +4,30 @@ final class CompleteRegisterViewController: UIViewController {
 
     // MARK: - Typealiases
 
-    fileprivate typealias Key = SocialNetworkClient.ParameterKeys
+    fileprivate typealias Key = ClientConstants.ParameterKeys
 
     // MARK: - Outlets
 
-    @IBOutlet weak var warningLabel: UILabel!
-    @IBOutlet weak var countryTextField: UITextField!
-    @IBOutlet weak var birthdayTextField: UITextField!
-    @IBOutlet weak var genderSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var languagesStackView: UIStackView!
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
-    @IBOutlet weak var submitButton: UIButton!
-    @IBOutlet weak var motherLanguageTextField: UITextField!
+    @IBOutlet private weak var warningLabel: UILabel!
+    @IBOutlet fileprivate weak var countryTextField: UITextField!
+    @IBOutlet private weak var birthdayTextField: UITextField!
+    @IBOutlet private weak var genderSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var languagesStackView: UIStackView!
+    @IBOutlet private weak var indicator: UIActivityIndicatorView!
+    @IBOutlet private weak var submitButton: UIButton!
+    @IBOutlet private weak var motherLanguageTextField: UITextField!
 
     // MARK: - Private properties
 
-    fileprivate let client = SocialNetworkClient.default
+    private let client = SocialNetworkClient.default
 
-    fileprivate var countryPicker: UIPickerView?
-    fileprivate var birthdayPicker: UIDatePicker?
-    fileprivate var languagePickers = [UIPickerView]()
+    private var countryPicker: UIPickerView?
+    private var birthdayPicker: UIDatePicker?
+    private var languagePickers = [UIPickerView]()
     fileprivate var languageTextFields = [UITextField]()
-    fileprivate var countryPickerDelegate: UserInfoPicker?
-    fileprivate var languagePickerDelegates = [UserInfoPicker]()
-    fileprivate var addLanguageButtons = [UIButton]()
+    private var countryPickerDelegate: UserInfoPicker?
+    private var languagePickerDelegates = [UserInfoPicker]()
+    private var addLanguageButtons = [UIButton]()
 
     fileprivate var userInfo = [String: Any]()
     fileprivate var selectedLanguages = [UITextField:Language]()
@@ -53,13 +53,9 @@ final class CompleteRegisterViewController: UIViewController {
         unsubscribeFromNotifications()
     }
 
-}
+    // MARK: - IBActions
 
-// MARK: - Actions
-
-extension CompleteRegisterViewController {
-
-    @IBAction func submit(_ sender: Any) {
+    @IBAction private func submit(_ sender: Any) {
         setUI(enabled: false)
 
         func warn(with warning: WarningMessage) {
@@ -110,6 +106,17 @@ extension CompleteRegisterViewController {
         }
     }
 
+    @IBAction private func didSelectGender(_ sender: Any) {
+        let index = genderSegmentedControl.selectedSegmentIndex
+        guard let gender = Gender(rawValue: index + 1) else {
+            return
+        }
+
+        userInfo[Key.Gender] = gender.stringValue
+    }
+
+    // MARK: - Private methods
+
     private func setUI(enabled: Bool) {
         DispatchQueue.main.async {
             self.submitButton.isEnabled = enabled
@@ -123,80 +130,6 @@ extension CompleteRegisterViewController {
             self.languageTextFields.forEach { $0.isEnabled = enabled }
         }
     }
-
-}
-
-// MARK: - Notifications handlers
-
-extension CompleteRegisterViewController {
-
-    func didSelectBirthday(_ sender: Any) {
-        guard let birthdayPicker = birthdayPicker else {
-            return
-        }
-
-        let dateFormatter = DateFormatter()
-        let date = birthdayPicker.date
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        let birthday = dateFormatter.string(from: date)
-
-        birthdayTextField.text = birthday
-        userInfo[Key.Birthday] = birthday
-    }
-
-    @IBAction func didSelectGender(_ sender: Any) {
-        let index = genderSegmentedControl.selectedSegmentIndex
-        guard let gender = Gender(rawValue: index + 1) else {
-            return
-        }
-
-        userInfo[Key.Gender] = gender.stringValue
-    }
-
-    func didAddAnotherLanguage(_ sender: Any) {
-        makeAnotherLanguageField()
-    }
-
-    func keyboardWillShow(_ notification:Notification) {
-        let keyboardHeight = getKeyboardHeight(notification)
-        let offset = getOffset(notification)
-        if keyboardHeight >= offset {
-            self.view.frame.origin.y -= keyboardHeight
-        } else {
-            self.view.frame.origin.y += keyboardHeight - offset
-        }
-    }
-
-    func keyboardWillHide(_ notification:Notification) {
-        if self.view.frame.origin.y < 0 {
-            self.view.frame.origin.y += getKeyboardHeight(notification)
-        }
-    }
-
-}
-
-extension CompleteRegisterViewController: UserInfoPickerDelegate {
-
-    func userInfoPicker(_ picker: UserInfoPicker, pickedType type: UserInfoPicker.PickedType) {
-        switch type {
-        case .country(let country):
-            countryTextField.text = country.localized
-            userInfo[Key.Country] = country.stringValue
-
-        case .language(let language):
-            languageTextFields.filter { $0.isFirstResponder }.forEach {
-                $0.text = language.name.localized
-                selectedLanguages[$0] = language
-            }
-
-        }
-    }
-
-}
-
-// MARK: - Private methods
-
-fileprivate extension CompleteRegisterViewController {
 
     func configureCountryPicker() {
         countryPicker = UIPickerView()
@@ -251,7 +184,7 @@ fileprivate extension CompleteRegisterViewController {
             } else {
                 self.addLanguageButtons.append(button)
             }
-            
+
             stackView.addArrangedSubview(button)
             self.languagesStackView.addArrangedSubview(stackView)
         }
@@ -275,6 +208,62 @@ fileprivate extension CompleteRegisterViewController {
         let userInfo = notification.userInfo
         let offset = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return offset.cgRectValue.height
+    }
+
+    // MARK: - Notifications handlers
+
+    func didSelectBirthday(_ sender: Any) {
+        guard let birthdayPicker = birthdayPicker else {
+            return
+        }
+
+        let dateFormatter = DateFormatter()
+        let date = birthdayPicker.date
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let birthday = dateFormatter.string(from: date)
+
+        birthdayTextField.text = birthday
+        userInfo[Key.Birthday] = birthday
+    }
+
+    func didAddAnotherLanguage(_ sender: Any) {
+        makeAnotherLanguageField()
+    }
+
+    func keyboardWillShow(_ notification:Notification) {
+        let keyboardHeight = getKeyboardHeight(notification)
+        let offset = getOffset(notification)
+        if keyboardHeight >= offset {
+            self.view.frame.origin.y -= keyboardHeight
+        } else {
+            self.view.frame.origin.y += keyboardHeight - offset
+        }
+    }
+
+    func keyboardWillHide(_ notification:Notification) {
+        if self.view.frame.origin.y < 0 {
+            self.view.frame.origin.y += getKeyboardHeight(notification)
+        }
+    }
+
+}
+
+// MARK: - UserInfoPickerDelegate protocol
+
+extension CompleteRegisterViewController: UserInfoPickerDelegate {
+
+    func userInfoPicker(_ picker: UserInfoPicker, pickedType type: UserInfoPicker.PickedType) {
+        switch type {
+        case .country(let country):
+            countryTextField.text = country.localized
+            userInfo[Key.Country] = country.stringValue
+
+        case .language(let language):
+            languageTextFields.filter { $0.isFirstResponder }.forEach {
+                $0.text = language.name.localized
+                selectedLanguages[$0] = language
+            }
+        }
     }
 
 }
