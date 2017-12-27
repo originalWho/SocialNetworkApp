@@ -74,13 +74,13 @@ final class ProfileViewController: UIViewController {
 
     private dynamic func logout(_ sender: Any) {
         client.logout { [weak self] _ in
-            let viewController = self?.storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Login)
-            let window = (UIApplication.shared.delegate as! AppDelegate).window
-            window?.rootViewController = viewController
-            window?.makeKeyAndVisible()
-
-            viewController?.view.alpha = 0
-            UIView.animate(withDuration: 0.2) { viewController?.view.alpha = 1 }
+//            let viewController = self?.storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Login)
+//            let window = (UIApplication.shared.delegate as! AppDelegate).window
+//            window?.rootViewController = viewController
+//            window?.makeKeyAndVisible()
+//
+//            viewController?.view.alpha = 0
+//            UIView.animate(withDuration: 0.2) { viewController?.view.alpha = 1 }
         }
     }
 
@@ -91,8 +91,8 @@ final class ProfileViewController: UIViewController {
     }
 
     private func show(_ relationship: Relationships) {
-        let usersViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.UserList)
-        navigationController?.pushViewController(usersViewController!, animated: true)
+//        let usersViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.UserList)
+//        navigationController?.pushViewController(usersViewController!, animated: true)
     }
 
     private func loadProfile() {

@@ -25,30 +25,42 @@ extension UIViewController {
 
 extension UIStoryboard {
 
-    static var ID: String { return "Main" }
-    static var Main: String { return "MainTabViewController" }
-    static var Login: String { return  "LoginViewController" }
-    static var Register: String { return "RegisterViewController" }
-    static var CompleteRegister: String { return "CompleteRegisterViewController" }
-    static var Chat: String { return  "ChatViewController" }
-    static var ChatHelper: String { return "ChatHelperViewController" }
-    static var ChatPage: String { return "ChatPageViewController" }
-    static var TranslateBottomSheet: String { return "TranslateBottomSheetViewController" }
-    static var Profile: String { return "ProfileViewController" }
-    static var ProfileEdit: String { return "ProfileEditViewController" }
-    static var UserList: String { return "UserListTableViewController" }
-    static var SearchParameters: String { return "SearchParametersViewController" }
-    static var SearchParameterSelection: String { return "SearchParameterSelectionViewController" }
+    enum Main {
+
+        static var id: String {
+            return "Main"
+        }
+
+        static var tabViewController: String {
+            return "MainTabViewController"
+        }
+
+    }
+
+    enum Search {
+
+        static var id: String {
+            return "Search"
+        }
+
+    }
+
+    enum Profile {
+
+        static var id: String {
+            return "Profile"
+        }
+
+    }
+
+    enum Conversations {
+
+        static var id: String {
+            return "Conversations"
+        }
+
+    }
     
-}
-
-extension UITableViewCell {
-
-    static var Search: String { return "SearchTableViewCell" }
-    static var SearchParameterCheckmark: String { return "SearchParameterCheckmarkTableViewCell" }
-    static var SearchParameterDisclosure: String { return "SearchParameterDisclosureTableViewCell" }
-    static var SearchParameterSelection: String { return "SearchParameterSelectionTableViewCell" }
-
 }
 
 extension UIStoryboardSegue {

@@ -44,10 +44,10 @@ final class SearchParametersViewController: UIViewController {
 
     // MARK: - Private properties
 
-    fileprivate var searchParameters: SearchParameters!
-    fileprivate var generalParameters: [GeneralSectionCellType]!
+    fileprivate var searchParameters: SearchParameters?
+    fileprivate var generalParameters: [GeneralSectionCellType]?
 
-    // MARK: - Overrides
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +57,44 @@ final class SearchParametersViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationItem.title = "Search Parameters"
     }
+
+    // MARK: - Storyboard Segue Preparation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else {
+            return
+        }
+
+        switch identifier {
+        case .showEditSingleSearchParameter:
+            prepareSearchParameterSelectionViewController(segue.destination, forParameterAt: tableView.indexPathForSelectedRow)
+
+        default:
+            return
+        }
+    }
+
+    private func prepareSearchParameterSelectionViewController(_ viewController: UIViewController, forParameterAt indexPath: IndexPath?) {
+        guard let viewController = viewController as? SearchParameterSelectionViewController else {
+            assertionFailure("Couldn't cast UIViewController to SearchParameterSelectionViewController")
+            return
+        }
+
+        guard let indexPath = indexPath, let type = generalParameters?[indexPath.row] else {
+            return
+        }
+
+        switch type {
+        case let .disclosure(parameter):
+            viewController.parameter = parameter
+
+        case .checkmark:
+            return
+        }
+
+        viewController.delegate = self
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
 }
 
@@ -65,7 +103,9 @@ final class SearchParametersViewController: UIViewController {
 extension SearchParametersViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let type = generalParameters[indexPath.row]
+        guard let type = generalParameters?[indexPath.row] else {
+            return
+        }
 
         switch type {
         case .checkmark(let parameter):
@@ -74,10 +114,10 @@ extension SearchParametersViewController: UITableViewDelegate {
             
             switch parameter {
             case .online:
-                generalParameters[indexPath.row] = .checkmark(.online(!isSelected))
+                generalParameters?[indexPath.row] = .checkmark(.online(!isSelected))
                 
             case .withPhoto:
-                generalParameters[indexPath.row] = .checkmark(.withPhoto(!isSelected))
+                generalParameters?[indexPath.row] = .checkmark(.withPhoto(!isSelected))
                 
             case .countries, .gender, .languages:
                 break
@@ -86,8 +126,8 @@ extension SearchParametersViewController: UITableViewDelegate {
             cell?.accessoryType = isSelected ? .none : .checkmark
             tableView.reloadRows(at: [indexPath], with: .fade)
             
-        case .disclosure(let parameter):
-            pushParameterSelectionViewController(for: parameter)
+        case .disclosure:
+            return
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
@@ -104,23 +144,29 @@ extension SearchParametersViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return generalParameters.count
+        return generalParameters?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: SearchParameterTableViewCell
-        let type = generalParameters[indexPath.row]
+        guard let type = generalParameters?[indexPath.row] else {
+            assertionFailure("Couldn't fetch cell type from general parameters at indexPath:<\(indexPath)>")
+            return UITableViewCell()
+        }
+
+        let cell: UITableViewCell
 
         switch type {
         case .checkmark(let parameter):
-            cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.SearchParameterCheckmark)
-                as! SearchParameterTableViewCell
-            cell.configure(with: parameter)
+            cell = tableView.dequeueReusableCell(withIdentifier: .checkmarkTableViewCellIdentifier, for: indexPath)
+            if let cell = cell as? SearchParameterTableViewCell {
+                cell.configure(with: parameter)
+            }
 
         case .disclosure(let parameter):
-            cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.SearchParameterDisclosure)
-                as! SearchParameterTableViewCell
-            cell.configure(with: parameter)
+            cell = tableView.dequeueReusableCell(withIdentifier: .disclosureTableViewCellIdentifier, for: indexPath)
+            if let cell = cell as? SearchParameterTableViewCell {
+                cell.configure(with: parameter)
+            }
         }
 
         return cell
@@ -139,18 +185,20 @@ extension SearchParametersViewController: SearchParameterSelectionDelegate {
 
 }
 
-// MARK: - Private methods
+// MARK: - Storyboard Segue Identifiers
 
-fileprivate extension SearchParametersViewController {
+private extension String {
 
-    func pushParameterSelectionViewController(for parameter: SearchParameter) {
-        guard let viewController = storyboard?
-            .instantiateViewController(withIdentifier: UIStoryboard.SearchParameterSelection)
-            as? SearchParameterSelectionViewController else { return }
+    static var showEditSingleSearchParameter: String {
+        return "showEditSingleSearchParameter"
+    }
 
-        viewController.delegate = self
-        viewController.parameter = parameter
-        navigationController?.pushViewController(viewController, animated: true)
+    static var disclosureTableViewCellIdentifier: String {
+        return "SearchParameterDisclosureTableViewCell"
+    }
+
+    static var checkmarkTableViewCellIdentifier: String {
+        return "SearchParameterCheckmarkTableViewCell"
     }
 
 }

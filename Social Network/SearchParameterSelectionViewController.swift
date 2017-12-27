@@ -7,7 +7,7 @@ protocol SearchParameterSelectionDelegate: class {
 
 final class SearchParameterSelectionViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
 
     weak var delegate: SearchParameterSelectionDelegate?
     var parameter: SearchParameter?
@@ -19,6 +19,28 @@ final class SearchParameterSelectionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNavigationItemTitle()
+    }
+
+    // MARK: - UI Configuration
+    
+    private func setNavigationItemTitle() {
+        navigationItem.backBarButtonItem?.title = "Back"
+
+        guard let parameter = parameter else { return }
+
+        switch parameter {
+        case .countries:
+            navigationItem.title = "Country"
+
+        case .gender:
+            navigationItem.title = "Gender"
+
+        case .languages:
+            navigationItem.title = "Language"
+
+        case .online, .withPhoto:
+            navigationItem.title = nil
+        }
     }
 
 }
@@ -104,7 +126,7 @@ extension SearchParameterSelectionViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.SearchParameterSelection, for: indexPath)
+        let cell = tableView.dequeueReusableCell(ofClass: UITableViewCell.self, for: indexPath)
 
         guard let parameter = parameter else { return cell }
 
@@ -131,28 +153,4 @@ extension SearchParameterSelectionViewController: UITableViewDataSource {
         return cell
     }
     
-}
-
-fileprivate extension SearchParameterSelectionViewController {
-
-    func setNavigationItemTitle() {
-        navigationItem.backBarButtonItem?.title = "Back"
-
-        guard let parameter = parameter else { return }
-
-        switch parameter {
-        case .countries:
-            navigationItem.title = "Country"
-
-        case .gender:
-            navigationItem.title = "Gender"
-
-        case .languages:
-            navigationItem.title = "Language"
-
-        case .online, .withPhoto:
-            navigationItem.title = nil
-        }
-    }
-
 }

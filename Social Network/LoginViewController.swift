@@ -20,7 +20,7 @@ final class LoginViewController: UIViewController {
 
     fileprivate let client = SocialNetworkClient.default
 
-    // MARK: - Overrides
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,23 +65,15 @@ final class LoginViewController: UIViewController {
                 warn(with: .unknownError)
                 return
             }
-
-            let viewController = self?.storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Main)
-            let window = (UIApplication.shared.delegate as! AppDelegate).window
-            window?.rootViewController = viewController
-            window?.makeKeyAndVisible()
-
-            viewController?.view.alpha = 0
-            UIView.animate(withDuration: 0.2) { viewController?.view.alpha = 1 }
+//
+//            let viewController = self?.storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Main)
+//            let window = (UIApplication.shared.delegate as! AppDelegate).window
+//            window?.rootViewController = viewController
+//            window?.makeKeyAndVisible()
+//
+//            viewController?.view.alpha = 0
+//            UIView.animate(withDuration: 0.2) { viewController?.view.alpha = 1 }
         }
-    }
-
-    @IBAction private func register(_ sender: Any) {
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Register) else {
-            return
-        }
-
-        present(vc, animated: true)
     }
 
     private func setUI(enabled: Bool) {

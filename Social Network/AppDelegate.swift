@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 fileprivate extension AppDelegate {
 
     func setRootViewController(completion: @escaping (UIViewController) -> Void) {
-        let storyboard = UIStoryboard(name: UIStoryboard.ID, bundle: nil)
+        let storyboard = UIStoryboard(name: UIStoryboard.Main.id, bundle: .main)
         if !settings.launchedFirstTime, settings.signedIn {
             var parameters = [String:Any]()
             parameters[OAuth.ParameterKeys.GrantType] = OAuth.GrantType.password
@@ -113,8 +113,8 @@ fileprivate extension AppDelegate {
             parameters[Key.Password] = settings.password
             client.authenticate(parameters: parameters) { response in
                 let viewController = (response == .success)
-                    ? storyboard.instantiateViewController(withIdentifier: UIStoryboard.Main)
-                    : storyboard.instantiateViewController(withIdentifier: UIStoryboard.Login)
+                    ? storyboard.instantiateViewController(withIdentifier: UIStoryboard.Main.tabViewController)
+                    : storyboard.instantiateViewController(ofClass: LoginViewController.self)
                 completion(viewController)
             }
         }
@@ -123,7 +123,7 @@ fileprivate extension AppDelegate {
         //    completion(viewController)
         //}
         else {
-            let viewController = storyboard.instantiateViewController(withIdentifier: UIStoryboard.Login)
+            let viewController = storyboard.instantiateViewController(ofClass: LoginViewController.self)
             settings.launchedFirstTime = false
             completion(viewController)
         }

@@ -40,6 +40,8 @@ final class CompleteRegisterViewController: UIViewController {
         warningLabel.isHidden = true
         indicator.isHidden = true
 
+        navigationItem.hidesBackButton = true
+
         configureCountryPicker()
         configureLanguagePicker(for: motherLanguageTextField)
         languageTextFields.append(motherLanguageTextField)
@@ -95,7 +97,7 @@ final class CompleteRegisterViewController: UIViewController {
             
             SocialNetworkClient.Settings.registerComplete = true
             self?.dismiss(animated: true) {
-                let viewController = self?.storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Main)
+                let viewController = self?.storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Main.tabViewController)
                 let window = (UIApplication.shared.delegate as! AppDelegate).window
                 window?.rootViewController = viewController
                 window?.makeKeyAndVisible()

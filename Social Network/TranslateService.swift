@@ -39,19 +39,11 @@ class BaseTranslateService: TranslateService {
     // MARK: - TranslateService protocol
 
     func translate(_ text: String, completion: @escaping (String?) -> Void) {
-        /////////////////////////////////////////////
-        /// BaseTranslateService should not translate
-        /// Only derived classes should translate
-        /////////////////////////////////////////////
-        completion(nil)
+        assertionFailure("translate(_:completion) must be overridden in BaseTranslateService subclass")
     }
 
     func translate(_ text: String, from: LanguageName?, to: LanguageName?, completion: @escaping (String?) -> Void) {
-        /////////////////////////////////////////////
-        /// BaseTranslateService should not translate
-        /// Only derived classes should translate
-        /////////////////////////////////////////////
-        completion(nil)
+        assertionFailure("translate(_:from:to:completion) must be overridden in BaseTranslateService subclass")
     }
 
     // MARK: - Private methods 

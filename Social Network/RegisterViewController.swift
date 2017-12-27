@@ -8,11 +8,11 @@ final class RegisterViewController: UIViewController {
 
     // MARK: - IBOutlets
 
+    @IBOutlet private weak var cancelBarButton: UIBarButtonItem!
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
     @IBOutlet private weak var signupButton: UIButton!
-    @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet private weak var warningLabel: UILabel!
     @IBOutlet private weak var indicator: UIActivityIndicatorView!
 
@@ -20,7 +20,7 @@ final class RegisterViewController: UIViewController {
 
     private let client = SocialNetworkClient.default
 
-    // MARK: - Overrides
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,40 +68,40 @@ final class RegisterViewController: UIViewController {
         ]
         
         client.register(parameters: parameters) { [weak self] response in
-            guard let response = response, response == .success else {
+            guard let response = response, response == .success, let `self` = self else {
                 warn(with: .unknownError)
                 return
             }
 
-            guard let this = self else {
-                return
-            }
-
-            guard let vc = this.storyboard?.instantiateViewController(withIdentifier: UIStoryboard.CompleteRegister) else {
-                return
-            }
-
-            this.present(vc, animated: true) {
-                //this.dismiss(animated: false, completion: nil)
-            }
+            self.performSegue(withIdentifier: .showCompleteRegisterViewController, sender: self)
         }
     }
 
-    @IBAction private func cancel(_ sender: Any) {
-        dismiss(animated: true)
+    @IBAction private func onCancelPressed(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
+
+    // MARK: - UI Updates
 
     private func setUI(enabled: Bool) {
         DispatchQueue.main.async {
             self.signupButton.isEnabled = enabled
             self.signupButton.isHidden = !enabled
-            self.cancelButton.isEnabled = enabled
+            self.cancelBarButton.isEnabled = enabled
             self.warningLabel.isHidden = !enabled
             self.indicator.isHidden = enabled
             self.nameTextField.isEnabled = enabled
             self.emailTextField.isEnabled = enabled
             self.passwordTextField.isEnabled = enabled
         }
+    }
+
+}
+
+private extension String {
+
+    static var showCompleteRegisterViewController: String {
+        return "showCompleteRegisterViewController"
     }
 
 }

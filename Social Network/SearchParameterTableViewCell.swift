@@ -2,8 +2,8 @@ import UIKit
 
 final class SearchParameterTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var parameterLabel: UILabel!
-    @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet private weak var parameterLabel: UILabel!
+    @IBOutlet private weak var valueLabel: UILabel!
 
     func configure(with parameter: SearchParameter) {
         switch parameter {

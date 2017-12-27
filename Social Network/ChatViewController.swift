@@ -8,6 +8,7 @@ final class ChatViewController: UIViewController {
     @IBOutlet private weak var translateButton: UIButton!
     @IBOutlet private weak var messageTextField: UITextField!
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var userPictureBarButtonItem: UIBarButtonItem!
 
     // MARK: - Private properties
 
@@ -27,6 +28,26 @@ final class ChatViewController: UIViewController {
         unsubscribeFromNotifications()
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else {
+            return
+        }
+
+        switch identifier {
+        case .showProfileViewController:
+            prepareProfileViewController(segue.destination)
+
+        default:
+            return
+        }
+    }
+
+    private func prepareProfileViewController(_ viewController: UIViewController) {
+        guard let viewController = viewController as? ProfileViewController else {
+            return
+        }
+    }
+
     var id = [
         "TheirMessageCell",
         "YourMessageCell"
@@ -40,14 +61,14 @@ final class ChatViewController: UIViewController {
         "I know what you did"
     ]
 
-    var translationHistory = [[String:String]]()
+//    var translationHistory = [[String:String]]()
 
     // MARK: - IBActions
     
     @IBAction private func showTranslateHistory(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatPage) as! ChatPageViewController
-        vc.translationHistory = translationHistory
-        present(vc, animated: true, completion: nil)
+//        let vc = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatPage) as! ChatPageViewController
+//        vc.translationHistory = translationHistory
+//        present(vc, animated: true, completion: nil)
     }
 
     @IBAction private func enableSendButton(_ sender: Any) {
@@ -95,8 +116,8 @@ final class ChatViewController: UIViewController {
                 }
 
                 bottomSheet?.setTranslated(text: translated, with: this.translateService)
-                let translation = [text: translated]
-                this.translationHistory.append(translation)
+//                let translation = [text: translated]
+//                this.translationHistory.append(translation)
             }
         }
     }
@@ -120,8 +141,8 @@ final class ChatViewController: UIViewController {
                 }
                 
                 bottomSheet?.setTranslated(text: translated, with: this.translateService)
-                let translation = [text: translated]
-                this.translationHistory.append(translation)
+//                let translation = [text: translated]
+//                this.translationHistory.append(translation)
             }
         }
     }
@@ -161,11 +182,12 @@ final class ChatViewController: UIViewController {
             return
         }
 
-        guard let bottomSheet = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.TranslateBottomSheet) as? TranslateBottomSheetViewController else {
+        guard let bottomSheet = storyboard?.instantiateViewController(ofClass: TranslateBottomSheetViewController.self) else {
+            assertionFailure("Couldn't instantiate UIViewController of type:<\(TranslateBottomSheetViewController.self)>")
             completion(nil)
             return
         }
-
+        
         addChildViewController(bottomSheet)
         view.addSubview(bottomSheet.view)
         bottomSheet.didMove(toParentViewController: self)
@@ -227,6 +249,16 @@ extension ChatViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
+    }
+
+}
+
+// MARK: - Storyboard Segue Identifiers
+
+private extension String {
+
+    static var showProfileViewController: String {
+        return "showProfileViewController"
     }
 
 }

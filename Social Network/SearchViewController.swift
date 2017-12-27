@@ -9,20 +9,15 @@ final class SearchViewController: UIViewController {
     fileprivate var searchResult: [User]?
     fileprivate let client = SocialNetworkClient.default
 
-    // MARK: - Outlets
+    // MARK: - IBOutlets
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var warningLabel: UILabel!
+    @IBOutlet fileprivate weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var warningLabel: UILabel!
 
-    // MARK: - Overrides
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let rightBarButton = UIBarButtonItem(title: "Edit",
-                                             style: .plain,
-                                             target: self,
-                                             action: #selector(showSearchParameters(_:)))
-        navigationItem.setRightBarButton(rightBarButton, animated: true)
         tableView.estimatedRowHeight = 110.0
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.refreshControl = UIRefreshControl()
@@ -35,25 +30,53 @@ final class SearchViewController: UIViewController {
         search()
     }
 
-    func showSearchParameters(_ sender: Any) {
-        guard let searchParametersViewController = storyboard?
-            .instantiateViewController(withIdentifier: UIStoryboard.SearchParameters) else {
-                return
+    // MARK: - Storyboard Segue Preparation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else {
+            return
         }
 
-        navigationController?.pushViewController(searchParametersViewController, animated: true)
+        switch identifier {
+        case .showEditSearchParameters:
+            prepareEditSearchParametersViewController(segue.destination)
+
+        case .showProfileFromSearch:
+            prepareProfileViewController(segue.destination, forProfileAt: tableView.indexPathForSelectedRow)
+
+        default:
+            return
+        }
     }
 
-}
+    private func prepareEditSearchParametersViewController(_ viewController: UIViewController) {
+        guard let viewController = viewController as? SearchParametersViewController else {
+            return
+        }
+    }
 
-// MARK: - Public methods
+    private func prepareProfileViewController(_ viewController: UIViewController, forProfileAt indexPath: IndexPath?) {
+        guard let viewController = viewController as? ProfileViewController else {
+            assertionFailure("Couldn't cast UIViewController to ProfileViewController")
+            return
+        }
 
-extension SearchViewController {
+        guard let indexPath = indexPath, let user = searchResult?[indexPath.row] else {
+            assertionFailure("Couldn't fetch user from search result")
+            return
+        }
+
+        viewController.user = user
+
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    // MARK: - Search
 
     private typealias ParameterKey = ClientConstants.ParameterKeys
     private typealias QueryKey = ClientConstants.Methods.Search.Key
 
-    func search(_ sender: Any? = nil) {
+    private dynamic func search(_ sender: Any? = nil) {
         let query: [String:Any] = [
             QueryKey.Count: 20,
             QueryKey.Offset: 0
@@ -66,35 +89,37 @@ extension SearchViewController {
         ]
 
         client.search(parameters: parameters, query: query) { [weak self] response in
-            guard let this = self else {
-                return
-            }
+            DispatchQueue.main.async {
+                guard let this = self else {
+                    return
+                }
 
-            switch response {
-            case .fail(let response):
-                this.warn(with: response)
+                switch response {
+                case .fail(let response):
+                    this.warn(with: response)
 
-            case .success(let users):
-                this.updateSearchResults(with: users)
+                case .success(let users):
+                    this.updateSearchResults(with: users)
+                }
             }
         }
     }
 
-}
+    // MARK: - UI Updates
 
-// MARK: - UITableViewDelegate protocol
+    private func updateSearchResults(with users: [User]) {
+        tableView.isHidden = false
+        warningLabel.isHidden = true
+        searchResult = users
 
-extension SearchViewController: UITableViewDelegate {
+        tableView.reloadData()
+        tableView.refreshControl?.endRefreshing()
+    }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let user = searchResult?[indexPath.row] else {
-            return
-        }
-
-        let profileViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Profile) as! ProfileViewController
-        profileViewController.user = user
-        navigationController?.pushViewController(profileViewController, animated: true)
-        tableView.deselectRow(at: indexPath, animated: true)
+    private func warn(with: ClientConstants.ServerResponse) {
+        tableView.isHidden = true
+        warningLabel.isHidden = false
+        warningLabel.text = "Couldn't Load"
     }
 
 }
@@ -108,38 +133,24 @@ extension SearchViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.Search) as! SearchTableViewCell
+        let cell = tableView.dequeueReusableCell(ofClass: SearchTableViewCell.self, for: indexPath)
         let user = searchResult![indexPath.row]
         cell.configure(with: user)
-
         return cell
     }
 
 }
 
-// MARK: - Private methods
+// MARK: - UIStoryboardSegue identifiers
 
-fileprivate extension SearchViewController {
+private extension String {
 
-    func updateSearchResults(with users: [User]) {
-        tableView.isHidden = false
-        warningLabel.isHidden = true
-        searchResult = users
-        DispatchQueue.main.async { [weak self] in
-            guard let this = self else {
-                return
-            }
-            
-            this.tableView.reloadData()
-            this.tableView.refreshControl?.endRefreshing()
-        }
-
+    static var showEditSearchParameters: String {
+        return "showSearchParametersViewController"
     }
 
-    func warn(with: ClientConstants.ServerResponse) {
-        tableView.isHidden = true
-        warningLabel.isHidden = false
-        warningLabel.text = "Couldn't Load"
+    static var showProfileFromSearch: String {
+        return "showProfileViewController"
     }
 
 }

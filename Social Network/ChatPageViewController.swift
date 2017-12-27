@@ -42,14 +42,14 @@ final class ChatPageViewController: UIPageViewController {
 
     private func instantiateViewControllers() -> [UIViewController] {
         var viewControllers = [UIViewController]()
-        guard let historyViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatHelper) as? ChatHelperViewController,
-            let dictViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatHelper) else {
-                return viewControllers
-        }
-
-        historyViewController.translationHistory = translationHistory
-        viewControllers.append(historyViewController)
-        viewControllers.append(dictViewController)
+//        guard let historyViewController = storyboard?.instantiateViewController(ofClass: ChatHelperViewController.self),
+//            let dictViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.ChatHelper) else {
+//                return viewControllers
+//        }
+//
+//        historyViewController.translationHistory = translationHistory
+//        viewControllers.append(historyViewController)
+//        viewControllers.append(dictViewController)
 
         return viewControllers
     }
