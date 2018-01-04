@@ -3,9 +3,15 @@ import Alamofire
 
 final class YandexTranslate: BaseTranslateService {
 
-    private let serviceIdentifier = "Yandex.Translate"
-    private let url = "https://translate.yandex.net/api/v1.5/tr.json/translate"
-    private let apiKey = ""
+    private var serviceIdentifier: String {
+        return "Yandex.Translate"
+    }
+    private var url: String {
+        return "https://translate.yandex.net/api/v1.5/tr.json/translate"
+    }
+    private var apiKey: String {
+        return ""
+    }
 
     private struct QueryKey {
         static let key = "key"
@@ -15,30 +21,36 @@ final class YandexTranslate: BaseTranslateService {
         static let options = "options"
     }
 
-    init() {
-        super.init(identifier: serviceIdentifier, url: url, apiKey: apiKey)!
+    init?() {
+        super.init(identifier: serviceIdentifier, url: url, apiKey: apiKey)
     }
 
-    override func translate(_ text: String, completion: @escaping (String?) -> Void) {
-        guard !text.isEmpty else {
-            completion(nil)
+    // MARK: - TranslateService protocol
+
+    override func translate(_ text: LSExtractedWord, completion: @escaping (LSExtractedWord, String?) -> Void) {
+        guard !text.value.isEmpty else {
+            completion(text, nil)
             return
         }
 
         var parameters = [String: Any]()
         parameters[QueryKey.key] = apiKey
-        parameters[QueryKey.text] = text
+        parameters[QueryKey.text] = text.value
         parameters[QueryKey.lang] = "ru"
 
-        let url = makeURL(with: parameters)
+        let url = createURL(with: parameters)
         sessionManager.request(url).validate().responseJSON { response in
             guard let response = response.result.value as? [String:Any],
                 let textArray = response[QueryKey.text] as? NSArray,
-                let text = textArray[0] as? String else {
-                    completion(nil)
+                let translatedText = textArray[0] as? String else {
+                    completion(text, nil)
                     return
             }
-            completion(text)
+
+            completion(text, translatedText)
+            
+            let translatedWord = TranslatedText(original: text, translated: translatedText)
+            TranslateManager.shared.add(entry: translatedWord)
         }
     }
 

@@ -65,14 +65,14 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Private methods
 
-    private dynamic func refresh(_ sender: UIRefreshControl) {
+    @objc private dynamic func refresh(_ sender: UIRefreshControl) {
         DispatchQueue.main.async {
             self.loadProfile()
             sender.endRefreshing()
         }
     }
 
-    private dynamic func logout(_ sender: Any) {
+    @objc private dynamic func logout(_ sender: Any) {
         client.logout { [weak self] _ in
 //            let viewController = self?.storyboard?.instantiateViewController(withIdentifier: UIStoryboard.Login)
 //            let window = (UIApplication.shared.delegate as! AppDelegate).window

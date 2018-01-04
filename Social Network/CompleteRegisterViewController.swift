@@ -214,7 +214,7 @@ final class CompleteRegisterViewController: UIViewController {
 
     // MARK: - Notifications handlers
 
-    func didSelectBirthday(_ sender: Any) {
+    @objc func didSelectBirthday(_ sender: Any) {
         guard let birthdayPicker = birthdayPicker else {
             return
         }
@@ -228,7 +228,7 @@ final class CompleteRegisterViewController: UIViewController {
         userInfo[Key.Birthday] = birthday
     }
 
-    func didAddAnotherLanguage(_ sender: Any) {
+    @objc func didAddAnotherLanguage(_ sender: Any) {
         makeAnotherLanguageField()
     }
 

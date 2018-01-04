@@ -1,64 +1,58 @@
 import Foundation
 import Alamofire
 
+struct TranslatedText: Storable {
+
+    let original: LSExtractedWord
+    let translated: String?
+    let time: Date = Date()
+    var hashValue: Int {
+        return original.value.hashValue
+    }
+
+    static func <(lhs: TranslatedText, rhs: TranslatedText) -> Bool {
+        return lhs.time < rhs.time && lhs.original.value < rhs.original.value
+    }
+
+    static func ==(lhs: TranslatedText, rhs: TranslatedText) -> Bool {
+        return lhs.original.value == rhs.original.value
+    }
+
+}
+
 // MARK: - TranslateService protocol
 
-protocol TranslateService {
-    var identifier: String { get }
-    func translate(_ text: String, completion: @escaping (String?) -> Void)
-    func translate(_ text: String, from: LanguageName?, to: LanguageName?, completion: @escaping (String?) -> Void)
+protocol TranslateService: ThirdPartyService {
+
+    func translate(_ text: LSExtractedWord, completion: @escaping (LSExtractedWord, String?) -> Void)
+    func translate(_ text: LSExtractedWord, from: LanguageName?, to: LanguageName?, completion: @escaping (LSExtractedWord, String?) -> Void)
+    
 }
 
 // MARK: - BaseTranslateService
 
-class BaseTranslateService: TranslateService {
+class BaseTranslateService: BaseThirdPartyService, TranslateService {
 
-    // MARK: - Internal properties
+    // MARK: - ThirdPartyService protocol
 
-    let identifier: String
+    override var description: String {
+        return "Translation"
+    }
 
-    // MARK: - Private properties
-
-    private let baseURL: URLComponents
-    private let apiKey: String
-    let sessionManager: SessionManager
-
-    // MARK: - Init
-
-    init?(identifier: String, url: String, apiKey: String) {
-        guard let urlComponents = URLComponents(string: url) else {
-            return nil
+    override func fetchInfo(for text: LSExtractedWord, completion: @escaping (LSExtractedWord, String?) -> Void) {
+        translate(text) { originalText, translatedText in
+            completion(originalText, translatedText)
         }
-
-        self.identifier = identifier
-        self.baseURL = urlComponents
-        self.apiKey = apiKey
-        self.sessionManager = SessionManager()
     }
 
     // MARK: - TranslateService protocol
 
-    func translate(_ text: String, completion: @escaping (String?) -> Void) {
+    func translate(_ text: LSExtractedWord, completion: @escaping (LSExtractedWord, String?) -> Void) {
         assertionFailure("translate(_:completion) must be overridden in BaseTranslateService subclass")
     }
 
-    func translate(_ text: String, from: LanguageName?, to: LanguageName?, completion: @escaping (String?) -> Void) {
+    func translate(_ text: LSExtractedWord, from: LanguageName?, to: LanguageName?, completion: @escaping (LSExtractedWord, String?) -> Void) {
         assertionFailure("translate(_:from:to:completion) must be overridden in BaseTranslateService subclass")
-    }
-
-    // MARK: - Private methods 
-
-    func makeURL(with parameters: [String:Any]) -> URL {
-        var components = baseURL
-        var queryItems = [URLQueryItem]()
-
-        for (key, value) in parameters {
-            let queryItem = URLQueryItem(name: key, value: "\(value)")
-            queryItems.append(queryItem)
-        }
-
-        components.queryItems = queryItems
-        return components.url!
     }
 
 }

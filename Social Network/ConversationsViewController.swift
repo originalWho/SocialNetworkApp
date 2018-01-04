@@ -72,7 +72,7 @@ final class ConversationsViewController: UITableViewController {
 
     // MARK: - UI Updates
 
-    private dynamic func refresh(_ sender: Any) {
+    @objc private dynamic func refresh(_ sender: Any) {
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.tableView.refreshControl?.endRefreshing()

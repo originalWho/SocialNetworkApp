@@ -27,7 +27,7 @@ final class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        search()
+        search(self)
     }
 
     // MARK: - Storyboard Segue Preparation
@@ -76,7 +76,7 @@ final class SearchViewController: UIViewController {
     private typealias ParameterKey = ClientConstants.ParameterKeys
     private typealias QueryKey = ClientConstants.Methods.Search.Key
 
-    private dynamic func search(_ sender: Any? = nil) {
+    @objc private dynamic func search(_ sender: Any?) {
         let query: [String:Any] = [
             QueryKey.Count: 20,
             QueryKey.Offset: 0

@@ -97,7 +97,7 @@ struct User {
             languages.append(Language(with: LanguageName(stringValue: $0.key),
                                       and: LanguageLevel(stringValue: $0.value)))
         }
-        languages.sort { $0.0.level.rawValue > $0.1.level.rawValue }
+        languages.sort { $0.level.rawValue > $1.level.rawValue }
 
         let gender = (json[Key.Gender] as? String) ?? String.Server.Gender.None
         let country = (json[Key.Country] as? String) ?? String.Server.Country.None
