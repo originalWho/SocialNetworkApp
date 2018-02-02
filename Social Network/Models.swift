@@ -20,41 +20,46 @@ struct Language {
 struct Message {
 
     enum Status: Int {
-        case delivered
-        case read
         case sent
+        case delivered
     }
 
-    enum ContentType: Int {
+    enum MessageType: Int {
+        case plain
+        case comment
+    }
+
+    enum DataType: Int {
         case text
+        case image
+        case audio
     }
 
-    var id: Int?
-    let senderId: Int
-    let recipientId: Int
-    let datetime: Date
-    var status: Status
+    var id: UInt64?
+    let senderId: UInt64
+    let date: Date
     let data: Data
-    let contentType: ContentType
+    let dataType: DataType
+    let type: MessageType
+    var status: Status
 
-    init(with senderId: Int, recipientId: Int, date: Date? = Date(), data: Data, and type: ContentType) {
+    init(senderId: UInt64, date: Date = Date(), data: Data, dataType: DataType, type: MessageType) {
         self.senderId = senderId
-        self.recipientId = recipientId
-        self.datetime = date!
+        self.date = date
         self.status = .sent
         self.data = data
-        self.contentType = type
+        self.dataType = dataType
+        self.type = type
     }
 
     var json: [String:Any] {
         var json = [String:Any]()
         json["senderId"] = senderId
-        json["recipientId"] = recipientId
-        json["datetime"] = datetime
+        json["datetime"] = date
         json["status"] = status.rawValue
         json["data"] = data
-        json["contentType"] = contentType.rawValue
-
+        json["messageType"] = type.rawValue
+        json["messageDataType"] = dataType.rawValue
         return json
     }
 

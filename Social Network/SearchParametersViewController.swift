@@ -2,25 +2,17 @@ import UIKit
 
 // MARK: - SearchParameters enum
 
-enum SearchParameter {
-    case languages([Language])
-    case countries([Country])
-    case gender(Gender)
-    case online(Bool)
-    case withPhoto(Bool)
-}
-
 struct SearchParameters {
-    var languages: [Language]
-    var countries: [Country]
+    var languageNames: [LanguageName]
+    var country: Country
     var gender: Gender
     var online: Bool
     var withPhoto: Bool
 
-    init(languages: [Language] = [Language(with: .none, and: .none)], countries: [Country] = [.none],
+    init(languages: [LanguageName] = [], country: Country = .none,
          gender: Gender = .none, online: Bool = true, withPhoto: Bool = true) {
-        self.languages = languages
-        self.countries = countries
+        self.languageNames = languages
+        self.country = country
         self.gender = gender
         self.online = online
         self.withPhoto = withPhoto
@@ -33,9 +25,12 @@ final class SearchParametersViewController: UIViewController {
 
     // MARK: - Private types
 
-    fileprivate enum GeneralSectionCellType {
-        case checkmark(SearchParameter)
-        case disclosure(SearchParameter)
+    private enum Row: Int {
+        case languages
+        case country
+        case gender
+        case isOnline
+        case withPhoto
     }
 
     // MARK: - Outlets
@@ -44,14 +39,10 @@ final class SearchParametersViewController: UIViewController {
 
     // MARK: - Private properties
 
-    fileprivate var searchParameters: SearchParameters?
-    fileprivate var generalParameters: [GeneralSectionCellType]?
+    private var searchParameters = SocialNetworkClient.Settings.searchParameters
+    private let rows: [Row] = [.languages, .country, .gender, .isOnline, .withPhoto]
 
     // MARK: - Life Cycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -80,20 +71,26 @@ final class SearchParametersViewController: UIViewController {
             return
         }
 
-        guard let indexPath = indexPath, let type = generalParameters?[indexPath.row] else {
+        guard let indexPath = indexPath, let row = Row(rawValue: indexPath.row) else {
             return
         }
 
-        switch type {
-        case let .disclosure(parameter):
-            viewController.parameter = parameter
+        switch row {
+        case .languages:
+            viewController.parameter = .languageNames(searchParameters.languageNames)
 
-        case .checkmark:
+        case .country:
+            viewController.parameter = .country(searchParameters.country)
+
+        case .gender:
+            viewController.parameter = .gender(searchParameters.gender)
+
+        case .isOnline, .withPhoto:
             return
+
         }
 
         viewController.delegate = self
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
@@ -103,34 +100,25 @@ final class SearchParametersViewController: UIViewController {
 extension SearchParametersViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let type = generalParameters?[indexPath.row] else {
+        guard let row = Row(rawValue: indexPath.row) else {
             return
         }
 
-        switch type {
-        case .checkmark(let parameter):
-            let cell = tableView.cellForRow(at: indexPath)
-            let isSelected = (cell?.accessoryType == .checkmark)
-            
-            switch parameter {
-            case .online:
-                generalParameters?[indexPath.row] = .checkmark(.online(!isSelected))
-                
-            case .withPhoto:
-                generalParameters?[indexPath.row] = .checkmark(.withPhoto(!isSelected))
-                
-            case .countries, .gender, .languages:
-                break
-            }
-            
-            cell?.accessoryType = isSelected ? .none : .checkmark
-            tableView.reloadRows(at: [indexPath], with: .fade)
-            
-        case .disclosure:
-            return
+        switch row {
+        case .isOnline:
+            searchParameters.online = !searchParameters.online
+
+        case .withPhoto:
+            searchParameters.withPhoto = !searchParameters.withPhoto
+
+        case .country, .gender, .languages:
+            performSegue(withIdentifier: .showEditSingleSearchParameter, sender: self)
         }
 
+        tableView.reloadRows(at: [indexPath], with: .automatic)
         tableView.deselectRow(at: indexPath, animated: true)
+
+        SocialNetworkClient.Settings.searchParameters = searchParameters
     }
 
 }
@@ -144,29 +132,32 @@ extension SearchParametersViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return generalParameters?.count ?? 0
+        return rows.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let type = generalParameters?[indexPath.row] else {
-            assertionFailure("Couldn't fetch cell type from general parameters at indexPath:<\(indexPath)>")
+        guard let row = Row.init(rawValue: indexPath.row) else {
+            assertionFailure()
             return UITableViewCell()
         }
 
-        let cell: UITableViewCell
+        let cell = tableView.dequeueReusableCell(ofClass: SearchParameterTableViewCell.self, for: indexPath)
 
-        switch type {
-        case .checkmark(let parameter):
-            cell = tableView.dequeueReusableCell(withIdentifier: .checkmarkTableViewCellIdentifier, for: indexPath)
-            if let cell = cell as? SearchParameterTableViewCell {
-                cell.configure(with: parameter)
-            }
+        switch row {
+        case .country:
+            cell.configure(country: searchParameters.country)
 
-        case .disclosure(let parameter):
-            cell = tableView.dequeueReusableCell(withIdentifier: .disclosureTableViewCellIdentifier, for: indexPath)
-            if let cell = cell as? SearchParameterTableViewCell {
-                cell.configure(with: parameter)
-            }
+        case .languages:
+            cell.configure(languages: searchParameters.languageNames)
+
+        case .gender:
+            cell.configure(gender: searchParameters.gender)
+
+        case .isOnline:
+            cell.configure(title: "Online", isChecked: searchParameters.online)
+
+        case .withPhoto:
+            cell.configure(title: "With Photo", isChecked: searchParameters.withPhoto)
         }
 
         return cell
@@ -179,8 +170,23 @@ extension SearchParametersViewController: UITableViewDataSource {
 extension SearchParametersViewController: SearchParameterSelectionDelegate {
 
     func searchParameterSelection(_ viewController: SearchParameterSelectionViewController,
-                                  didSelectParameter parameter: SearchParameter) {
-        print(parameter)
+                                  didSelectParameter parameter: SearchParameterSelectionViewController.Parameter) {
+        switch parameter {
+        case .none:
+            return
+
+        case let .country(country):
+            searchParameters.country = country
+
+        case let .gender(gender):
+            searchParameters.gender = gender
+
+        case let .languageNames(languageNames):
+            searchParameters.languageNames = languageNames
+        }
+
+        tableView.reloadData()
+        SocialNetworkClient.Settings.searchParameters = searchParameters
     }
 
 }
@@ -190,15 +196,7 @@ extension SearchParametersViewController: SearchParameterSelectionDelegate {
 private extension String {
 
     static var showEditSingleSearchParameter: String {
-        return "showEditSingleSearchParameter"
-    }
-
-    static var disclosureTableViewCellIdentifier: String {
-        return "SearchParameterDisclosureTableViewCell"
-    }
-
-    static var checkmarkTableViewCellIdentifier: String {
-        return "SearchParameterCheckmarkTableViewCell"
+        return "showSearchParameterSelectionViewController"
     }
 
 }

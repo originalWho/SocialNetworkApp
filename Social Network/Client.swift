@@ -22,8 +22,6 @@ protocol Client {
     
     func send(message: Message, to userId: Int,
               completion: @escaping (ClientConstants.SendRequest) -> Void)
-    func send(status: Message.Status, for messageID: String, to userId: String,
-              completion: @escaping (ClientConstants.SendRequest) -> Void)
     func receive(_ mode: ClientConstants.ReceiveMode, from userId: Int?,
                  completion: @escaping (ClientConstants.MessagesRequest) -> Void)
 

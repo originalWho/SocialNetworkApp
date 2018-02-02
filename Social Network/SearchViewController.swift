@@ -78,14 +78,22 @@ final class SearchViewController: UIViewController {
 
     @objc private dynamic func search(_ sender: Any?) {
         let query: [String:Any] = [
-            QueryKey.Count: 20,
-            QueryKey.Offset: 0
+            QueryKey.count: 20,
+            QueryKey.offset: 0
         ]
 
-        let parameters: [String:Any] = [
-            ParameterKey.Languages: [
-                LanguageName.tatar.stringValue: LanguageLevel.native.stringValue
-            ]
+        let searchParameters = SocialNetworkClient.Settings.searchParameters
+        var languages = [String: String]()
+        for language in searchParameters.languageNames {
+            languages[language.stringValue] = LanguageLevel.native.stringValue
+        }
+
+        let parameters: [String: Any] = [
+            ParameterKey.Country: searchParameters.country.stringValue,
+            ParameterKey.Gender: searchParameters.gender.stringValue,
+            ParameterKey.Online: searchParameters.online,
+            ParameterKey.HasPhoto: searchParameters.withPhoto,
+            ParameterKey.Languages: languages
         ]
 
         client.search(parameters: parameters, query: query) { [weak self] response in

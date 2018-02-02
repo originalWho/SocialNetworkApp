@@ -65,6 +65,16 @@ extension SocialNetworkClient {
                 defaults().userId = newValue
             }
         }
+
+        static var searchParameters: SearchParameters {
+            get {
+                return defaults().searchParamters
+            }
+
+            set {
+                defaults().searchParamters = newValue
+            }
+        }
         
     }
 
@@ -78,6 +88,11 @@ fileprivate struct ParameterKey {
     static var username: String { return "hse.socialNetwork.client.username" }
     static var password: String { return "hse.socialNetwork.client.password" }
     static var userId: String { return "hse.socialNetwork.client.userId" }
+    static var countrySearchParameter: String { return "hse.socialNetwork.searchParameter.country" }
+    static var genderSearchParameter: String { return "hse.socialNetwork.searchParameter.gender" }
+    static var languagesSearchParameter: String { return "hse.socialNetwork.searchParameter.languages" }
+    static var onlineSearchParameter: String { return "hse.socialNetwork.searchParameter.online" }
+    static var withPhotoSearchParameter: String { return "hse.socialNetwork.searchParameter.withPhoto" }
 
 }
 
@@ -154,6 +169,37 @@ fileprivate extension UserDefaults.ClientSuite {
 
         set {
             set(newValue, forKey: ParameterKey.userId)
+        }
+    }
+
+    var searchParamters: SearchParameters {
+        get {
+            var searchParameters = SearchParameters()
+
+            let countryRawValue = integer(forKey: ParameterKey.countrySearchParameter)
+            searchParameters.country = Country(rawValue: countryRawValue) ?? .none
+
+            let genderRawValue = integer(forKey: ParameterKey.genderSearchParameter)
+            searchParameters.gender = Gender(rawValue: genderRawValue) ?? .none
+
+            if let languages = object(forKey: ParameterKey.languagesSearchParameter) as? [Int] {
+                searchParameters.languageNames = languages.flatMap { LanguageName(rawValue: $0) }
+            }
+
+            searchParameters.online = bool(forKey: ParameterKey.onlineSearchParameter)
+            searchParameters.withPhoto = bool(forKey: ParameterKey.withPhotoSearchParameter)
+
+            return searchParameters
+        }
+
+        set {
+            var keyedValues = [String: Any]()
+            keyedValues[ParameterKey.countrySearchParameter] = newValue.country.rawValue
+            keyedValues[ParameterKey.genderSearchParameter] = newValue.gender.rawValue
+            keyedValues[ParameterKey.languagesSearchParameter] = newValue.languageNames.map { $0.rawValue }
+            keyedValues[ParameterKey.onlineSearchParameter] = newValue.online
+            keyedValues[ParameterKey.withPhotoSearchParameter] = newValue.withPhoto
+            setValuesForKeys(keyedValues)
         }
     }
 

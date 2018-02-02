@@ -5,7 +5,8 @@ import Alamofire
 extension SocialNetworkClient {
     
     func register(parameters: [String:Any], completion: @escaping (_ response: ClientConstants.ServerResponse?) -> Void) {
-        let registerURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: ClientConstants.Methods.Register)
+        let registerURL = url(from: nil, path: ClientConstants.Constants.APIPath,
+                              method: ClientConstants.Methods.register)
 
         alamofireRequest(url: registerURL, method: .post, parameters: parameters) { [weak self] response in
             guard let this = self else {
@@ -31,7 +32,7 @@ extension SocialNetworkClient {
 
     func completeRegister(parameters: [String:Any], completion: @escaping (_ response: ClientConstants.ServerResponse?) -> Void) {
         let completeRegisterURL = url(from: nil, path: ClientConstants.Constants.APIPath,
-                                      method: ClientConstants.Methods.Profile.Edit)
+                                      method: ClientConstants.Methods.Profile.edit)
 
         alamofireRequest(url: completeRegisterURL, method: .post, parameters: parameters) { [weak self] response in
             guard let response = self?.serverResponse(from: response.data) else {
@@ -49,11 +50,17 @@ extension SocialNetworkClient {
 
 extension SocialNetworkClient {
 
-    func getProfile(_ userId: Int? = nil, completion: @escaping (ClientConstants.ProfileRequest) -> Void) {
-        let method = (userId == nil)
-            ? ClientConstants.Methods.Profile.Me
-            : String(format: ClientConstants.Methods.Profile.ByID, userId!)
-        let profileURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
+    func getProfile(_ userID: Int? = nil, completion: @escaping (ClientConstants.ProfileRequest) -> Void) {
+        let method: String
+        if let userID = userID {
+            method = String(format: ClientConstants.Methods.Profile.byID, userID)
+        }
+        else {
+            method = ClientConstants.Methods.Profile.me
+        }
+
+        let profileURL = url(from: nil, path: ClientConstants.Constants.APIPath,
+                             method: method)
 
         alamofireRequest(url: profileURL) { response in
             guard let json = response.result.value as? [String:Any] else {
@@ -62,7 +69,7 @@ extension SocialNetworkClient {
             }
             
             let profile = User(from: json)
-            if userId == nil {
+            if userID == nil {
                 Settings.userId = profile.id
             }
             completion(.success(profile))
@@ -70,7 +77,8 @@ extension SocialNetworkClient {
     }
 
     func editProfile(with parameters: [String:Any], completion: @escaping (ClientConstants.ServerResponse?) -> Void) {
-        let editURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: ClientConstants.Methods.Profile.Edit)
+        let editURL = url(from: nil, path: ClientConstants.Constants.APIPath,
+                          method: ClientConstants.Methods.Profile.edit)
 
         alamofireRequest(url: editURL, method: .post, parameters: parameters) { response in
             print(response)
@@ -79,7 +87,7 @@ extension SocialNetworkClient {
 
     func logout(completion: @escaping (ClientConstants.ServerResponse?) -> Void) {
         let logoutURL = url(from: nil, path: ClientConstants.Constants.APIPath,
-                            method: ClientConstants.Methods.Logout)
+                            method: ClientConstants.Methods.logout)
 
         alamofireManager?.request(logoutURL).validate()
 
@@ -99,9 +107,10 @@ extension SocialNetworkClient {
 
 extension SocialNetworkClient {
 
-    func search(parameters: [String:Any], query: [String:Any], completion: @escaping (ClientConstants.SearchRequest) -> Void) {
+    func search(parameters: [String:Any], query: [String:Any],
+                completion: @escaping (ClientConstants.SearchRequest) -> Void) {
         let searchURL = url(from: query, path: ClientConstants.Constants.APIPath,
-                            method: ClientConstants.Methods.Search.Path)
+                            method: ClientConstants.Methods.Search.path)
 
         alamofireRequest(url: searchURL, method: .post, parameters: parameters) { response in
             guard let dicts = response.result.value as? [[String:Any]] else {
@@ -114,4 +123,5 @@ extension SocialNetworkClient {
             completion(.success(users))
         }
     }
+
 }

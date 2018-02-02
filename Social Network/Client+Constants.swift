@@ -5,7 +5,7 @@ struct ClientConstants {
     
     struct Constants {
         static let APIScheme = "https"
-        static let APIHost = "localhost"
+        static let APIHost = "10.20.4.175"
         static let APIPort = 8443
         static let APIPath = "/api"
         static let OAuthPath = "/oauth"
@@ -54,50 +54,134 @@ struct ClientConstants {
         struct ParameterValuesDefault {
             static let ClientID = "clientapp"
             static let ClientSecret = "clientsecret"
-            static let AuthorizeURI = "\(Constants.APIScheme)://\(Constants.APIHost):\(Constants.APIPort)\(Constants.OAuthPath)\(Methods.AccessToken)"
+            static let AuthorizeURI = "\(Constants.APIScheme)://\(Constants.APIHost):\(Constants.APIPort)\(Constants.OAuthPath)\(Methods.accessToken)"
         }
     }
     
     // MARK: - Methods
     
     struct Methods {
-        static let AccessToken = "/token"
-        static let Register = "/register"
-        static let Login = "/login"
-        static let Logout = "/logout"
+
+        static var accessToken: String {
+            return "/token"
+        }
+
+        static var register: String {
+            return "/register"
+        }
+
+        static var login: String {
+            return "/login"
+        }
+
+        static var logout: String {
+            return "/logout"
+        }
+
+        // MARK: - Profile
 
         struct Profile {
-            static let Edit = "/profile/edit"
-            static let Me = "/profile/me"
-            static let ByID = "/profile/%d"
-            static let Add = "/profile/%d/add"
-            static let Remove = "/profile/%d/delete"
-            static let Block = "/profile/%d/block"
-            static let Unblock = "/profile/%d/unblock"
-            static let Friends = "/profile/%d/friends"
-            static let Subscribers = "/profile/%d/subscribers"
-            static let Subscriptions = "/profile/%d/subscriptions"
-            static let Blacklist = "/profile/blacklist"
+
+            private static var profile: String {
+                return "/profile"
+            }
+
+            static var edit: String {
+                return profile + "/edit"
+            }
+
+            static var me: String {
+                return profile + "/me"
+            }
+
+            static var byID: String {
+                return profile + "/%d"
+            }
+
+            static var add: String {
+                return profile + "/%d/add"
+            }
+
+            static var remove: String {
+                return profile + "/%d/delete"
+            }
+
+            static var block: String {
+                return profile + "/%d/block"
+            }
+
+            static var unblock: String {
+                return profile + "/%d/unblock"
+            }
+
+            static var friends: String {
+                return profile + "/%d/friends"
+            }
+
+            static var subscribers: String {
+                return profile + "/%d/subscribers"
+            }
+
+            static var subscriptions: String {
+                return profile + "/%d/subscriptions"
+            }
+
+            static var blacklist: String {
+                return profile + "/blacklist"
+            }
+
         }
+
+        // MARK: - Conversation
 
         struct Conversation {
-            static let Messages = "/messages"
-            static let SendMessageTo = "/messages/%d"
+
+            static var message: String {
+                return "/message"
+            }
+
+            static var messages: String {
+                return "/messages"
+            }
 
             struct Key {
-                static let ID = "id"
-                static let Offset = "offset"
-                static let Count = "count"
+
+                static var id: String {
+                    return "id"
+                }
+
+                static var offset: String {
+                    return "offset"
+                }
+
+                static var count: String {
+                    return  "count"
+                }
+
             }
+
         }
 
+        // MARK: - Search
+
         struct Search {
-            static let Path = "/search"
+
+            static var path: String {
+                return "/search"
+            }
 
             struct Key {
-                static let Offset = "offset"
-                static let Count = "count"
+
+                static var offset: String {
+                    return "offset"
+                }
+
+                static var count: String {
+                    return "count"
+                }
+
             }
+
         }
         
     }
