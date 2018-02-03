@@ -39,10 +39,11 @@ final class ProfileViewController: UIViewController {
             navigationItem.setRightBarButton(rightBarButton, animated: true)
         }
 
-        if (user == nil) {
+        if let user = user {
+            populateUI(with: user)
+        }
+        else {
             loadProfile()
-        } else {
-            populateUI(with: user!)
         }
 
         scrollView.refreshControl = UIRefreshControl()
@@ -222,8 +223,17 @@ final class ProfileViewController: UIViewController {
             let messageButton = UIButton(type: .system)
             messageButton.setTitle("Message", for: .normal)
             messageButton.titleLabel?.textAlignment = .center
+            messageButton.addTarget(self, action: #selector(openChatViewController(_:)), for: .touchUpInside)
 
             return [followButton, messageButton]
+        }
+    }
+
+    @objc private dynamic func openChatViewController(_ sender: Any) {
+        let storyboard = UIStoryboard(name: UIStoryboard.Conversations.id, bundle: .main)
+        if let viewController = storyboard.instantiateViewController(withIdentifier: ChatViewController.id) as? ChatViewController {
+            viewController.user = user
+            show(viewController, sender: self)
         }
     }
     

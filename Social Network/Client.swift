@@ -15,32 +15,32 @@ protocol Client {
     func completeRegister(parameters: [String:Any],
                           completion: @escaping (_ response: ClientConstants.ServerResponse?) -> Void)
 
-    func getProfile(_ userId: Int?,
+    func getProfile(_ userId: UserID?,
                     completion: @escaping (ClientConstants.ProfileRequest) -> Void)
     func search(parameters: [String:Any], query: [String:Any],
                 completion: @escaping (ClientConstants.SearchRequest) -> Void)
     
-    func send(message: Message, to userId: Int,
+    func send(message: Message, to userId: UserID,
               completion: @escaping (ClientConstants.SendRequest) -> Void)
-    func receive(_ mode: ClientConstants.ReceiveMode, from userId: Int?,
+    func receive(_ mode: ClientConstants.ReceiveMode, from userId: UserID?,
                  completion: @escaping (ClientConstants.MessagesRequest) -> Void)
 
-    func getFriends(of userId: Int,
+    func getFriends(of userId: UserID,
                     completion: @escaping (ClientConstants.ActionRequest) -> Void)
-    func getSubscribers(of userId: Int,
+    func getSubscribers(of userId: UserID,
                         completion: @escaping (ClientConstants.ActionRequest) -> Void)
-    func getSubscribtions(of userId: Int,
+    func getSubscribtions(of userId: UserID,
                           completion: @escaping (ClientConstants.ActionRequest) -> Void)
-    func getBlacklist(of userId: Int,
+    func getBlacklist(of userId: UserID,
                       completion: @escaping (ClientConstants.ActionRequest) -> Void)
 
-    func friend(_ userId: Int,
+    func friend(_ userId: UserID,
                 completion: @escaping (ClientConstants.ActionRequest) -> Void)
-    func unfriend(_ userId: Int,
+    func unfriend(_ userId: UserID,
                   completion: @escaping (ClientConstants.ActionRequest) -> Void)
-    func block(_ userId: Int,
+    func block(_ userId: UserID,
                completion: @escaping (ClientConstants.ActionRequest) -> Void)
-    func unblock(_ userId: Int,
+    func unblock(_ userId: UserID,
                  completion: @escaping (ClientConstants.ActionRequest) -> Void)
 
     func editProfile(with parameters: [String:Any],
@@ -112,6 +112,7 @@ final class SocialNetworkClient: Client {
     }
 
     func alamofireRequest(url: URL, method: HTTPMethod? = .get, parameters: [String:Any]? = nil, completion: @escaping (DataResponse<Any>) -> Void) {
+
         alamofireManager?
             .request(url,
                      method: method!,

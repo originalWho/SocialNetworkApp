@@ -1,6 +1,18 @@
 import UIKit
+import Typist
 
 final class ChatViewController: UIViewController {
+
+    // MARK: - Internal properties
+
+    var user: User? {
+        didSet {
+            guard let user = user else { return }
+
+            navigationItem.title = user.name
+            messages = MessagesService.default.storage[user]
+        }   
+    }
 
     // MARK: - Outlets
 
@@ -13,9 +25,15 @@ final class ChatViewController: UIViewController {
     @IBOutlet private weak var bottomSheetContainer: UIView!
     @IBOutlet private weak var bottomSheetBottomConstraint: NSLayoutConstraint!
     @IBOutlet private weak var bottomSheetHeightConstraint: NSLayoutConstraint!
-
+    @IBOutlet private weak var textFieldContainerBottomConstraint: NSLayoutConstraint!
+    
     @IBOutlet private weak var dimmerView: UIView!
 
+    // MARK: - Private properties
+
+    private var messages: [Message] = []
+
+    private let keyboardHandler = Typist.shared
     private var bottomSheetAnimationDuration: TimeInterval = 0.2
     private var bottomSheet: ChatBottomSheetViewController?
 
@@ -37,6 +55,7 @@ final class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUIMenuController()
+        configureKeyboardHandler()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 50
     }
@@ -84,6 +103,8 @@ final class ChatViewController: UIViewController {
         guard let viewController = viewController as? ProfileViewController else {
             return
         }
+
+        viewController.user = user
     }
 
     private func prepareBottomSheetViewController(_ viewController: UIViewController) {
@@ -92,25 +113,10 @@ final class ChatViewController: UIViewController {
         bottomSheet?.delegate = self
     }
 
-    var id = [
-        "TheirMessageCell",
-        "YourMessageCell"
-    ]
-
-    var messages = [
-        "Hello my friend, I expected to see you",
-        "What a beautiful day to develop some kind of app!",
-        "Imagine all the people\nLiving life in peace",
-        "To be or not to be? Two bee or not two bee?",
-        "I know what you did"
-    ]
-
-//    var translationHistory = [[String:String]]()
-
     // MARK: - IBActions
 
     @IBAction private func enableSendButton(_ sender: Any) {
-        guard let text = messageTextField.text, !text.isEmpty else {
+        guard let text = messageTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty else {
             sendButton.isEnabled = false
             return
         }
@@ -119,15 +125,30 @@ final class ChatViewController: UIViewController {
     }
     
     @IBAction private func sendMessage(_ sender: Any) {
-        guard let text = messageTextField.text, !text.isEmpty else {
+        guard let text = messageTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty else {
             return
         }
 
-        messages.append(text)
-        DispatchQueue.main.async {
+        guard let user = user, let data = text.data(using: .utf16), let userID = SocialNetworkClient.Settings.userId else {
+            return
+        }
+
+        let message = Message(senderId: userID, data: data, dataType: .text, type: .plain)
+        MessagesService.default.send(message, to: user) { request in
+
+        }
+        messages.append(message)
+
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
+
             self.tableView.reloadData()
             self.messageTextField.text = ""
             self.sendButton.isEnabled = false
+
+            if let indexPath = self.tableView.indexPathsForVisibleRows?.last {
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
         }
     }
 
@@ -183,22 +204,6 @@ final class ChatViewController: UIViewController {
         DictionaryManager.shared.add(entry: extractedWord.dictionaryEntry)
     }
 
-    @objc private dynamic func keyboardWillShow(_ notification: Notification) {
-        let keyboardHeight = getKeyboardHeight(notification)
-        let offset = getOffset(notification)
-        if keyboardHeight == offset {
-            self.view.frame.origin.y -= keyboardHeight
-        } else {
-            self.view.frame.origin.y += keyboardHeight - offset
-        }
-    }
-
-    @objc private dynamic func keyboardWillHide(_ notification: Notification) {
-        if self.view.frame.origin.y < 0 {
-            self.view.frame.origin.y += getKeyboardHeight(notification)
-        }
-    }
-
     // MARK: - Private methods
 
     private func presentBottomSheet(strategy: ChatBottomSheetViewControllerStrategy, for text: LSExtractedWord) {
@@ -219,10 +224,6 @@ final class ChatViewController: UIViewController {
     }
 
     private func subscribeToNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
-                                               name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
-                                               name: .UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(translateSelected(_:)),
                                                name: .translateSelected, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(commentSelected(_:)),
@@ -245,16 +246,26 @@ final class ChatViewController: UIViewController {
         UIMenuController.shared.menuItems = [translateMenuItem, commentMenuItem, lookUpMenuItem, addToDictionaryMenuItem]
     }
 
-    private func getKeyboardHeight(_ notification:Notification) -> CGFloat {
-        let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue
-        return keyboardSize.cgRectValue.height
+    private func configureKeyboardHandler() {
+        keyboardHandler
+            .on(event: .willShow) { [weak self] options in
+                let keyboardWillHide = (options.endFrame.origin.y > options.startFrame.origin.y)
+                self?.updateLayout(with: options.endFrame, keyboardWillHide: keyboardWillHide)
+            }
+            .on(event: .willHide) { [weak self] options in
+                let keyboardWillHide = (options.endFrame.origin.y > options.startFrame.origin.y)
+                self?.updateLayout(with: options.endFrame, keyboardWillHide: keyboardWillHide)
+            }
+            .start()
     }
 
-    private func getOffset(_ notification:Notification) -> CGFloat {
-        let userInfo = notification.userInfo
-        let offset = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-        return offset.cgRectValue.height
+    private func updateLayout(with keyboardFrame: CGRect, keyboardWillHide: Bool) {
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+            self?.textFieldContainerBottomConstraint.constant = keyboardWillHide
+                ? 0.0
+                : keyboardFrame.size.height
+            self?.view.layoutIfNeeded()
+        }, completion: nil)
     }
 
 }
@@ -279,7 +290,7 @@ extension ChatViewController: ChatBottomSheetViewControllerDelegate {
 extension ChatViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = id[indexPath.row % id.count]
+        let identifier = "YourMessageCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as! MessageTableViewCell
         cell.configure(message: messages[indexPath.row])
 

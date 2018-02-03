@@ -4,3 +4,6 @@
 [submodule "OAuth2"]
 	path = OAuth2
 	url = https://github.com/p2/OAuth2.git
+[submodule "Typist"]
+	path = Typist
+	url = https://github.com/totocaster/Typist.git

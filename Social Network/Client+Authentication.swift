@@ -50,22 +50,11 @@ fileprivate extension SocialNetworkClient {
             .request("https://\(ClientConstants.Constants.APIHost):8443/api/secured")
             .validate()
             .response() { response in
-                guard let response = response.response else {
-                    completion(nil)
-                    return
-                }
-
-                let result: ClientConstants.ServerResponse = (response.statusCode < 400)
-                    ? .success
-                    : .accessDenied
-
-                if result == .success {
-                    Settings.username = username
-                    Settings.password = password
-                    Settings.signedIn = true
-                }
+                Settings.username = username
+                Settings.password = password
+                Settings.signedIn = true
                 
-                completion(result)
+                completion(.success)
             }
     }
 

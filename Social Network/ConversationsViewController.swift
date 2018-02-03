@@ -1,9 +1,11 @@
 import UIKit
 
+typealias Conversation = (user: User, message: Message)
+
 final class ConversationsViewController: UITableViewController {
 
     private let client = SocialNetworkClient.default
-    private var conversations: [Any]?
+    private var conversations: [Conversation] = MessagesService.default.storage.conversations
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -12,9 +14,9 @@ final class ConversationsViewController: UITableViewController {
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
 
-        client.receive(.all, from: nil) { request in
-
-        }
+        MessagesService.default.subcribe(self)
+        MessagesService.default.startListeningToServer()
+        // TODO: Unsubscribe
     }
 
     // MARK: - Storyboard Segue Preparation
@@ -39,12 +41,12 @@ final class ConversationsViewController: UITableViewController {
             return
         }
 
-        guard let indexPath = indexPath, let conversation = conversations?[indexPath.row] else {
-//            assertionFailure("Couldn't fetch conversation")
+        guard let indexPath = indexPath else {
+            assertionFailure("Couldn't fetch conversation")
             return
         }
 
-        // TODO: Inject conversation meta data
+        viewController.user = conversations[indexPath.row].user
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -62,21 +64,37 @@ final class ConversationsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(ofClass: ConversationTableViewCell.self, for: indexPath)
-        cell.configure(name: "Friend", message: "What's up mate?", time: Date())
+        let conversation = conversations[indexPath.row]
+        cell.configure(user: conversation.user, message: conversation.message)
         return cell
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return conversations.count
     }
 
     // MARK: - UI Updates
 
     @objc private dynamic func refresh(_ sender: Any) {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.tableView.refreshControl?.endRefreshing()
+        MessagesService.default.fetchAllMessages { messages in
+            messages?.forEach { print(String(data: $0.data, encoding: .utf16)) }
+            DispatchQueue.main.async { [weak self] in
+                guard let `self` = self else { return }
+
+                self.conversations = MessagesService.default.storage.conversations
+                self.tableView.reloadData()
+                self.tableView.refreshControl?.endRefreshing()
+            }
         }
+    }
+
+}
+
+extension ConversationsViewController: MessagesServiceObserver {
+
+    func receive(message: Message, from service: MessagesService) {
+        self.conversations = MessagesService.default.storage.conversations
+        self.tableView.reloadData()
     }
 
 }

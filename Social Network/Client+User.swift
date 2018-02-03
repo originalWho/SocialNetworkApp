@@ -7,7 +7,7 @@ extension SocialNetworkClient {
     func register(parameters: [String:Any], completion: @escaping (_ response: ClientConstants.ServerResponse?) -> Void) {
         let registerURL = url(from: nil, path: ClientConstants.Constants.APIPath,
                               method: ClientConstants.Methods.register)
-
+        
         alamofireRequest(url: registerURL, method: .post, parameters: parameters) { [weak self] response in
             guard let this = self else {
                 completion(nil)
@@ -50,7 +50,7 @@ extension SocialNetworkClient {
 
 extension SocialNetworkClient {
 
-    func getProfile(_ userID: Int? = nil, completion: @escaping (ClientConstants.ProfileRequest) -> Void) {
+    func getProfile(_ userID: UserID? = nil, completion: @escaping (ClientConstants.ProfileRequest) -> Void) {
         let method: String
         if let userID = userID {
             method = String(format: ClientConstants.Methods.Profile.byID, userID)

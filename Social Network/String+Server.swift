@@ -370,6 +370,17 @@ extension String {
             static var Native: String { return "NATIVE" }
 
         }
+
+        struct MessageType {
+            static var plain: String { return "Plain" }
+            static var comment: String { return "Comment" }
+        }
+
+        struct MessageDataType {
+            static var text: String { return "Text" }
+            static var image: String { return "Image" }
+            static var audio: String { return "Audio" }
+        }
         
     }
 

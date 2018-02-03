@@ -2179,3 +2179,67 @@ extension LanguageLevel {
     }
     
 }
+
+extension Message.MessageType {
+
+    private typealias Server = String.Server.MessageType
+
+    init?(stringValue: String) {
+        switch stringValue {
+        case Server.plain:
+            self = .plain
+
+        case Server.comment:
+            self = .comment
+
+        default:
+            return nil
+        }
+    }
+
+    var stringValue: String {
+        switch self {
+        case .plain:
+            return Server.plain
+
+        case .comment:
+            return Server.comment
+        }
+    }
+
+}
+
+extension Message.DataType {
+
+    private typealias Server = String.Server.MessageDataType
+
+    init?(stringValue: String) {
+        switch stringValue {
+        case Server.text:
+            self = .text
+
+        case Server.image:
+            self = .image
+
+        case Server.audio:
+            self = .audio
+
+        default:
+            return nil
+        }
+    }
+
+    var stringValue: String {
+        switch self {
+        case .text:
+            return Server.text
+
+        case .image:
+            return Server.image
+
+        case .audio:
+            return Server.audio
+        }
+    }
+    
+}

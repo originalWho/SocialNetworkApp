@@ -56,7 +56,7 @@ extension SocialNetworkClient {
             }
         }
 
-        static var userId: Int? {
+        static var userId: UserID? {
             get {
                 return defaults().userId
             }
@@ -162,9 +162,9 @@ fileprivate extension UserDefaults.ClientSuite {
         }
     }
 
-    var userId: Int? {
+    var userId: UserID? {
         get {
-            return integer(forKey: ParameterKey.userId)
+            return UInt64(integer(forKey: ParameterKey.userId))
         }
 
         set {

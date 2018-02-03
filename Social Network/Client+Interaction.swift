@@ -4,43 +4,53 @@ import Alamofire
 
 extension SocialNetworkClient {
 
-    func send(message: Message, to userId: Int, completion: @escaping (ClientConstants.SendRequest) -> Void) {
-        let method = String(format: ClientConstants.Methods.Conversation.message, userId)
-        let parameters: [String: Any] = [ClientConstants.Methods.Conversation.Key.id: userId]
-        let sendMessageToURL = url(from: parameters, path: ClientConstants.Constants.APIPath, method: method)
+    func send(message: Message, to userId: UserID, completion: @escaping (ClientConstants.SendRequest) -> Void) {
+        let method = ClientConstants.Methods.Conversation.message
+        let queryParameters: [String: Any] = [ClientConstants.Methods.Conversation.Key.id: userId]
+        let sendMessageToURL = url(from: queryParameters, path: ClientConstants.Constants.APIPath, method: method)
 
-        alamofireRequest(url: sendMessageToURL, method: .post) { response in
+        alamofireRequest(url: sendMessageToURL, method: .post, parameters: message.json) { response in
             print(response)
         }
     }
 
-    func receive(_ mode: ClientConstants.ReceiveMode, from userId: Int? = nil,
+    func receive(_ mode: ClientConstants.ReceiveMode, from userId: UserID? = nil,
                  completion: @escaping (ClientConstants.MessagesRequest) -> Void) {
         typealias Key = ClientConstants.Methods.Conversation.Key
 
         var parameters = [String:Any]()
-        parameters[Key.id] = userId
 
         switch mode {
         case .latest(let offset, let count):
+            parameters[Key.id] = userId
             parameters[Key.offset] = offset
             parameters[Key.count] = count
 
         case .all:
-            break
+            parameters[Key.id] = UInt64(249)
+            parameters[Key.offset] = 0
+            parameters[Key.count] = 20
         }
 
         let messagesFromURL = url(from: parameters, path: ClientConstants.Constants.APIPath,
                                   method: ClientConstants.Methods.Conversation.messages)
         print(messagesFromURL)
         alamofireRequest(url: messagesFromURL) { response in
-            print(response)
-            guard let json = response.result.value as? [String:Any] else {
+            guard let jsonMessages = response.result.value as? [[String:Any]] else {
                 completion(.fail(.unknownError))
                 return
             }
 
-            print(json)
+            var messages = [Message]()
+            for jsonMessage in jsonMessages {
+                guard let message = Message(from: jsonMessage) else {
+                    continue
+                }
+
+                messages.append(message)
+            }
+
+            completion(.success(messages))
         }
     }
     
@@ -50,7 +60,7 @@ extension SocialNetworkClient {
 
 extension SocialNetworkClient {
 
-    func getFriends(of userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+    func getFriends(of userId: UserID, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
         let method = String(format: ClientConstants.Methods.Profile.friends, userId)
         let friendsURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
@@ -59,7 +69,7 @@ extension SocialNetworkClient {
         }
     }
 
-    func getSubscribers(of userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+    func getSubscribers(of userId: UserID, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
         let method = String(format: ClientConstants.Methods.Profile.subscribers, userId)
         let subscribersURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
@@ -68,7 +78,7 @@ extension SocialNetworkClient {
         }
     }
 
-    func getSubscribtions(of userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+    func getSubscribtions(of userId: UserID, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
         let method = String(format: ClientConstants.Methods.Profile.subscriptions, userId)
         let subscribtionsURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
@@ -77,7 +87,7 @@ extension SocialNetworkClient {
         }
     }
 
-    func getBlacklist(of userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+    func getBlacklist(of userId: UserID, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
         let method = String(format: ClientConstants.Methods.Profile.blacklist, userId)
         let blacklistURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
@@ -86,7 +96,7 @@ extension SocialNetworkClient {
         }
     }
 
-    func friend(_ userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+    func friend(_ userId: UserID, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
         let method = String(format: ClientConstants.Methods.Profile.add, userId)
         let friendURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
@@ -100,7 +110,7 @@ extension SocialNetworkClient {
         }
     }
 
-    func unfriend(_ userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+    func unfriend(_ userId: UserID, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
         let method = String(format: ClientConstants.Methods.Profile.remove, userId)
         let unfriendURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
@@ -114,7 +124,7 @@ extension SocialNetworkClient {
         }
     }
 
-    func block(_ userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+    func block(_ userId: UserID, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
         let method = String(format: ClientConstants.Methods.Profile.block, userId)
         let blockURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
@@ -128,7 +138,7 @@ extension SocialNetworkClient {
         }
     }
 
-    func unblock(_ userId: Int, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+    func unblock(_ userId: UserID, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
         let method = String(format: ClientConstants.Methods.Profile.unblock, userId)
         let unblockURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 

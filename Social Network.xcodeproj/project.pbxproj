@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7527548C1FF6E18500D62C94 /* Foundation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527548B1FF6E18500D62C94 /* Foundation+.swift */; };
+		75418D6C2025D46D00E43A93 /* Typist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75418D6B2025D46800E43A93 /* Typist.framework */; };
+		75418D6D2025D47400E43A93 /* Typist.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 75418D6B2025D46800E43A93 /* Typist.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7546A9291FFB2FBC00FE2F47 /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7546A9281FFB2FBC00FE2F47 /* DictionaryViewController.swift */; };
 		7546A92B1FFB2FD600FE2F47 /* DictionaryEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7546A92A1FFB2FD600FE2F47 /* DictionaryEntryViewController.swift */; };
 		7546A92D1FFB4DE500FE2F47 /* DictionaryEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7546A92C1FFB4DE500FE2F47 /* DictionaryEntryTableViewCell.swift */; };
@@ -81,6 +83,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		75418D682025D46800E43A93 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75418D632025D46800E43A93 /* Typist.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9909502E1D9928210040D759;
+			remoteInfo = "Typist-Demo";
+		};
+		75418D6A2025D46800E43A93 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75418D632025D46800E43A93 /* Typist.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 995B3BA51DABB30B0027A37E;
+			remoteInfo = Typist;
+		};
 		75A5A8981E71836E00ABA2CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 75A5A88D1E71836D00ABA2CC /* Alamofire.xcodeproj */;
@@ -181,6 +197,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				75418D6D2025D47400E43A93 /* Typist.framework in Embed Frameworks */,
 				75FCFF1C1E9D305100F640A6 /* Alamofire.framework in Embed Frameworks */,
 				75FCFF201E9D305100F640A6 /* OAuth2.framework in Embed Frameworks */,
 			);
@@ -191,6 +208,7 @@
 
 /* Begin PBXFileReference section */
 		7527548B1FF6E18500D62C94 /* Foundation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+.swift"; sourceTree = "<group>"; };
+		75418D632025D46800E43A93 /* Typist.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Typist.xcodeproj; path = Typist/Typist.xcodeproj; sourceTree = "<group>"; };
 		7546A9281FFB2FBC00FE2F47 /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
 		7546A92A1FFB2FD600FE2F47 /* DictionaryEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryEntryViewController.swift; sourceTree = "<group>"; };
 		7546A92C1FFB4DE500FE2F47 /* DictionaryEntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryEntryTableViewCell.swift; sourceTree = "<group>"; };
@@ -272,6 +290,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75418D6C2025D46D00E43A93 /* Typist.framework in Frameworks */,
 				75FCFF1B1E9D305100F640A6 /* Alamofire.framework in Frameworks */,
 				75FCFF1F1E9D305100F640A6 /* OAuth2.framework in Frameworks */,
 			);
@@ -280,9 +299,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		75418D642025D46800E43A93 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				75418D692025D46800E43A93 /* Typist-Demo.app */,
+				75418D6B2025D46800E43A93 /* Typist.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7541F13E1E9ABF0F00EE473D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				75418D632025D46800E43A93 /* Typist.xcodeproj */,
 				75A5A88D1E71836D00ABA2CC /* Alamofire.xcodeproj */,
 				75A7ED811E6C71B0002DD4ED /* OAuth2.xcodeproj */,
 			);
@@ -708,6 +737,10 @@
 					ProductGroup = 75A7ED821E6C71B0002DD4ED /* Products */;
 					ProjectRef = 75A7ED811E6C71B0002DD4ED /* OAuth2.xcodeproj */;
 				},
+				{
+					ProductGroup = 75418D642025D46800E43A93 /* Products */;
+					ProjectRef = 75418D632025D46800E43A93 /* Typist.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -717,6 +750,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		75418D692025D46800E43A93 /* Typist-Demo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Typist-Demo.app";
+			remoteRef = 75418D682025D46800E43A93 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75418D6B2025D46800E43A93 /* Typist.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Typist.framework;
+			remoteRef = 75418D6A2025D46800E43A93 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		75A5A8991E71836E00ABA2CC /* Alamofire.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;

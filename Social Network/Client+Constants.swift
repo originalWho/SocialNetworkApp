@@ -202,6 +202,11 @@ struct ClientConstants {
         static let Languages = "languages"
         static let About = "about"
         static let Online = "online"
+        static let senderID = "senderId"
+        static let datetime = "datetime"
+        static let messageType = "messageType"
+        static let messageDataType = "messageDataType"
+        static let data = "data"
     }
 
     // MARK: - Enums
