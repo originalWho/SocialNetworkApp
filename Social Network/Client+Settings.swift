@@ -93,6 +93,7 @@ fileprivate struct ParameterKey {
     static var languagesSearchParameter: String { return "hse.socialNetwork.searchParameter.languages" }
     static var onlineSearchParameter: String { return "hse.socialNetwork.searchParameter.online" }
     static var withPhotoSearchParameter: String { return "hse.socialNetwork.searchParameter.withPhoto" }
+    static var languageLevelSearchParameter: String { return "hse.socialNetwork.searchParameter.languageLevel" }
 
 }
 
@@ -182,6 +183,9 @@ fileprivate extension UserDefaults.ClientSuite {
             let genderRawValue = integer(forKey: ParameterKey.genderSearchParameter)
             searchParameters.gender = Gender(rawValue: genderRawValue) ?? .none
 
+            let languageLevel = integer(forKey: ParameterKey.languageLevelSearchParameter)
+            searchParameters.languageLevel = LanguageLevel(rawValue: languageLevel) ?? .none
+
             if let languages = object(forKey: ParameterKey.languagesSearchParameter) as? [Int] {
                 searchParameters.languageNames = languages.flatMap { LanguageName(rawValue: $0) }
             }
@@ -196,6 +200,7 @@ fileprivate extension UserDefaults.ClientSuite {
             var keyedValues = [String: Any]()
             keyedValues[ParameterKey.countrySearchParameter] = newValue.country.rawValue
             keyedValues[ParameterKey.genderSearchParameter] = newValue.gender.rawValue
+            keyedValues[ParameterKey.languageLevelSearchParameter] = newValue.languageLevel.rawValue
             keyedValues[ParameterKey.languagesSearchParameter] = newValue.languageNames.map { $0.rawValue }
             keyedValues[ParameterKey.onlineSearchParameter] = newValue.online
             keyedValues[ParameterKey.withPhotoSearchParameter] = newValue.withPhoto

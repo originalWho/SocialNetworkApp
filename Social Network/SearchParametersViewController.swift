@@ -4,14 +4,16 @@ import UIKit
 
 struct SearchParameters {
     var languageNames: [LanguageName]
+    var languageLevel: LanguageLevel
     var country: Country
     var gender: Gender
     var online: Bool
     var withPhoto: Bool
 
-    init(languages: [LanguageName] = [], country: Country = .none,
+    init(languages: [LanguageName] = [], languageLevel: LanguageLevel = .none, country: Country = .none,
          gender: Gender = .none, online: Bool = true, withPhoto: Bool = true) {
         self.languageNames = languages
+        self.languageLevel = languageLevel
         self.country = country
         self.gender = gender
         self.online = online
@@ -31,6 +33,7 @@ final class SearchParametersViewController: UIViewController {
         case gender
         case isOnline
         case withPhoto
+        case isFluent
     }
 
     // MARK: - Outlets
@@ -40,7 +43,7 @@ final class SearchParametersViewController: UIViewController {
     // MARK: - Private properties
 
     private var searchParameters = SocialNetworkClient.Settings.searchParameters
-    private let rows: [Row] = [.languages, .country, .gender, .isOnline, .withPhoto]
+    private let rows: [Row] = [.languages, .country, .gender, .isOnline, .withPhoto, .isFluent]
 
     // MARK: - Life Cycle
 
@@ -85,9 +88,8 @@ final class SearchParametersViewController: UIViewController {
         case .gender:
             viewController.parameter = .gender(searchParameters.gender)
 
-        case .isOnline, .withPhoto:
+        case .isOnline, .withPhoto, .isFluent:
             return
-
         }
 
         viewController.delegate = self
@@ -110,6 +112,11 @@ extension SearchParametersViewController: UITableViewDelegate {
 
         case .withPhoto:
             searchParameters.withPhoto = !searchParameters.withPhoto
+
+        case .isFluent:
+            searchParameters.languageLevel = (searchParameters.languageLevel == .none)
+                ? .fluent
+                : .none
 
         case .country, .gender, .languages:
             performSegue(withIdentifier: .showEditSingleSearchParameter, sender: self)
@@ -158,6 +165,9 @@ extension SearchParametersViewController: UITableViewDataSource {
 
         case .withPhoto:
             cell.configure(title: "With Photo", isChecked: searchParameters.withPhoto)
+
+        case .isFluent:
+            cell.configure(title: "Fluent Only", isChecked: searchParameters.languageLevel == .fluent)
         }
 
         return cell

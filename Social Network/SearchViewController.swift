@@ -85,7 +85,7 @@ final class SearchViewController: UIViewController {
         let searchParameters = SocialNetworkClient.Settings.searchParameters
         var languages = [String: String]()
         for language in searchParameters.languageNames {
-            languages[language.stringValue] = LanguageLevel.native.stringValue
+            languages[language.stringValue] = searchParameters.languageLevel.stringValue
         }
 
         let parameters: [String: Any] = [
