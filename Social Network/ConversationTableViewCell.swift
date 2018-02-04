@@ -13,8 +13,8 @@ final class ConversationTableViewCell: UITableViewCell {
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
 
-    func configure(user: User, message: Message) {
-        nameLabel.text = user.name
+    func configure(userID: UserID, message: Message) {
+        fetchUser(userID: userID)
         
         switch message.dataType {
         case .text:
@@ -28,6 +28,14 @@ final class ConversationTableViewCell: UITableViewCell {
         }
 
         timeLabel.text = ConversationTableViewCell.dateFormatter.string(from: message.date)
+    }
+
+    private func fetchUser(userID: UserID) {
+        UserManager.shared.getUser(with: userID) { user in
+            DispatchQueue.main.async { [weak self] in
+                self?.nameLabel.text = user?.name
+            }
+        }
     }
 
 }

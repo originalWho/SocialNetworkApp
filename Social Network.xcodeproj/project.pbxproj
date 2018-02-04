@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		750F50C220278CF6001E28E9 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F50C120278CF6001E28E9 /* UserManager.swift */; };
 		7527548C1FF6E18500D62C94 /* Foundation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527548B1FF6E18500D62C94 /* Foundation+.swift */; };
 		75418D6C2025D46D00E43A93 /* Typist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75418D6B2025D46800E43A93 /* Typist.framework */; };
 		75418D6D2025D47400E43A93 /* Typist.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 75418D6B2025D46800E43A93 /* Typist.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -207,6 +208,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		750F50C120278CF6001E28E9 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		7527548B1FF6E18500D62C94 /* Foundation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+.swift"; sourceTree = "<group>"; };
 		75418D632025D46800E43A93 /* Typist.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Typist.xcodeproj; path = Typist/Typist.xcodeproj; sourceTree = "<group>"; };
 		7546A9281FFB2FBC00FE2F47 /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
@@ -664,9 +666,10 @@
 		75FD48671FFE79F600E5814C /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				758BD4471FFDC37F007D47BF /* BaseStorageManager.swift */,
 				7546A9301FFBA6D000FE2F47 /* DictionaryManager.swift */,
 				75FD485B1FFDE57E00E5814C /* TranslateManager.swift */,
-				758BD4471FFDC37F007D47BF /* BaseStorageManager.swift */,
+				750F50C120278CF6001E28E9 /* UserManager.swift */,
 			);
 			name = Storage;
 			sourceTree = "<group>";
@@ -921,6 +924,7 @@
 				7527548C1FF6E18500D62C94 /* Foundation+.swift in Sources */,
 				75E617C61E50CAD80033C236 /* Constants.swift in Sources */,
 				758B61AF1EA93A0B00152AA4 /* Enums.swift in Sources */,
+				750F50C220278CF6001E28E9 /* UserManager.swift in Sources */,
 				758B61A31EA38D4100152AA4 /* ControllerCoordinator.swift in Sources */,
 				758BD4441FFD8DA9007D47BF /* DictionaryService.swift in Sources */,
 				758B61CF1EB1F46900152AA4 /* ConversationTableViewCell.swift in Sources */,

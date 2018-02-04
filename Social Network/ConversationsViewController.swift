@@ -1,6 +1,6 @@
 import UIKit
 
-typealias Conversation = (user: User, message: Message)
+typealias Conversation = (userID: UserID, message: Message)
 
 final class ConversationsViewController: UITableViewController {
 
@@ -46,7 +46,7 @@ final class ConversationsViewController: UITableViewController {
             return
         }
 
-        viewController.user = conversations[indexPath.row].user
+        viewController.userID = conversations[indexPath.row].userID
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -65,7 +65,7 @@ final class ConversationsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(ofClass: ConversationTableViewCell.self, for: indexPath)
         let conversation = conversations[indexPath.row]
-        cell.configure(user: conversation.user, message: conversation.message)
+        cell.configure(userID: conversation.userID, message: conversation.message)
         return cell
     }
 

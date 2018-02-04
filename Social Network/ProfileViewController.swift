@@ -4,7 +4,19 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Public properties
 
-    var user: User?
+    var userID: UserID? {
+        didSet {
+            updateProfile()
+        }
+    }
+
+    private var user: User? {
+        didSet {
+            guard let user = user, isViewLoaded else { return }
+
+            populateUI(with: user)
+        }
+    }
 
     // MARK: - Private properties
 
@@ -39,12 +51,7 @@ final class ProfileViewController: UIViewController {
             navigationItem.setRightBarButton(rightBarButton, animated: true)
         }
 
-        if let user = user {
-            populateUI(with: user)
-        }
-        else {
-            loadProfile()
-        }
+        updateProfile()
 
         scrollView.refreshControl = UIRefreshControl()
         scrollView.refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
@@ -67,10 +74,8 @@ final class ProfileViewController: UIViewController {
     // MARK: - Private methods
 
     @objc private dynamic func refresh(_ sender: UIRefreshControl) {
-        DispatchQueue.main.async {
-            self.loadProfile()
-            sender.endRefreshing()
-        }
+        updateProfile()
+        sender.endRefreshing()
     }
 
     @objc private dynamic func logout(_ sender: Any) {
@@ -96,19 +101,9 @@ final class ProfileViewController: UIViewController {
 //        navigationController?.pushViewController(usersViewController!, animated: true)
     }
 
-    private func loadProfile() {
-        client.getProfile(user?.id) { [weak self] request in
-            guard let this = self else {
-                return
-            }
-
-            switch request {
-            case .fail(let response):
-                this.warn(with: response)
-
-            case .success(let user):
-                this.populateUI(with: user)
-            }
+    private func updateProfile() {
+        UserManager.shared.getUser(with: userID) { [weak self] user in
+            self?.user = user
         }
     }
 
@@ -232,7 +227,7 @@ final class ProfileViewController: UIViewController {
     @objc private dynamic func openChatViewController(_ sender: Any) {
         let storyboard = UIStoryboard(name: UIStoryboard.Conversations.id, bundle: .main)
         if let viewController = storyboard.instantiateViewController(withIdentifier: ChatViewController.id) as? ChatViewController {
-            viewController.user = user
+            viewController.userID = userID
             show(viewController, sender: self)
         }
     }

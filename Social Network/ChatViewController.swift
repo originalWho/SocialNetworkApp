@@ -5,14 +5,7 @@ final class ChatViewController: UIViewController {
 
     // MARK: - Internal properties
 
-    var user: User? {
-        didSet {
-            guard let user = user else { return }
-
-            navigationItem.title = user.name
-            messages = MessagesService.default.storage[user]
-        }   
-    }
+    var userID: UserID?
 
     // MARK: - Outlets
 
@@ -54,6 +47,7 @@ final class ChatViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateController()
         configureUIMenuController()
         configureKeyboardHandler()
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -104,13 +98,29 @@ final class ChatViewController: UIViewController {
             return
         }
 
-        viewController.user = user
+        viewController.userID = userID
     }
 
     private func prepareBottomSheetViewController(_ viewController: UIViewController) {
         guard let viewController = viewController as? ChatBottomSheetViewController else { return }
         bottomSheet = viewController
         bottomSheet?.delegate = self
+    }
+
+    private func updateController() {
+        guard let userID = userID else { return }
+
+        UserManager.shared.getUser(with: userID) { user in
+            guard let user = user else { return }
+
+            DispatchQueue.main.async { [weak self] in
+                guard let `self` = self else { return }
+
+                self.navigationItem.title = user.name
+                self.messages = MessagesService.default.storage[userID]
+                self.tableView.reloadData()
+            }
+        }
     }
 
     // MARK: - IBActions
@@ -129,26 +139,22 @@ final class ChatViewController: UIViewController {
             return
         }
 
-        guard let user = user, let data = text.data(using: .utf16), let userID = SocialNetworkClient.Settings.userId else {
+        guard let userID = userID, let data = text.data(using: .utf16), let senderID = SocialNetworkClient.Settings.userId else {
             return
         }
 
-        let message = Message(senderId: userID, data: data, dataType: .text, type: .plain)
-        MessagesService.default.send(message, to: user) { request in
+        let message = Message(senderId: senderID, data: data, dataType: .text, type: .plain)
+        MessagesService.default.send(message, to: userID) { request in
 
         }
         messages.append(message)
 
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self else { return }
+        tableView.reloadData()
+        messageTextField.text = ""
+        sendButton.isEnabled = false
 
-            self.tableView.reloadData()
-            self.messageTextField.text = ""
-            self.sendButton.isEnabled = false
-
-            if let indexPath = self.tableView.indexPathsForVisibleRows?.last {
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-            }
+        if let indexPath = tableView.indexPathsForVisibleRows?.last {
+            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
 

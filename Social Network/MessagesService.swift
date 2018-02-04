@@ -8,24 +8,24 @@ protocol MessagesServiceObserver: class {
 
 final class MessagesStorage {
 
-    private var storage: [User:[Message]] = [:]
+    private var storage: [UserID:[Message]] = [:]
 
     var conversations: [Conversation] {
         var conversations = [Conversation]()
-        for (user, messages) in storage {
+        for (userID, messages) in storage {
             guard let message = messages.last else {
                 continue
             }
 
-            let conversation = Conversation(user: user, message: message)
+            let conversation = Conversation(userID: userID, message: message)
             conversations.append(conversation)
         }
         return conversations.sorted(by: { $0.message.date > $1.message.date })
     }
 
-    subscript(user: User) -> [Message] {
+    subscript(userID: UserID) -> [Message] {
         get {
-            if let messages = storage[user] {
+            if let messages = storage[userID] {
                 return messages
             }
             else {
@@ -34,21 +34,21 @@ final class MessagesStorage {
         }
 
         set {
-            storage[user] = newValue
+            storage[userID] = newValue
         }
     }
 
-    fileprivate func add(_ message: Message, user: User) {
-        if storage[user] == nil {
-            storage[user] = []
+    fileprivate func add(_ message: Message, userID: UserID) {
+        if storage[userID] == nil {
+            storage[userID] = []
         }
 
-        storage[user]?.append(message)
+        storage[userID]?.append(message)
     }
 
-    fileprivate func remove(_ message: Message, user: User) {
-        if let index = storage[user]?.index(where: { $0.id == message.id }) {
-            storage[user]?.remove(at: index)
+    fileprivate func remove(_ message: Message, userID: UserID) {
+        if let index = storage[userID]?.index(where: { $0.id == message.id }) {
+            storage[userID]?.remove(at: index)
         }
     }
 
@@ -106,14 +106,13 @@ final class MessagesService {
 
     // MARK: - Interaction
 
-    func send(_ message: Message, to user: User, completion: @escaping (ClientConstants.SendRequest) -> Void) {
-        guard let userID = user.id else {
-            return
+    func send(_ message: Message, to userID: UserID, completion: @escaping (ClientConstants.SendRequest) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let `self` = self else { return }
+            self.client.send(message: message, to: userID, completion: completion)
+            self.storage.add(message, userID: userID)
+            self.notify(with: message)
         }
-
-        client.send(message: message, to: userID, completion: completion)
-        storage.add(message, user: user)
-        notify(with: message)
     }
 
     func startListeningToServer() {

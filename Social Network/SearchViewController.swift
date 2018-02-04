@@ -66,7 +66,7 @@ final class SearchViewController: UIViewController {
             return
         }
 
-        viewController.user = user
+        viewController.userID = user.id
 
         tableView.deselectRow(at: indexPath, animated: true)
     }

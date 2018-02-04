@@ -50,9 +50,9 @@ struct Message: Storable {
         return data.hashValue ^ senderId.hashValue
     }
 
-    private static let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    private static let dateFormatter: ISO8601DateFormatter = {
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = .withInternetDateTime
         return dateFormatter
     }()
 
@@ -136,7 +136,7 @@ struct Message: Storable {
 
 struct User: Storable {
 
-    let id: UserID?
+    let id: UserID
     let name: String?
     let email: String?
     let age: Int?
@@ -148,10 +148,10 @@ struct User: Storable {
     let online: Bool?
 
     var hashValue: Int {
-        return id?.hashValue ?? 0
+        return id.hashValue
     }
 
-    init(id: UserID?, name: String? = nil, email: String?, age: Int?, gender: Gender? = Gender.none,
+    init(id: UserID, name: String? = nil, email: String?, age: Int?, gender: Gender? = Gender.none,
          about: String? = nil, country: Country? = Country.none, languages: [Language]?, photoLink: URL? = nil, online: Bool?) {
         self.id = id
         self.name = name
@@ -181,7 +181,7 @@ struct User: Storable {
         let photoLink = (json[Key.PhotoLink] as? String) ?? ""
         let online = (json[Key.Online] as? Int) ?? 0
 
-        self.id = json[Key.ID] as? UserID
+        self.id = (json[Key.ID] as? UserID) ?? 0
         self.name = (json[Key.Name] as? String)
         self.email = json[Key.Email] as? String
         self.age = json[Key.Age] as? Int
@@ -194,19 +194,11 @@ struct User: Storable {
     }
 
     static func <(lhs: User, rhs: User) -> Bool {
-        if let lhsID = lhs.id, let rhsID = rhs.id {
-            return lhsID < rhsID
-        }
-
-        return true
+        return lhs.id < rhs.id
     }
 
     static func ==(lhs: User, rhs: User) -> Bool {
-        if let lhsID = lhs.id, let rhsID = rhs.id {
-            return lhsID == rhsID
-        }
-
-        return false
+        return lhs.id == rhs.id
     }
 
 }

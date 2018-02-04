@@ -64,7 +64,7 @@ extension SocialNetworkClient {
 
         alamofireRequest(url: profileURL) { response in
             guard let json = response.result.value as? [String:Any] else {
-                    completion(.fail(.unknownError))
+                completion(.fail(.unknownError))
                 return
             }
             
@@ -120,6 +120,7 @@ extension SocialNetworkClient {
 
             var users = [User]()
             dicts.forEach { users.append(User(from: $0)) }
+            users.forEach { UserManager.shared.add(entry: $0) }
             completion(.success(users))
         }
     }
