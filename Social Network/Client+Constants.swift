@@ -207,6 +207,9 @@ struct ClientConstants {
         static let messageType = "messageType"
         static let messageDataType = "messageDataType"
         static let data = "data"
+        static let startPosition = "startPosition"
+        static let endPosition = "endPosition"
+        static let parentID = "parentId"
     }
 
     // MARK: - Enums

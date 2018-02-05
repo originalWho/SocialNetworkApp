@@ -158,7 +158,7 @@ final class ChatViewController: UIViewController {
             return
         }
 
-        let message = Message(senderId: senderID, data: data, dataType: .text, type: .plain)
+        let message = Message(senderID: senderID, data: data, dataType: .text)
         MessagesService.default.send(message, to: userID) { request in
 
         }
@@ -341,7 +341,7 @@ extension ChatViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
-        let identifier = (message.senderId == SocialNetworkClient.Settings.userId)
+        let identifier = (message.senderID == SocialNetworkClient.Settings.userId)
             ? "YourMessageCell"
             : "TheirMessageCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as! MessageTableViewCell

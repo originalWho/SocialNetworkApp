@@ -2180,7 +2180,7 @@ extension LanguageLevel {
     
 }
 
-extension Message.MessageType {
+extension MessageType {
 
     private typealias Server = String.Server.MessageType
 
@@ -2209,7 +2209,7 @@ extension Message.MessageType {
 
 }
 
-extension Message.DataType {
+extension MessageDataType {
 
     private typealias Server = String.Server.MessageDataType
 
