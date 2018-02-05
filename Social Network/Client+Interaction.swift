@@ -60,7 +60,7 @@ extension SocialNetworkClient {
 
 extension SocialNetworkClient {
 
-    func getFriends(of userId: UserID, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+    func getFriends(of userId: UserID, completion: @escaping (ClientConstants.UserListRequest) -> Void) {
         let method = String(format: ClientConstants.Methods.Profile.friends, userId)
         let friendsURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
@@ -69,25 +69,41 @@ extension SocialNetworkClient {
         }
     }
 
-    func getSubscribers(of userId: UserID, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+    func getSubscribers(of userId: UserID, completion: @escaping (ClientConstants.UserListRequest) -> Void) {
         let method = String(format: ClientConstants.Methods.Profile.subscribers, userId)
         let subscribersURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
         alamofireRequest(url: subscribersURL) { response in
-            print(response)
+            guard let dicts = response.result.value as? [[String:Any]] else {
+                completion(.fail(.unknownError))
+                return
+            }
+
+            var subscribers = [User]()
+            dicts.forEach { subscribers.append(User(from: $0)) }
+            subscribers.forEach { UserManager.shared.add(entry: $0) }
+            completion(.success(subscribers))
         }
     }
 
-    func getSubscribtions(of userId: UserID, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+    func getSubscribtions(of userId: UserID, completion: @escaping (ClientConstants.UserListRequest) -> Void) {
         let method = String(format: ClientConstants.Methods.Profile.subscriptions, userId)
         let subscribtionsURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 
         alamofireRequest(url: subscribtionsURL) { response in
-            print(response)
+            guard let dicts = response.result.value as? [[String:Any]] else {
+                completion(.fail(.unknownError))
+                return
+            }
+
+            var subscribtions = [User]()
+            dicts.forEach { subscribtions.append(User(from: $0)) }
+            subscribtions.forEach { UserManager.shared.add(entry: $0) }
+            completion(.success(subscribtions))
         }
     }
 
-    func getBlacklist(of userId: UserID, completion: @escaping (ClientConstants.ActionRequest) -> Void) {
+    func getBlacklist(of userId: UserID, completion: @escaping (ClientConstants.UserListRequest) -> Void) {
         let method = String(format: ClientConstants.Methods.Profile.blacklist, userId)
         let blacklistURL = url(from: nil, path: ClientConstants.Constants.APIPath, method: method)
 

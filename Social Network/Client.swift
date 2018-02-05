@@ -18,7 +18,7 @@ protocol Client {
     func getProfile(_ userId: UserID?,
                     completion: @escaping (ClientConstants.ProfileRequest) -> Void)
     func search(parameters: [String:Any], query: [String:Any],
-                completion: @escaping (ClientConstants.SearchRequest) -> Void)
+                completion: @escaping (ClientConstants.UserListRequest) -> Void)
     
     func send(message: Message, to userId: UserID,
               completion: @escaping (ClientConstants.SendRequest) -> Void)
@@ -26,13 +26,13 @@ protocol Client {
                  completion: @escaping (ClientConstants.MessagesRequest) -> Void)
 
     func getFriends(of userId: UserID,
-                    completion: @escaping (ClientConstants.ActionRequest) -> Void)
+                    completion: @escaping (ClientConstants.UserListRequest) -> Void)
     func getSubscribers(of userId: UserID,
-                        completion: @escaping (ClientConstants.ActionRequest) -> Void)
+                        completion: @escaping (ClientConstants.UserListRequest) -> Void)
     func getSubscribtions(of userId: UserID,
-                          completion: @escaping (ClientConstants.ActionRequest) -> Void)
+                          completion: @escaping (ClientConstants.UserListRequest) -> Void)
     func getBlacklist(of userId: UserID,
-                      completion: @escaping (ClientConstants.ActionRequest) -> Void)
+                      completion: @escaping (ClientConstants.UserListRequest) -> Void)
 
     func friend(_ userId: UserID,
                 completion: @escaping (ClientConstants.ActionRequest) -> Void)

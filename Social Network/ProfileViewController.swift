@@ -2,13 +2,17 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
     var userID: UserID? {
         didSet {
             updateProfile()
         }
     }
+
+    // MARK: - Private properties
+
+    private let client = SocialNetworkClient.default
 
     private var user: User? {
         didSet {
@@ -18,9 +22,27 @@ final class ProfileViewController: UIViewController {
         }
     }
 
-    // MARK: - Private properties
+    private var subscribers: [User]? {
+        didSet {
+            if let subscribers = subscribers {
+                subscribersNumberLabel.text = "\(subscribers.count)"
+            }
+            else {
+                subscribersNumberLabel.text = nil
+            }
+        }
+    }
 
-    private let client = SocialNetworkClient.default
+    private var subscribtions: [User]? {
+        didSet {
+            if let subscribtions = subscribtions {
+                subscribtionsNumberLabel.text = "\(subscribtions.count)"
+            }
+            else {
+                subscribtionsNumberLabel.text = nil
+            }
+        }
+    }
 
     // MARK: - Outlets
 
@@ -33,9 +55,8 @@ final class ProfileViewController: UIViewController {
     @IBOutlet private weak var actionStackView: UIStackView!
     @IBOutlet private weak var languageStackView: UIStackView!
     @IBOutlet private weak var relationshipsStackView: UIStackView!
-    @IBOutlet private weak var friendsNumberLabel: UILabel!
-    @IBOutlet private weak var friendsLabel: UILabel!
     @IBOutlet private weak var subscribersNumberLabel: UILabel!
+    @IBOutlet private weak var subscribersDescriptionLabel: UILabel!
     @IBOutlet private weak var subscribtionsNumberLabel: UILabel!
     @IBOutlet private weak var bioLabel: UILabel!
     @IBOutlet private weak var bioTextView: UITextView!
@@ -57,18 +78,19 @@ final class ProfileViewController: UIViewController {
         scrollView.refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
     }
 
-    // MARK: - IBActions
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else { return }
 
-    @IBAction private func showFriends(_ sender: Any) {
-        show(.friends)
-    }
+        switch identifier {
+        case .showSubscribers:
+            prepareUserListViewController(segue.destination, for: .subsribers)
 
-    @IBAction private func showSubscribers(_ sender: Any) {
-        show(.subsribers)
-    }
+        case .showSubscriptions:
+            prepareUserListViewController(segue.destination, for: .subscribtions)
 
-    @IBAction private func showSubscribtions(_ sender: Any) {
-        show(.subscribtions)
+        default:
+            return
+        }
     }
 
     // MARK: - Private methods
@@ -90,20 +112,31 @@ final class ProfileViewController: UIViewController {
         }
     }
 
-    private enum Relationships {
-        case friends
-        case subsribers
-        case subscribtions
-    }
+    private func prepareUserListViewController(_ viewController: UIViewController, for list: UserListTableViewController.List) {
+        guard let viewController = viewController as? UserListTableViewController else { return }
+        switch list {
+        case .none:
+            return
 
-    private func show(_ relationship: Relationships) {
-//        let usersViewController = storyboard?.instantiateViewController(withIdentifier: UIStoryboard.UserList)
-//        navigationController?.pushViewController(usersViewController!, animated: true)
+        case .subsribers:
+            if let subscribers = subscribers {
+                viewController.configure(with: subscribers, for: list)
+            }
+
+        case .subscribtions:
+            if let subscribtions = subscribtions {
+                viewController.configure(with: subscribtions, for: list)
+            }
+        }
     }
 
     private func updateProfile() {
         UserManager.shared.getUser(with: userID) { [weak self] user in
             self?.user = user
+
+            if let userID = user?.id {
+                self?.updateRelations(of: userID)
+            }
         }
     }
 
@@ -113,6 +146,28 @@ final class ProfileViewController: UIViewController {
         print(serverResponse)
 
         indicator.isHidden = true
+    }
+
+    private func updateRelations(of userID: UserID) {
+        client.getSubscribers(of: userID) { [weak self] request in
+            switch request {
+            case let .fail(response):
+                return
+
+            case let .success(subscribers):
+                self?.subscribers = subscribers
+            }
+        }
+
+        client.getSubscribtions(of: userID) { [weak self] request in
+            switch request {
+            case let .fail(response):
+                return
+
+            case let .success(subscribtions):
+                self?.subscribtions = subscribtions
+            }
+        }
     }
 
     private func populateUI(with user: User) {
@@ -169,9 +224,8 @@ final class ProfileViewController: UIViewController {
         actions.forEach { actionStackView.addArrangedSubview($0) }
 
         relationshipsStackView.isHidden = false
-        friendsNumberLabel.text = "20"
-        subscribersNumberLabel.text = "144"
-        subscribtionsNumberLabel.text = "1021"
+        subscribtionsNumberLabel.text = nil
+        subscribersNumberLabel.text = nil
 
         indicator.isHidden = true
     }
@@ -183,13 +237,13 @@ final class ProfileViewController: UIViewController {
         stackView.distribution = .fillProportionally
 
         let languageNameLabel = UILabel()
-        languageNameLabel.font = friendsNumberLabel.font
+        languageNameLabel.font = subscribersNumberLabel.font
         languageNameLabel.text = language.name.localized
         stackView.addArrangedSubview(languageNameLabel)
 
         let languageLevelLabel = UILabel()
-        languageLevelLabel.font = friendsLabel.font
-        languageLevelLabel.textColor = friendsLabel.textColor
+        languageLevelLabel.font = subscribersDescriptionLabel.font
+        languageLevelLabel.textColor = subscribersDescriptionLabel.textColor
         languageLevelLabel.text = language.level.localized
         stackView.addArrangedSubview(languageLevelLabel)
 
@@ -214,6 +268,7 @@ final class ProfileViewController: UIViewController {
             let followButton = UIButton(type: .system)
             followButton.setTitle("Follow", for: .normal)
             followButton.titleLabel?.textAlignment = .center
+            followButton.addTarget(self, action: #selector(followUser(_:)), for: .touchUpInside)
 
             let messageButton = UIButton(type: .system)
             messageButton.setTitle("Message", for: .normal)
@@ -231,5 +286,34 @@ final class ProfileViewController: UIViewController {
             show(viewController, sender: self)
         }
     }
+
+    @objc private dynamic func followUser(_ sender: Any) {
+        guard let userID = userID else { return }
+        client.friend(userID) { [weak self] request in
+            switch request {
+            case let .fail(response):
+                return
+
+            case .success:
+                guard let followButton = self?.actionStackView.arrangedSubviews.first as? UIButton else {
+                    return
+                }
+
+                followButton.setTitle("Unfollow", for: .normal)
+            }
+        }
+    }
     
+}
+
+private extension String {
+
+    static var showSubscribers: String {
+        return "showSubscribers"
+    }
+
+    static var showSubscriptions: String {
+        return "showSubscriptions"
+    }
+
 }

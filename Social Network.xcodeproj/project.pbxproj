@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		750F50C220278CF6001E28E9 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F50C120278CF6001E28E9 /* UserManager.swift */; };
+		750F50D02027D19B001E28E9 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F50CF2027D19B001E28E9 /* UserTableViewCell.swift */; };
 		7527548C1FF6E18500D62C94 /* Foundation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527548B1FF6E18500D62C94 /* Foundation+.swift */; };
 		75418D6C2025D46D00E43A93 /* Typist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75418D6B2025D46800E43A93 /* Typist.framework */; };
 		75418D6D2025D47400E43A93 /* Typist.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 75418D6B2025D46800E43A93 /* Typist.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -209,6 +210,7 @@
 
 /* Begin PBXFileReference section */
 		750F50C120278CF6001E28E9 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		750F50CF2027D19B001E28E9 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		7527548B1FF6E18500D62C94 /* Foundation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+.swift"; sourceTree = "<group>"; };
 		75418D632025D46800E43A93 /* Typist.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Typist.xcodeproj; path = Typist/Typist.xcodeproj; sourceTree = "<group>"; };
 		7546A9281FFB2FBC00FE2F47 /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 				758B61C31EAFB94200152AA4 /* ProfileViewController.swift */,
 				75DC1CE01EC8BF48008B6017 /* ProfileEditViewController.swift */,
 				75DC1CE41EC8BFE3008B6017 /* UserListTableViewController.swift */,
+				750F50CF2027D19B001E28E9 /* UserTableViewCell.swift */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -882,6 +885,7 @@
 				758B61AD1EA939CA00152AA4 /* Models.swift in Sources */,
 				7546A9391FFC4B7400FE2F47 /* DictionaryWordTableViewCell.swift in Sources */,
 				75E617C21E50A2F70033C236 /* Client+Authentication.swift in Sources */,
+				750F50D02027D19B001E28E9 /* UserTableViewCell.swift in Sources */,
 				757BA6901EB248A300CD2829 /* TranslateService.swift in Sources */,
 				75D4A7811EC713700029812E /* Enums+Localized.swift in Sources */,
 				7546A9351FFBFDA500FE2F47 /* ChatBottomSheetCollectionViewCell.swift in Sources */,

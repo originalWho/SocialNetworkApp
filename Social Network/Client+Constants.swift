@@ -246,7 +246,7 @@ struct ClientConstants {
         case success(User)
     }
 
-    enum SearchRequest {
+    enum UserListRequest {
         case fail(ServerResponse)
         case success([User])
     }

@@ -93,8 +93,10 @@ final class ConversationsViewController: UITableViewController {
 extension ConversationsViewController: MessagesServiceObserver {
 
     func receive(message: Message, from service: MessagesService) {
-        self.conversations = MessagesService.default.storage.conversations
-        self.tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.conversations = MessagesService.default.storage.conversations
+            self?.tableView.reloadData()
+        }
     }
 
 }

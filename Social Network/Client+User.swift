@@ -108,7 +108,7 @@ extension SocialNetworkClient {
 extension SocialNetworkClient {
 
     func search(parameters: [String:Any], query: [String:Any],
-                completion: @escaping (ClientConstants.SearchRequest) -> Void) {
+                completion: @escaping (ClientConstants.UserListRequest) -> Void) {
         let searchURL = url(from: query, path: ClientConstants.Constants.APIPath,
                             method: ClientConstants.Methods.Search.path)
 
