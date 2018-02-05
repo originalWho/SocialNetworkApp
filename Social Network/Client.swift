@@ -22,8 +22,12 @@ protocol Client {
     
     func send(message: Message, to userId: UserID,
               completion: @escaping (ClientConstants.SendRequest) -> Void)
-    func receive(_ mode: ClientConstants.ReceiveMode, from userId: UserID?,
+    func receive(from userID: UserID,
                  completion: @escaping (ClientConstants.MessagesRequest) -> Void)
+    func receive(from userID: UserID, offset: Int, count: Int,
+                 completion: @escaping (ClientConstants.MessagesRequest) -> Void)
+    func getConversations(completion: @escaping (ClientConstants.ConversationsRequest) -> Void)
+
 
     func getFriends(of userId: UserID,
                     completion: @escaping (ClientConstants.UserListRequest) -> Void)

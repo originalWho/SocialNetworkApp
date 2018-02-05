@@ -121,16 +121,28 @@ final class MessagesService {
         }
     }
 
-    func fetchAllMessages(completion: @escaping ([Message]?) -> Void) {
-        client.receive(.all, from: nil) { request in
+    func fetchConversations(completion: @escaping ([Conversation]?) -> Void) {
+        client.getConversations { request in
             switch request {
             case let .fail(response):
                 completion(nil)
 
-            case let .success(messages):
-                completion(messages)
+            case let .success(conversations):
+                completion(conversations)
             }
         }
+    }
+
+    func fetchAllMessages(completion: @escaping ([Message]?) -> Void) {
+//        client.receive(.all, from: nil) { request in
+//            switch request {
+//            case let .fail(response):
+//                completion(nil)
+//
+//            case let .success(messages):
+//                completion(messages)
+//            }
+//        }
     }
 
 }

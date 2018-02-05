@@ -76,14 +76,15 @@ final class ConversationsViewController: UITableViewController {
     // MARK: - UI Updates
 
     @objc private dynamic func refresh(_ sender: Any) {
-        MessagesService.default.fetchAllMessages { messages in
-            messages?.forEach { print(String(data: $0.data, encoding: .utf16)) }
-            DispatchQueue.main.async { [weak self] in
-                guard let `self` = self else { return }
+        DispatchQueue.global(qos: .userInitiated).async {
+            MessagesService.default.fetchConversations { conversations in
+                DispatchQueue.main.async { [weak self] in
+                    self?.tableView.refreshControl?.endRefreshing()
 
-                self.conversations = MessagesService.default.storage.conversations
-                self.tableView.reloadData()
-                self.tableView.refreshControl?.endRefreshing()
+                    guard let `self` = self, let conversations = conversations else { return }
+                    self.conversations = conversations
+                    self.tableView.reloadData()
+                }
             }
         }
     }

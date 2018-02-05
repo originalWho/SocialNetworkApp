@@ -14,27 +14,22 @@ extension SocialNetworkClient {
         }
     }
 
-    func receive(_ mode: ClientConstants.ReceiveMode, from userId: UserID? = nil,
+    func receive(from userID: UserID,
                  completion: @escaping (ClientConstants.MessagesRequest) -> Void) {
+        receive(from: userID, offset: 0, count: 20, completion: completion)
+    }
+
+    func receive(from userID: UserID, offset: Int, count: Int, completion: @escaping (ClientConstants.MessagesRequest) -> Void) {
         typealias Key = ClientConstants.Methods.Conversation.Key
 
         var parameters = [String:Any]()
-
-        switch mode {
-        case .latest(let offset, let count):
-            parameters[Key.id] = userId
-            parameters[Key.offset] = offset
-            parameters[Key.count] = count
-
-        case .all:
-            parameters[Key.id] = UInt64(249)
-            parameters[Key.offset] = 0
-            parameters[Key.count] = 20
-        }
+        parameters[Key.id] = userID
+        parameters[Key.count] = count
+        parameters[Key.offset] = offset
 
         let messagesFromURL = url(from: parameters, path: ClientConstants.Constants.APIPath,
-                                  method: ClientConstants.Methods.Conversation.messages)
-        print(messagesFromURL)
+                                  method: ClientConstants.Methods.Conversation.message)
+
         alamofireRequest(url: messagesFromURL) { response in
             guard let jsonMessages = response.result.value as? [[String:Any]] else {
                 completion(.fail(.unknownError))
@@ -51,6 +46,28 @@ extension SocialNetworkClient {
             }
 
             completion(.success(messages))
+        }
+    }
+
+    func getConversations(completion: @escaping (ClientConstants.ConversationsRequest) -> Void) {
+        let conversationsURL = url(from: nil, path: ClientConstants.Constants.APIPath,
+                                   method: ClientConstants.Methods.Conversation.conversations)
+        alamofireRequest(url: conversationsURL) { response in
+            print(response)
+            guard let conversationsJSON = response.result.value as? [String:[String:Any]] else {
+                completion(.fail(.unknownError))
+                return
+            }
+            print(conversationsJSON)
+
+            var conversations = [Conversation]()
+            for (userID, message) in conversationsJSON {
+                guard let userID = UInt64(userID), let message = Message(from: message) else { continue }
+                let conversation = Conversation(userID: userID, message: message)
+                conversations.append(conversation)
+            }
+
+            completion(.success(conversations))
         }
     }
     

@@ -5,7 +5,7 @@ struct ClientConstants {
     
     struct Constants {
         static let APIScheme = "https"
-        static let APIHost = "10.20.4.175"
+        static let APIHost = "10.20.12.138"
         static let APIPort = 8443
         static let APIPath = "/api"
         static let OAuthPath = "/oauth"
@@ -140,8 +140,8 @@ struct ClientConstants {
                 return "/message"
             }
 
-            static var messages: String {
-                return "/messages"
+            static var conversations: String {
+                return "/conversations"
             }
 
             struct Key {
@@ -234,6 +234,11 @@ struct ClientConstants {
     enum MessagesRequest {
         case fail(ServerResponse)
         case success([Message])
+    }
+
+    enum ConversationsRequest {
+        case fail(ServerResponse)
+        case success([Conversation])
     }
 
     enum ActionRequest {
