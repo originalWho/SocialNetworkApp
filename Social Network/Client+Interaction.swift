@@ -16,7 +16,7 @@ extension SocialNetworkClient {
 
     func receive(from userID: UserID,
                  completion: @escaping (ClientConstants.MessagesRequest) -> Void) {
-        receive(from: userID, offset: 0, count: 20, completion: completion)
+        receive(from: userID, offset: 0, count: 50, completion: completion)
     }
 
     func receive(from userID: UserID, offset: Int, count: Int, completion: @escaping (ClientConstants.MessagesRequest) -> Void) {

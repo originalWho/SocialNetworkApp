@@ -19,6 +19,10 @@ final class ConversationsViewController: UITableViewController {
         // TODO: Unsubscribe
     }
 
+    deinit {
+        MessagesService.default.unsubscribe(self)
+    }
+
     // MARK: - Storyboard Segue Preparation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -76,28 +80,32 @@ final class ConversationsViewController: UITableViewController {
     // MARK: - UI Updates
 
     @objc private dynamic func refresh(_ sender: Any) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            MessagesService.default.fetchConversations { conversations in
-                DispatchQueue.main.async { [weak self] in
-                    self?.tableView.refreshControl?.endRefreshing()
-
-                    guard let `self` = self, let conversations = conversations else { return }
-                    self.conversations = conversations
-                    self.tableView.reloadData()
-                }
-            }
-        }
+//        DispatchQueue.global(qos: .userInitiated).async {
+//            MessagesService.default.fetchConversations { conversations in
+//                DispatchQueue.main.async { [weak self] in
+//                    self?.tableView.refreshControl?.endRefreshing()
+//
+//                    guard let `self` = self, let conversations = conversations else { return }
+//                    self.conversations = conversations
+//                    self.tableView.reloadData()
+//                }
+//            }
+//        }
     }
 
 }
 
 extension ConversationsViewController: MessagesServiceObserver {
 
-    func receive(message: Message, from service: MessagesService) {
+    func onUpdate(service: MessagesService) {
         DispatchQueue.main.async { [weak self] in
-            self?.conversations = MessagesService.default.storage.conversations
+            self?.conversations = service.storage.conversations
             self?.tableView.reloadData()
         }
+    }
+
+    func onUpdate(from userID: UserID, service: MessagesService) {
+
     }
 
 }

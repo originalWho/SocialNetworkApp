@@ -2,13 +2,27 @@ import Foundation
 
 protocol MessagesServiceObserver: class {
 
-    func receive(message: Message, from service: MessagesService)
+    func onUpdate(service: MessagesService)
+    func onUpdate(from userID: UserID, service: MessagesService)
 
 }
 
 final class MessagesStorage {
 
     private var storage: [UserID:[Message]] = [:]
+
+    var userIDs: Set<UserID> {
+        return Set(storage.keys)
+    }
+
+    var messages: Set<Message> {
+        var messages = Set<Message>()
+        for conversation in storage.values {
+            guard let message = conversation.last else { continue }
+            messages.insert(message)
+        }
+        return messages
+    }
 
     var conversations: [Conversation] {
         var conversations = [Conversation]()
@@ -74,8 +88,8 @@ final class MessagesService {
 
     // MARK: - Subscription
 
-    func subcribe(_ observer: MessagesServiceObserver, for user: User? = nil) {
-        let userID: UserID = user?.id ?? broadcastID
+    func subcribe(_ observer: MessagesServiceObserver, for userID: UserID? = nil) {
+        let userID: UserID = userID ?? broadcastID
 
         if observers[userID] == nil {
             observers[userID] = []
@@ -86,21 +100,21 @@ final class MessagesService {
         }
     }
 
-    func unsubscribe(_ observer: MessagesServiceObserver, from user: User? = nil) {
-        let userID: UserID = user?.id ?? broadcastID
+    func unsubscribe(_ observer: MessagesServiceObserver, from userID: UserID? = nil) {
+        let userID: UserID = userID ?? broadcastID
 
         if let index = observers[userID]?.index(where: { $0 === observer }) {
             observers[userID]?.remove(at: index)
         }
     }
 
-    private func notify(with message: Message) {
+    private func notify(for userID: UserID) {
         if let observers = observers[broadcastID] {
-            observers.forEach { $0.receive(message: message, from: self) }
+            observers.forEach { $0.onUpdate(service: self) }
         }
 
-        if let observers = observers[message.senderId] {
-            observers.forEach { $0.receive(message: message, from: self) }
+        if let observers = observers[userID] {
+            observers.forEach { $0.onUpdate(from: userID, service: self) }
         }
     }
 
@@ -111,17 +125,30 @@ final class MessagesService {
             guard let `self` = self else { return }
             self.client.send(message: message, to: userID, completion: completion)
             self.storage.add(message, userID: userID)
-            self.notify(with: message)
         }
     }
 
     func startListeningToServer() {
-        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] timer in
-//            self?.fetchAllMessages()
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
+            DispatchQueue.global(qos: .utility).async { [weak self] in
+                self?.fetchConversations() { conversations in
+                    guard let conversations = conversations, let `self` = self else { return }
+
+                    let newValue = Set(conversations.flatMap { $0.message.id })
+                    let oldValue = Set(self.storage.messages.flatMap { $0.id })
+
+                    if newValue != oldValue {
+                        let userIDs = self.storage.userIDs.union(conversations.flatMap { $0.userID })
+                        for userID in userIDs {
+                            self.updateMessages(for: userID)
+                        }
+                    }
+                }
+            }
         }
     }
 
-    func fetchConversations(completion: @escaping ([Conversation]?) -> Void) {
+    private func fetchConversations(completion: @escaping ([Conversation]?) -> Void) {
         client.getConversations { request in
             switch request {
             case let .fail(response):
@@ -133,16 +160,17 @@ final class MessagesService {
         }
     }
 
-    func fetchAllMessages(completion: @escaping ([Message]?) -> Void) {
-//        client.receive(.all, from: nil) { request in
-//            switch request {
-//            case let .fail(response):
-//                completion(nil)
-//
-//            case let .success(messages):
-//                completion(messages)
-//            }
-//        }
+    private func updateMessages(for userID: UserID) {
+        client.receive(from: userID) { [weak self] request in
+            switch request {
+            case let .fail(response):
+                return
+
+            case let .success(messages):
+                self?.storage[userID] = messages
+                self?.notify(for: userID)
+            }
+        }
     }
 
 }

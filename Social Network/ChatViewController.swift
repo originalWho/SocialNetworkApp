@@ -5,7 +5,12 @@ final class ChatViewController: UIViewController {
 
     // MARK: - Internal properties
 
-    var userID: UserID?
+    var userID: UserID? {
+        didSet {
+            guard let userID = userID else { return }
+            MessagesService.default.subcribe(self, for: userID)
+        }
+    }
 
     // MARK: - Outlets
 
@@ -52,6 +57,11 @@ final class ChatViewController: UIViewController {
         configureKeyboardHandler()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 50
+
+        if !messages.isEmpty {
+            let indexPath = IndexPath(row: messages.count - 1, section: 0)
+            tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +72,11 @@ final class ChatViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromNotifications()
+    }
+
+    deinit {
+        guard let userID = userID else { return }
+        MessagesService.default.unsubscribe(self, from: userID)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -153,9 +168,8 @@ final class ChatViewController: UIViewController {
         messageTextField.text = ""
         sendButton.isEnabled = false
 
-        if let indexPath = tableView.indexPathsForVisibleRows?.last {
-            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        }
+        let indexPath = IndexPath(row: messages.count - 1, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
     @IBAction func onActionButtonPressed(_ sender: UIButton) {
@@ -271,7 +285,37 @@ final class ChatViewController: UIViewController {
                 ? 0.0
                 : keyboardFrame.size.height
             self?.view.layoutIfNeeded()
-        }, completion: nil)
+        }, completion: { [weak self] _ in
+            guard let `self` = self else { return }
+
+            if !self.messages.isEmpty, !keyboardWillHide {
+                let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+        })
+    }
+
+}
+
+extension ChatViewController: MessagesServiceObserver {
+
+    func onUpdate(service: MessagesService) {
+
+    }
+
+    func onUpdate(from userID: UserID, service: MessagesService) {
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
+
+            let shouldScrollToBottom = (self.messages.count < service.storage[userID].count)
+            self.messages = service.storage[userID]
+            self.tableView.reloadData()
+
+            if shouldScrollToBottom {
+                let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+        }
     }
 
 }
@@ -296,9 +340,12 @@ extension ChatViewController: ChatBottomSheetViewControllerDelegate {
 extension ChatViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = "YourMessageCell"
+        let message = messages[indexPath.row]
+        let identifier = (message.senderId == SocialNetworkClient.Settings.userId)
+            ? "YourMessageCell"
+            : "TheirMessageCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as! MessageTableViewCell
-        cell.configure(message: messages[indexPath.row])
+        cell.configure(message: message)
 
         return cell
     }
