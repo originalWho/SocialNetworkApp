@@ -19,7 +19,7 @@ enum MessageDataType: Int {
     case audio
 }
 
-protocol MessageProtocol: Storable {
+protocol MessageProtocol {
 
     var id: MessageID? { get }
     var senderID: UserID { get }
@@ -36,7 +36,7 @@ protocol MessageProtocol: Storable {
 
 protocol CommentProtocol: MessageProtocol {
 
-    var parentID: MessageID? { get }
+    var parentID: MessageID { get }
     var startPosition: Int { get }
     var endPosition: Int { get }
     

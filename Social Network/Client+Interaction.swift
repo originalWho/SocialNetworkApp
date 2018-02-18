@@ -4,7 +4,7 @@ import Alamofire
 
 extension SocialNetworkClient {
 
-    func send(message: Message, to userId: UserID, completion: @escaping (ClientConstants.SendRequest) -> Void) {
+    func send(message: MessageProtocol, to userId: UserID, completion: @escaping (ClientConstants.SendRequest) -> Void) {
         let method = ClientConstants.Methods.Conversation.message
         let queryParameters: [String: Any] = [ClientConstants.Methods.Conversation.Key.id: userId]
         let sendMessageToURL = url(from: queryParameters, path: ClientConstants.Constants.APIPath, method: method)
@@ -36,13 +36,14 @@ extension SocialNetworkClient {
                 return
             }
 
-            var messages = [Message]()
+            var messages = [MessageProtocol]()
             for jsonMessage in jsonMessages {
-                guard let message = Message(from: jsonMessage) else {
-                    continue
+                if let message = Message(from: jsonMessage) {
+                    messages.append(message)
                 }
-
-                messages.append(message)
+                else if let comment = Comment(from: jsonMessage) {
+                    messages.append(comment)
+                }
             }
 
             completion(.success(messages))
@@ -62,9 +63,16 @@ extension SocialNetworkClient {
 
             var conversations = [Conversation]()
             for (userID, message) in conversationsJSON {
-                guard let userID = UInt64(userID), let message = Message(from: message) else { continue }
-                let conversation = Conversation(userID: userID, message: message)
-                conversations.append(conversation)
+                guard let userID = UInt64(userID) else { continue }
+                
+                if let message = Message(from: message) {
+                    let conversation = Conversation(userID: userID, message: message)
+                    conversations.append(conversation)
+                }
+                else if let comment = Comment(from: message) {
+                    let conversation = Conversation(userID: userID, message: comment)
+                    conversations.append(conversation)
+                }
             }
 
             completion(.success(conversations))

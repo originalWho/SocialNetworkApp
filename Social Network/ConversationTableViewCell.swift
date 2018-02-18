@@ -13,7 +13,7 @@ final class ConversationTableViewCell: UITableViewCell {
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
 
-    func configure(userID: UserID, message: Message) {
+    func configure(userID: UserID, message: MessageProtocol) {
         fetchUser(userID: userID)
         
         switch message.dataType {

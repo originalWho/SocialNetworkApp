@@ -236,7 +236,7 @@ struct ClientConstants {
 
     enum MessagesRequest {
         case fail(ServerResponse)
-        case success([Message])
+        case success([MessageProtocol])
     }
 
     enum ConversationsRequest {

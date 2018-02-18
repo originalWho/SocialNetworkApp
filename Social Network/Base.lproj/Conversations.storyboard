@@ -125,11 +125,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oaR-5x-jhY">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oaR-5x-jhY">
                                 <rect key="frame" x="0.0" y="64" width="375" height="555"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TheirMessageCell" rowHeight="70" id="h33-V8-5xz" userLabel="Their Message Cell" customClass="MessageTableViewCell" customModule="Social_Network" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TheirMessageCell" rowHeight="70" id="h33-V8-5xz" userLabel="Their Message Cell" customClass="MessageTableViewCell" customModule="Social_Network" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h33-V8-5xz" id="pDX-co-nFH">
@@ -142,17 +142,30 @@
                                                     <color key="textColor" white="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Comment-Available" highlightedImage="Comment-Shown" translatesAutoresizingMaskIntoConstraints="NO" id="P9C-K2-SGb">
+                                                    <rect key="frame" x="72.5" y="27" width="16" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="16" id="KFd-NY-Ggd"/>
+                                                        <constraint firstAttribute="height" constant="16" id="Sq7-qt-vt2"/>
+                                                    </constraints>
+                                                </imageView>
                                                 <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J41-Mt-e0l">
                                                     <rect key="frame" x="8" y="4" width="56.5" height="62"/>
                                                     <subviews>
-                                                        <textView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Ok" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dcl-Cj-SkS" customClass="ChatTextView" customModule="Social_Network" customModuleProvider="target">
+                                                        <textView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dcl-Cj-SkS" customClass="ChatTextView" customModule="Social_Network" customModuleProvider="target">
                                                             <rect key="frame" x="8" y="4" width="40.5" height="54"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="Ok">
+                                                                    <attributes>
+                                                                        <font key="NSFont" metaFont="system" size="17"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                         </textView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.90364583333333337" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="dcl-Cj-SkS" secondAttribute="trailing" constant="8" id="EFi-eo-m6F"/>
                                                         <constraint firstItem="dcl-Cj-SkS" firstAttribute="top" secondItem="J41-Mt-e0l" secondAttribute="top" constant="4" id="LdS-rb-PVU"/>
@@ -168,21 +181,24 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="o3F-ab-3f4" secondAttribute="bottom" id="EsF-kj-Vmn"/>
+                                                <constraint firstItem="P9C-K2-SGb" firstAttribute="leading" secondItem="o3F-ab-3f4" secondAttribute="leading" id="MwA-Aa-a3z"/>
                                                 <constraint firstItem="o3F-ab-3f4" firstAttribute="leading" secondItem="J41-Mt-e0l" secondAttribute="trailing" constant="8" id="OaA-Id-GpE"/>
                                                 <constraint firstItem="J41-Mt-e0l" firstAttribute="top" secondItem="pDX-co-nFH" secondAttribute="top" constant="4" id="Shq-P3-QyR"/>
                                                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="o3F-ab-3f4" secondAttribute="trailing" id="Yni-CM-Lte"/>
                                                 <constraint firstItem="J41-Mt-e0l" firstAttribute="leading" secondItem="pDX-co-nFH" secondAttribute="leading" constant="8" id="ZsJ-ia-DPx"/>
                                                 <constraint firstItem="J41-Mt-e0l" firstAttribute="width" relation="lessThanOrEqual" secondItem="pDX-co-nFH" secondAttribute="width" multiplier="0.66" id="meG-EY-NOS"/>
+                                                <constraint firstItem="o3F-ab-3f4" firstAttribute="top" secondItem="P9C-K2-SGb" secondAttribute="bottom" constant="4" id="neA-4C-o63"/>
                                                 <constraint firstItem="J41-Mt-e0l" firstAttribute="width" relation="greaterThanOrEqual" secondItem="pDX-co-nFH" secondAttribute="width" multiplier="0.15" id="oAN-uL-Dmm"/>
                                                 <constraint firstAttribute="bottom" secondItem="J41-Mt-e0l" secondAttribute="bottom" constant="4" id="rPf-k7-bXW"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="commentImageView" destination="P9C-K2-SGb" id="1qb-aQ-Zvm"/>
                                             <outlet property="messageTextView" destination="dcl-Cj-SkS" id="t5u-fg-m69"/>
                                             <outlet property="timeLabel" destination="o3F-ab-3f4" id="dHC-K5-pfd"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="YourMessageCell" rowHeight="70" id="pkZ-3h-fgU" userLabel="Your Message Cell" customClass="MessageTableViewCell" customModule="Social_Network" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="YourMessageCell" rowHeight="70" id="pkZ-3h-fgU" userLabel="Your Message Cell" customClass="MessageTableViewCell" customModule="Social_Network" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="98" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pkZ-3h-fgU" id="w76-Vs-90v">
@@ -195,19 +211,32 @@
                                                     <color key="textColor" white="0.90000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Comment-Available" highlightedImage="Comment-Shown" translatesAutoresizingMaskIntoConstraints="NO" id="b9W-jF-cAm">
+                                                    <rect key="frame" x="100.5" y="27" width="16" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="16" id="SZ5-jH-eR6"/>
+                                                        <constraint firstAttribute="height" constant="16" id="ka0-QD-6qt"/>
+                                                    </constraints>
+                                                </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJY-IS-Fug">
                                                     <rect key="frame" x="124.5" y="4" width="242.5" height="62"/>
                                                     <subviews>
-                                                        <textView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="d1o-HZ-vXC" customClass="ChatTextView" customModule="Social_Network" customModuleProvider="target">
+                                                        <textView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d1o-HZ-vXC" customClass="ChatTextView" customModule="Social_Network" customModuleProvider="target">
                                                             <rect key="frame" x="8.5" y="4" width="226.5" height="54"/>
-                                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <attributedString key="attributedText">
+                                                                <fragment>
+                                                                    <string key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+                                                                    <attributes>
+                                                                        <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <font key="NSFont" metaFont="system" size="17"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                             <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                         </textView>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.1979879017401619" green="0.6520719828516921" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.19607843137254902" green="0.65098039215686276" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="d1o-HZ-vXC" firstAttribute="top" secondItem="KJY-IS-Fug" secondAttribute="top" constant="4" id="6dD-YN-kjh"/>
                                                         <constraint firstAttribute="bottom" secondItem="d1o-HZ-vXC" secondAttribute="bottom" constant="4" id="HdP-Qe-CBR"/>
@@ -224,7 +253,9 @@
                                             <constraints>
                                                 <constraint firstItem="KJY-IS-Fug" firstAttribute="width" relation="greaterThanOrEqual" secondItem="w76-Vs-90v" secondAttribute="width" multiplier="0.15" id="2Aw-XU-gpc"/>
                                                 <constraint firstItem="Vp0-j0-UIN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="w76-Vs-90v" secondAttribute="leadingMargin" id="3Ty-N6-b2g"/>
+                                                <constraint firstItem="b9W-jF-cAm" firstAttribute="trailing" secondItem="Vp0-j0-UIN" secondAttribute="trailing" id="5db-hG-6DS"/>
                                                 <constraint firstItem="KJY-IS-Fug" firstAttribute="leading" secondItem="Vp0-j0-UIN" secondAttribute="trailing" constant="8" id="9za-6K-DeH"/>
+                                                <constraint firstItem="Vp0-j0-UIN" firstAttribute="top" secondItem="b9W-jF-cAm" secondAttribute="bottom" constant="4" id="JrG-en-MhV"/>
                                                 <constraint firstItem="KJY-IS-Fug" firstAttribute="width" relation="lessThanOrEqual" secondItem="w76-Vs-90v" secondAttribute="width" multiplier="0.66" id="VX9-GN-v0l"/>
                                                 <constraint firstAttribute="bottom" secondItem="KJY-IS-Fug" secondAttribute="bottom" constant="4" id="ac7-Ks-PlA"/>
                                                 <constraint firstAttribute="trailing" secondItem="KJY-IS-Fug" secondAttribute="trailing" constant="8" id="dn7-7T-SQa"/>
@@ -233,6 +264,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="commentImageView" destination="b9W-jF-cAm" id="Nox-lh-59h"/>
                                             <outlet property="messageTextView" destination="d1o-HZ-vXC" id="dBL-9v-2FK"/>
                                             <outlet property="timeLabel" destination="Vp0-j0-UIN" id="lDG-WW-cRO"/>
                                         </connections>
@@ -240,6 +272,7 @@
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="8QP-uL-cIo" id="e1v-Ml-uJw"/>
+                                    <outlet property="delegate" destination="8QP-uL-cIo" id="T7f-wI-UaE"/>
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l0E-uN-cOf" userLabel="Text Field Container">
@@ -497,6 +530,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Comment-Available" width="50" height="50"/>
+        <image name="Comment-Shown" width="50" height="50"/>
         <image name="Messages-Disabled" width="25" height="25"/>
         <image name="Messages-Enabled" width="25" height="25"/>
         <image name="Profile-Enabled" width="25" height="25"/>

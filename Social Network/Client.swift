@@ -20,7 +20,7 @@ protocol Client {
     func search(parameters: [String:Any], query: [String:Any],
                 completion: @escaping (ClientConstants.UserListRequest) -> Void)
     
-    func send(message: Message, to userId: UserID,
+    func send(message: MessageProtocol, to userId: UserID,
               completion: @escaping (ClientConstants.SendRequest) -> Void)
     func receive(from userID: UserID,
                  completion: @escaping (ClientConstants.MessagesRequest) -> Void)

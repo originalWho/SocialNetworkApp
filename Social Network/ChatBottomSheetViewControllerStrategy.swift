@@ -12,7 +12,6 @@ protocol ChatBottomSheetInfoProvider {
 enum ChatBottomSheetViewControllerStrategy {
     case none
     case translation
-    case comment
     case lookUp
 
     var infoProviders: [ChatBottomSheetInfoProvider] {
@@ -27,9 +26,6 @@ enum ChatBottomSheetViewControllerStrategy {
             else {
                 return []
             }
-
-        case .comment:
-            return []
 
         case .lookUp:
             if let yandexDictionary = YandexDictionary() {

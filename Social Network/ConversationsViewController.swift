@@ -1,6 +1,6 @@
 import UIKit
 
-typealias Conversation = (userID: UserID, message: Message)
+typealias Conversation = (userID: UserID, message: MessageProtocol)
 
 final class ConversationsViewController: UITableViewController {
 

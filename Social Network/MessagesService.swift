@@ -9,24 +9,24 @@ protocol MessagesServiceObserver: class {
 
 final class MessagesStorage {
 
-    private var storage: [UserID:[Message]] = [:]
+    private var conversationsStorage: [UserID:[MessageProtocol]] = [:]
 
     var userIDs: Set<UserID> {
-        return Set(storage.keys)
+        return Set(conversationsStorage.keys)
     }
 
-    var messages: Set<Message> {
-        var messages = Set<Message>()
-        for conversation in storage.values {
-            guard let message = conversation.last else { continue }
-            messages.insert(message)
+    fileprivate var messageIDs: Set<MessageID> {
+        var messageIDs = Set<MessageID>()
+        for conversation in conversationsStorage.values {
+            guard let messageID = conversation.last?.id else { continue }
+            messageIDs.insert(messageID)
         }
-        return messages
+        return messageIDs
     }
 
     var conversations: [Conversation] {
         var conversations = [Conversation]()
-        for (userID, messages) in storage {
+        for (userID, messages) in conversationsStorage {
             guard let message = messages.last else {
                 continue
             }
@@ -37,9 +37,9 @@ final class MessagesStorage {
         return conversations.sorted(by: { $0.message.date > $1.message.date })
     }
 
-    subscript(userID: UserID) -> [Message] {
+    subscript(userID: UserID) -> [MessageProtocol] {
         get {
-            if let messages = storage[userID] {
+            if let messages = conversationsStorage[userID] {
                 return messages
             }
             else {
@@ -48,21 +48,21 @@ final class MessagesStorage {
         }
 
         set {
-            storage[userID] = newValue
+            conversationsStorage[userID] = newValue
         }
     }
 
-    fileprivate func add(_ message: Message, userID: UserID) {
-        if storage[userID] == nil {
-            storage[userID] = []
+    fileprivate func add(_ message: MessageProtocol, userID: UserID) {
+        if conversationsStorage[userID] == nil {
+            conversationsStorage[userID] = []
         }
 
-        storage[userID]?.append(message)
+        conversationsStorage[userID]?.append(message)
     }
 
-    fileprivate func remove(_ message: Message, userID: UserID) {
-        if let index = storage[userID]?.index(where: { $0.id == message.id }) {
-            storage[userID]?.remove(at: index)
+    fileprivate func remove(_ message: MessageProtocol, userID: UserID) {
+        if let index = conversationsStorage[userID]?.index(where: { $0.id == message.id }) {
+            conversationsStorage[userID]?.remove(at: index)
         }
     }
 
@@ -120,7 +120,7 @@ final class MessagesService {
 
     // MARK: - Interaction
 
-    func send(_ message: Message, to userID: UserID, completion: @escaping (ClientConstants.SendRequest) -> Void) {
+    func send(_ message: MessageProtocol, to userID: UserID, completion: @escaping (ClientConstants.SendRequest) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let `self` = self else { return }
             self.client.send(message: message, to: userID, completion: completion)
@@ -135,7 +135,7 @@ final class MessagesService {
                     guard let conversations = conversations, let `self` = self else { return }
 
                     let newValue = Set(conversations.flatMap { $0.message.id })
-                    let oldValue = Set(self.storage.messages.flatMap { $0.id })
+                    let oldValue = self.storage.messageIDs
 
                     if newValue != oldValue {
                         let userIDs = self.storage.userIDs.union(conversations.flatMap { $0.userID })

@@ -1,5 +1,7 @@
 import UIKit
 
+typealias CommentedText = (text: String, start: Int, end: Int, tag: Int)
+
 final class ChatTextView: UITextView {
 
     private let customActions: [Selector] = [
@@ -18,7 +20,11 @@ final class ChatTextView: UITextView {
     }
 
     @objc private dynamic func commentSelected(_ sender: Any) {
-        extractWord(notification: .commentSelected)
+        guard let selectedTextRange = selectedTextRange, let text = text(in: selectedTextRange) else { return }
+        let start = offset(from: beginningOfDocument, to: selectedTextRange.start)
+        let end = offset(from: beginningOfDocument, to: selectedTextRange.end)
+        let commentedText = CommentedText(text: text, start: start, end: end, tag: tag)
+        NotificationCenter.default.post(name: .commentSelected, object: commentedText)
     }
 
     @objc private dynamic func lookUpSelected(_ sender: Any) {
@@ -26,13 +32,11 @@ final class ChatTextView: UITextView {
     }
 
     @objc private dynamic func addSelectedToDictionary(_ sender: Any) {
-        extractWord(qos: .userInitiated, notification: .addSelectedToDictionary)
+        extractWord(qos: .utility, notification: .addSelectedToDictionary)
     }
 
     private func extractWord(qos: DispatchQoS.QoSClass = .userInteractive, notification: NSNotification.Name) {
-        guard let text = text, let selectedRange = _selectedTextRange else {
-            return
-        }
+        guard let text = text, let selectedRange = _selectedTextRange else { return }
 
         DispatchQueue.global(qos: qos).async {
             guard let extractedWord = LanguageService.shared.extractWord(in: selectedRange, from: text) else { return }

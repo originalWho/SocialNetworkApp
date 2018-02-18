@@ -29,7 +29,9 @@ final class ChatViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private var messages: [Message] = []
+    private var messages: [MessageProtocol] = []
+    private var comments: [MessageID:[CommentProtocol]] = [:]
+    private var messagesWithUnhiddenComments: Set<MessageID> = []
 
     private let keyboardHandler = Typist.shared
     private var bottomSheetAnimationDuration: TimeInterval = 0.2
@@ -132,8 +134,40 @@ final class ChatViewController: UIViewController {
                 guard let `self` = self else { return }
 
                 self.navigationItem.title = user.name
-                self.messages = MessagesService.default.storage[userID]
-                self.tableView.reloadData()
+                self.updateMessages(with: MessagesService.default.storage[userID])
+            }
+        }
+    }
+
+    private func updateMessages(with messages: [MessageProtocol]) {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            var commentIDs: Set<MessageID> = []
+            for message in messages where message.type == .comment {
+                guard let comment = message as? CommentProtocol else { continue }
+                if let commentID = comment.id {
+                    commentIDs.insert(commentID)
+                }
+
+                if self?.comments[comment.parentID] == nil {
+                    self?.comments[comment.parentID] = []
+                }
+
+                if let comments = self?.comments[comment.parentID],
+                    !comments.contains(where: { $0.id == comment.id }) {
+                    self?.comments[comment.parentID]?.append(comment)
+                }
+            }
+
+            DispatchQueue.main.async {
+                self?.messages = messages.filter {
+                    if let commentID = $0.id {
+                        return !commentIDs.contains(commentID)
+                    }
+                    else {
+                        return true
+                    }
+                }
+                self?.tableView.reloadData()
             }
         }
     }
@@ -154,8 +188,9 @@ final class ChatViewController: UIViewController {
             return
         }
 
-        guard let userID = userID, let data = text.data(using: .utf16), let senderID = SocialNetworkClient.Settings.userId else {
-            return
+        guard let userID = userID, let data = text.data(using: .utf16),
+            let senderID = SocialNetworkClient.Settings.userId else {
+                return
         }
 
         let message = Message(senderID: senderID, data: data, dataType: .text)
@@ -201,11 +236,40 @@ final class ChatViewController: UIViewController {
     }
 
     @objc private dynamic func commentSelected(_ notification: Notification) {
-        guard let text = notification.object as? LSExtractedWord else {
+        guard let commentedText = notification.object as? CommentedText else {
             return
         }
 
-        presentBottomSheet(strategy: .comment, for: text)
+        let alertController = UIAlertController(title: "Comment", message: commentedText.text, preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "Enter your comment..."
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+
+        let sendAction = UIAlertAction(title: "Send", style: .default) { [weak alertController, weak self] _ in
+            guard let text = alertController?.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+                let data = text.data(using: .utf16),
+                let senderID = SocialNetworkClient.Settings.userId,
+                let `self` = self,
+                let messageID = self.messages[commentedText.tag].id,
+                let userID = self.userID else { return }
+
+            let comment = Comment(senderID: senderID,
+                                  data: data,
+                                  dataType: .text,
+                                  startPosition: commentedText.start,
+                                  endPosition: commentedText.end,
+                                  messageID: messageID)
+
+            MessagesService.default.send(comment, to: userID) { request in
+
+            }
+        }
+        alertController.addAction(sendAction)
+
+        present(alertController, animated: true, completion: nil)
     }
 
     @objc private dynamic func lookUpSelected(_ notification: Notification) {
@@ -280,19 +344,25 @@ final class ChatViewController: UIViewController {
     }
 
     private func updateLayout(with keyboardFrame: CGRect, keyboardWillHide: Bool) {
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+        let animations: () -> Void = { [weak self] in
             self?.textFieldContainerBottomConstraint.constant = keyboardWillHide
                 ? 0.0
                 : keyboardFrame.size.height
             self?.view.layoutIfNeeded()
-        }, completion: { [weak self] _ in
-            guard let `self` = self else { return }
+        }
 
-            if !self.messages.isEmpty, !keyboardWillHide {
-                let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-            }
-        })
+        let completion: (Bool) -> Void = { [weak self] _ in
+            guard let `self` = self, !self.messages.isEmpty, !keyboardWillHide else { return }
+
+            let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+
+        UIView.animate(withDuration: 0.3,
+                       delay: 0.0,
+                       options: .curveEaseInOut,
+                       animations: animations,
+                       completion: completion)
     }
 
 }
@@ -304,13 +374,11 @@ extension ChatViewController: MessagesServiceObserver {
     }
 
     func onUpdate(from userID: UserID, service: MessagesService) {
+        let shouldScrollToBottom = (messages.count < service.storage[userID].count)
+        updateMessages(with: service.storage[userID])
+
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
-
-            let shouldScrollToBottom = (self.messages.count < service.storage[userID].count)
-            self.messages = service.storage[userID]
-            self.tableView.reloadData()
-
             if shouldScrollToBottom {
                 let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
                 self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
@@ -341,17 +409,50 @@ extension ChatViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
+
+        let comments: [CommentProtocol]?
+        let commentsHidden: Bool
+        if let messageID = message.id {
+            comments = self.comments[messageID]
+            commentsHidden = !messagesWithUnhiddenComments.contains(messageID)
+        }
+        else {
+            comments = []
+            commentsHidden = true
+        }
+
         let identifier = (message.senderID == SocialNetworkClient.Settings.userId)
             ? "YourMessageCell"
             : "TheirMessageCell"
+
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as! MessageTableViewCell
-        cell.configure(message: message)
+        cell.configure(message: message, comments: comments, commentsHidden: commentsHidden)
+        cell.position = indexPath.row
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
+    }
+
+}
+
+// MARK: - UITableViewDelegate protocol
+
+extension ChatViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let messageID = messages[indexPath.row].id else { return }
+
+        if messagesWithUnhiddenComments.contains(messageID) {
+            messagesWithUnhiddenComments.remove(messageID)
+        }
+        else {
+            messagesWithUnhiddenComments.insert(messageID)
+        }
+
+        tableView.reloadData()
     }
 
 }

@@ -3,7 +3,7 @@ import Foundation
 struct Comment: CommentProtocol {
 
     var id: MessageID?
-    let parentID: MessageID?
+    let parentID: MessageID
     let senderID: UserID
     let startPosition: Int
     let endPosition: Int
@@ -52,6 +52,12 @@ struct Comment: CommentProtocol {
     }
 
     init?(from json: [String:Any]) {
+        guard let messageTypeString = json[Key.messageType] as? String,
+            let type = MessageType(stringValue: messageTypeString),
+            type == .comment else {
+                return nil
+        }
+        
         guard let id = json[Key.ID] as? MessageID else {
             return nil
         }
@@ -62,12 +68,6 @@ struct Comment: CommentProtocol {
 
         guard let datetime = json[Key.datetime] as? TimeInterval else {
             return nil
-        }
-
-        guard let messageTypeString = json[Key.messageType] as? String,
-            let type = MessageType(stringValue: messageTypeString),
-            type == .comment else {
-                return nil
         }
 
         guard let messageDataTypeString = json[Key.messageDataType] as? String,

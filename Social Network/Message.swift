@@ -30,6 +30,12 @@ struct Message: MessageProtocol {
     }
 
     init?(from json: [String:Any]) {
+        guard let messageTypeString = json[Key.messageType] as? String,
+            let type = MessageType(stringValue: messageTypeString),
+            type == .plain else {
+                return nil
+        }
+
         guard let id = json[Key.ID] as? MessageID else {
             return nil
         }
@@ -40,12 +46,6 @@ struct Message: MessageProtocol {
 
         guard let datetime = json[Key.datetime] as? TimeInterval else {
             return nil
-        }
-
-        guard let messageTypeString = json[Key.messageType] as? String,
-            let type = MessageType(stringValue: messageTypeString),
-            type == .plain else {
-                return nil
         }
 
         guard let messageDataTypeString = json[Key.messageDataType] as? String,
