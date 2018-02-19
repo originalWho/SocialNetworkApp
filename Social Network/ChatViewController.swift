@@ -16,9 +16,12 @@ final class ChatViewController: UIViewController {
 
     @IBOutlet private weak var sendButton: UIButton!
     @IBOutlet private weak var actionButton: UIButton!
-    @IBOutlet private weak var messageTextField: UITextField!
+    @IBOutlet private weak var translateButton: UIButton!
+    @IBOutlet private weak var messageTextView: UITextView!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var userPictureBarButtonItem: UIBarButtonItem!
+
+    @IBOutlet private weak var textViewHeightConstraint: NSLayoutConstraint!
 
     @IBOutlet private weak var bottomSheetContainer: UIView!
     @IBOutlet private weak var bottomSheetBottomConstraint: NSLayoutConstraint!
@@ -64,6 +67,11 @@ final class ChatViewController: UIViewController {
             let indexPath = IndexPath(row: messages.count - 1, section: 0)
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         }
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onTextViewDidChange(_:)),
+                                               name: .UITextViewTextDidChange,
+                                               object: messageTextView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -77,6 +85,7 @@ final class ChatViewController: UIViewController {
     }
 
     deinit {
+        NotificationCenter.default.removeObserver(self)
         guard let userID = userID else { return }
         MessagesService.default.unsubscribe(self, from: userID)
     }
@@ -174,17 +183,12 @@ final class ChatViewController: UIViewController {
 
     // MARK: - IBActions
 
-    @IBAction private func enableSendButton(_ sender: Any) {
-        guard let text = messageTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty else {
-            sendButton.isEnabled = false
-            return
-        }
-
-        sendButton.isEnabled = true
+    @IBAction func onTranslateButtonPressed(_ sender: UIButton) {
+        presentBottomSheet(strategy: .imageTranslation)
     }
-    
+
     @IBAction private func sendMessage(_ sender: Any) {
-        guard let text = messageTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty else {
+        guard let text = messageTextView.text?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty else {
             return
         }
 
@@ -200,7 +204,8 @@ final class ChatViewController: UIViewController {
         messages.append(message)
 
         tableView.reloadData()
-        messageTextField.text = ""
+        messageTextView.text = ""
+        textViewHeightConstraint.constant = messageTextView.contentSize.height
         sendButton.isEnabled = false
 
         let indexPath = IndexPath(row: messages.count - 1, section: 0)
@@ -226,6 +231,11 @@ final class ChatViewController: UIViewController {
     }
 
     // MARK: - Notifications
+
+    @objc private dynamic func onTextViewDidChange(_ notification: Notification) {
+        textViewHeightConstraint.constant = messageTextView.contentSize.height
+        sendButton.isEnabled = !messageTextView.text.isEmpty
+    }
 
     @objc private dynamic func translateSelected(_ notification: Notification) {
         guard let text = notification.object as? LSExtractedWord else {
@@ -290,7 +300,7 @@ final class ChatViewController: UIViewController {
 
     // MARK: - Private methods
 
-    private func presentBottomSheet(strategy: ChatBottomSheetViewControllerStrategy, for text: LSExtractedWord) {
+    private func presentBottomSheet(strategy: ChatBottomSheetViewControllerStrategy, for text: LSExtractedWord? = nil) {
         bottomSheet?.configure(for: strategy, with: text)
 
         DispatchQueue.main.async { [weak self] in
@@ -452,7 +462,9 @@ extension ChatViewController: UITableViewDelegate {
             messagesWithUnhiddenComments.insert(messageID)
         }
 
-        tableView.reloadData()
+        tableView.performBatchUpdates({
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        })
     }
 
 }

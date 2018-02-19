@@ -22,12 +22,12 @@ final class ChatBottomSheetViewController: UICollectionViewController {
         }
     }
 
-    func configure(for strategy: ChatBottomSheetViewControllerStrategy, with text: LSExtractedWord) {
+    func configure(for strategy: ChatBottomSheetViewControllerStrategy, with text: LSExtractedWord? = nil) {
         self.text = text
         self.fetchedInfo = [:]
         self.strategy = strategy
 
-        guard let infoProviders = infoProviders else { return }
+        guard let text = text, let infoProviders = infoProviders else { return }
 
         for infoProvider in infoProviders {
             infoProvider.fetchInfo(for: text) { [weak self] original, info in
@@ -48,12 +48,19 @@ final class ChatBottomSheetViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(ofClass: ChatBottomSheetCollectionViewCell.self, for: indexPath)
-        if let text = text, let infoProvider = infoProviders?[indexPath.row] {
-            cell.configure(title: text.value, description: infoProvider.description,
-                           body: fetchedInfo[infoProvider.name], providerName: infoProvider.name)
+        switch strategy {
+        case .none, .translation, .lookUp:
+            let cell = collectionView.dequeueReusableCell(ofClass: ChatBottomSheetCollectionViewCell.self, for: indexPath)
+            if let text = text, let infoProvider = infoProviders?[indexPath.row] {
+                cell.configure(title: text.value, description: infoProvider.description,
+                               body: fetchedInfo[infoProvider.name], providerName: infoProvider.name)
+            }
+            return cell
+
+        case .imageTranslation:
+            let cell = collectionView.dequeueReusableCell(ofClass: ChatBottomSheetImageCollectionViewCell.self, for: indexPath)
+            return cell
         }
-        return cell
     }
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {

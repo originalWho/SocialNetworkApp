@@ -13,6 +13,7 @@ enum ChatBottomSheetViewControllerStrategy {
     case none
     case translation
     case lookUp
+    case imageTranslation
 
     var infoProviders: [ChatBottomSheetInfoProvider] {
         switch self {
@@ -34,6 +35,9 @@ enum ChatBottomSheetViewControllerStrategy {
             else {
                 return [/* definitions, synonyms, antonyms, usage examples */]
             }
+
+        case .imageTranslation:
+            return [MockProvider()]
         }
     }
     
