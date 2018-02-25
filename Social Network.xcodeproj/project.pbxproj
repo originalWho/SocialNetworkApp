@@ -10,6 +10,7 @@
 		750F50C220278CF6001E28E9 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F50C120278CF6001E28E9 /* UserManager.swift */; };
 		750F50D02027D19B001E28E9 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F50CF2027D19B001E28E9 /* UserTableViewCell.swift */; };
 		752369F22039F97000FAE29B /* ChatBottomSheetImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752369F12039F97000FAE29B /* ChatBottomSheetImageCollectionViewCell.swift */; };
+		75236A01203B014E00FAE29B /* Resnet50.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 752369FF203B014700FAE29B /* Resnet50.mlmodel */; };
 		7527548C1FF6E18500D62C94 /* Foundation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7527548B1FF6E18500D62C94 /* Foundation+.swift */; };
 		75418D6C2025D46D00E43A93 /* Typist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75418D6B2025D46800E43A93 /* Typist.framework */; };
 		75418D6D2025D47400E43A93 /* Typist.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 75418D6B2025D46800E43A93 /* Typist.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -217,6 +218,7 @@
 		750F50C120278CF6001E28E9 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		750F50CF2027D19B001E28E9 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		752369F12039F97000FAE29B /* ChatBottomSheetImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBottomSheetImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		752369FF203B014700FAE29B /* Resnet50.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Resnet50.mlmodel; sourceTree = "<group>"; };
 		7527548B1FF6E18500D62C94 /* Foundation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+.swift"; sourceTree = "<group>"; };
 		75418D632025D46800E43A93 /* Typist.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Typist.xcodeproj; path = Typist/Typist.xcodeproj; sourceTree = "<group>"; };
 		7546A9281FFB2FBC00FE2F47 /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
@@ -313,6 +315,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		75236A00203B014E00FAE29B /* CoreML */ = {
+			isa = PBXGroup;
+			children = (
+				752369FF203B014700FAE29B /* Resnet50.mlmodel */,
+			);
+			path = CoreML;
+			sourceTree = "<group>";
+		};
 		75418D642025D46800E43A93 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,6 +368,7 @@
 		7541F14B1E9ABF7000EE473D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				75236A00203B014E00FAE29B /* CoreML */,
 				7541F14A1E9ABF5600EE473D /* Storyboards */,
 				75E617921E5050310033C236 /* Assets.xcassets */,
 				75E617971E5050310033C236 /* Info.plist */,
@@ -892,6 +903,7 @@
 				7546DC631EE02D690099AA66 /* SearchParameterTableViewCell.swift in Sources */,
 				758B61C21EAFB02900152AA4 /* ChatViewController.swift in Sources */,
 				75D4A78F1EC7269E0029812E /* Enums+Server.swift in Sources */,
+				75236A01203B014E00FAE29B /* Resnet50.mlmodel in Sources */,
 				7546A9331FFBFD6800FE2F47 /* ChatBottomSheetViewController.swift in Sources */,
 				75D4A78D1EC714C10029812E /* String+Localized.swift in Sources */,
 				7546A93D1FFC4BB700FE2F47 /* DictionaryContextTableViewCell.swift in Sources */,

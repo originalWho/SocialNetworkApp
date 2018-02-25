@@ -704,15 +704,25 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dNC-mT-dN6">
                                                     <rect key="frame" x="191.5" y="0.0" width="131.5" height="30"/>
-                                                    <state key="normal" title="Right"/>
+                                                    <state key="normal" title="Right">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="onCorrectButtonPressed:" destination="mnA-zT-GK1" eventType="touchUpInside" id="Jh9-m6-qpU"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tfr-GT-0Id">
                                                     <rect key="frame" x="20" y="0.0" width="131.5" height="30"/>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
-                                                    <state key="normal" title="Retry"/>
+                                                    <state key="normal" title="Retry">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="onRetryButtonPressed:" destination="mnA-zT-GK1" eventType="touchUpInside" id="tE7-wO-7rZ"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="centerX" secondItem="Tfr-GT-0Id" secondAttribute="trailing" constant="20" id="0TW-aA-tW4"/>
                                                 <constraint firstItem="Tfr-GT-0Id" firstAttribute="top" secondItem="8ZM-G8-kRY" secondAttribute="top" id="3FR-Ni-Rh2"/>

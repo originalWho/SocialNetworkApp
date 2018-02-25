@@ -326,6 +326,17 @@ final class ChatViewController: UIViewController {
                                                name: .lookUpSelected, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(addSelectedToDictionary(_:)),
                                                name: .addSelectedToDictionary, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(testFoo(_:)),
+                                               name: NSNotification.Name("FooBar"), object: nil)
+    }
+
+    @objc private dynamic func testFoo(_ notification: Notification) {
+        guard let text = notification.object as? String, !text.isEmpty else { return }
+
+        messageTextView.text.append(contentsOf: " \(text)")
+        if let bottomSheet = bottomSheet {
+            onBottomSheetDragDown(bottomSheet)
+        }
     }
 
     private func unsubscribeFromNotifications() {

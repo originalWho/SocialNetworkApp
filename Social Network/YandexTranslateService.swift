@@ -54,4 +54,28 @@ final class YandexTranslate: BaseTranslateService {
         }
     }
 
+    func translate(_ text: String?, completion: @escaping (String?) -> Void) {
+        guard let text = text, !text.isEmpty else { return }
+
+        var parameters = [String: Any]()
+        parameters[QueryKey.key] = apiKey
+        parameters[QueryKey.text] = text
+        parameters[QueryKey.lang] = "ru"
+
+        let url = createURL(with: parameters)
+        sessionManager.request(url).validate().responseJSON { response in
+            guard let response = response.result.value as? [String:Any],
+                let textArray = response[QueryKey.text] as? NSArray,
+                let translatedText = textArray[0] as? String else {
+                    completion(nil)
+                    return
+            }
+
+            completion(translatedText)
+
+//            let translatedWord = TranslatedText(original: text, translated: translatedText)
+//            TranslateManager.shared.add(entry: translatedWord)
+        }
+    }
+
 }
