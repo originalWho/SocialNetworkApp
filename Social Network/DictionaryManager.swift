@@ -2,8 +2,6 @@ import Foundation
 
 protocol DictionaryManagerObserver: StorageManagerObserver {
 
-
-
 }
 
 final class DictionaryManager: BaseStorageManager<DictionaryEntry> {

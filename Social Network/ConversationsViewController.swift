@@ -54,16 +54,6 @@ final class ConversationsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-
-    // MARK: - UITableViewDelegate protocol
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let vc = storyboard?.instantiateViewController(withIdentifier: ChatViewController.id)
-//        let cell = tableView.cellForRow(at: indexPath) as! ConversationTableViewCell
-//        vc?.navigationItem.title = cell.nameLabel.text
-//        navigationController?.pushViewController(vc!, animated: true)
-    }
-
     // MARK: - UITableViewDataSource protocol
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

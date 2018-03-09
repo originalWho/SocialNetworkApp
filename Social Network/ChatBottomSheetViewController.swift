@@ -18,7 +18,6 @@ final class ChatBottomSheetViewController: UICollectionViewController {
         didSet {
             infoProviders = strategy.infoProviders
             collectionView?.reloadData()
-            collectionView?.layoutIfNeeded()
         }
     }
 
@@ -59,6 +58,7 @@ final class ChatBottomSheetViewController: UICollectionViewController {
 
         case .imageTranslation:
             let cell = collectionView.dequeueReusableCell(ofClass: ChatBottomSheetImageCollectionViewCell.self, for: indexPath)
+            cell.configure()
             return cell
         }
     }

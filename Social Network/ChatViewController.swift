@@ -79,11 +79,6 @@ final class ChatViewController: UIViewController {
         subscribeToNotifications()
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        unsubscribeFromNotifications()
-    }
-
     deinit {
         NotificationCenter.default.removeObserver(self)
         guard let userID = userID else { return }
@@ -334,13 +329,11 @@ final class ChatViewController: UIViewController {
         guard let text = notification.object as? String, !text.isEmpty else { return }
 
         messageTextView.text.append(contentsOf: " \(text)")
+        NotificationCenter.default.post(name: .UITextViewTextDidChange, object: messageTextView)
+
         if let bottomSheet = bottomSheet {
             onBottomSheetDragDown(bottomSheet)
         }
-    }
-
-    private func unsubscribeFromNotifications() {
-        NotificationCenter.default.removeObserver(self)
     }
 
     private func configureUIMenuController() {

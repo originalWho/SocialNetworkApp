@@ -111,8 +111,51 @@ enum DictionaryLexicalClass: Int {
     }
 
     var localized: String {
-        return "Lexical class"
+        switch self {
+        case .noun:
+            return "Noun"
+
+        case .verb:
+            return "Verb"
+
+        case .adjective:
+            return "Adjective"
+
+        case .adverb:
+            return "Adverb"
+
+        case .pronoun:
+            return "Pronoun"
+
+        case .determiner:
+            return "Determiner"
+
+        case .particle:
+            return "Practicle"
+
+        case .preposition:
+            return "Preposition"
+
+        case .number:
+            return "Number"
+
+        case .classifier:
+            return "Classifier"
+
+        case .personalName:
+            return "Personal Name"
+
+        case .placeName:
+            return "Place Name"
+
+        case .organizationName:
+            return "Organization Name"
+
+        case .phrase:
+            return "Phrase"
+        }
     }
+
 }
 
 // MARK: - AssociatedWord struct

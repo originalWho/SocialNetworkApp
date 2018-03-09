@@ -27,9 +27,7 @@ final class MessagesStorage {
     var conversations: [Conversation] {
         var conversations = [Conversation]()
         for (userID, messages) in conversationsStorage {
-            guard let message = messages.last else {
-                continue
-            }
+            guard let message = messages.last else { continue }
 
             let conversation = Conversation(userID: userID, message: message)
             conversations.append(conversation)
