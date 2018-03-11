@@ -57,6 +57,7 @@
 		75A43659202913F100FBCA8C /* MessageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A43658202913F100FBCA8C /* MessageProtocol.swift */; };
 		75A5A8BB1E72116200ABA2CC /* OAuth2RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A5A8BA1E72116200ABA2CC /* OAuth2RetryHandler.swift */; };
 		75A5A8BD1E7217C000ABA2CC /* OAuthInstances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A5A8BC1E7217C000ABA2CC /* OAuthInstances.swift */; };
+		75C0A916205485F8009E33E9 /* TutorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C0A915205485F8009E33E9 /* TutorService.swift */; };
 		75C8D0EC1FC32D66003E1971 /* MessagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8D0EB1FC32D65003E1971 /* MessagesService.swift */; };
 		75D4A7811EC713700029812E /* Enums+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D4A7801EC713700029812E /* Enums+Localized.swift */; };
 		75D4A78D1EC714C10029812E /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D4A78C1EC714C10029812E /* String+Localized.swift */; };
@@ -266,6 +267,7 @@
 		75A5A8BA1E72116200ABA2CC /* OAuth2RetryHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth2RetryHandler.swift; sourceTree = "<group>"; };
 		75A5A8BC1E7217C000ABA2CC /* OAuthInstances.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthInstances.swift; sourceTree = "<group>"; };
 		75A7ED811E6C71B0002DD4ED /* OAuth2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuth2.xcodeproj; path = OAuth2/OAuth2.xcodeproj; sourceTree = "<group>"; };
+		75C0A915205485F8009E33E9 /* TutorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorService.swift; sourceTree = "<group>"; };
 		75C8D0EB1FC32D65003E1971 /* MessagesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesService.swift; sourceTree = "<group>"; };
 		75D4A7801EC713700029812E /* Enums+Localized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Enums+Localized.swift"; sourceTree = "<group>"; };
 		75D4A78C1EC714C10029812E /* String+Localized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
@@ -383,7 +385,6 @@
 				7546A9281FFB2FBC00FE2F47 /* DictionaryViewController.swift */,
 				7546A92A1FFB2FD600FE2F47 /* DictionaryEntryViewController.swift */,
 				7546A92C1FFB4DE500FE2F47 /* DictionaryEntryTableViewCell.swift */,
-				7546A92E1FFBA1C800FE2F47 /* DictionaryEntry.swift */,
 				7546A9381FFC4B7400FE2F47 /* DictionaryWordTableViewCell.swift */,
 				7546A93A1FFC4B9600FE2F47 /* DictionaryPhotoTableViewCell.swift */,
 				7546A93C1FFC4BB700FE2F47 /* DictionaryContextTableViewCell.swift */,
@@ -406,6 +407,7 @@
 			children = (
 				758BD4411FFD85F3007D47BF /* Third Party */,
 				75C8D0EB1FC32D65003E1971 /* MessagesService.swift */,
+				75C0A915205485F8009E33E9 /* TutorService.swift */,
 				75F2288B1FF57C8A00D222CF /* LanguageService.swift */,
 				75FD48671FFE79F600E5814C /* Storage */,
 			);
@@ -439,6 +441,7 @@
 				75A436542029119D00FBCA8C /* Message.swift */,
 				75A436562029127300FBCA8C /* Comment.swift */,
 				75A43658202913F100FBCA8C /* MessageProtocol.swift */,
+				7546A92E1FFBA1C800FE2F47 /* DictionaryEntry.swift */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -965,6 +968,7 @@
 				758BD4441FFD8DA9007D47BF /* DictionaryService.swift in Sources */,
 				758B61CF1EB1F46900152AA4 /* ConversationTableViewCell.swift in Sources */,
 				75F2288C1FF57C8A00D222CF /* LanguageService.swift in Sources */,
+				75C0A916205485F8009E33E9 /* TutorService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

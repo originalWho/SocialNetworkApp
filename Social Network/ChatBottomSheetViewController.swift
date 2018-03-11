@@ -39,7 +39,7 @@ final class ChatBottomSheetViewController: UICollectionViewController {
     private func cleanUp() {
         text = nil
         fetchedInfo = [:]
-//        strategy = .none
+        strategy = .none
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
